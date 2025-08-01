@@ -1,0 +1,58 @@
+﻿using Midnight.SOAP.SDK.RequestObjects.OrderVersionPostageDetailInputs;
+using Midnight.SOAP.SDK.ResponseObjects.OrderVersionPostageDetailOutputs;
+using Midnight.SOAP.SDK.Utilities;
+using MidnightAPI;
+using Serilog;
+
+namespace Midnight.SOAP.SDK;
+
+public class OrderVersionPostageDetailService
+{
+    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
+    private readonly Service1Soap _soap;
+    public OrderVersionPostageDetailService()
+    {
+        _soapConfig = new Service1SoapClient.EndpointConfiguration();
+        _soap = new Service1SoapClient(_soapConfig);
+    }
+
+    public async Task<OrderVersionPostageDetailInsertResult> OrderVersionPostageDetailInsertAsync(ValidationSoapHeader auth, OrderVersionPostageDetailInsertRequestBody request)
+    {
+        Log.Information("Converting {@type} to Xml", typeof(OrderVersionPostageDetailInsertRequestBody));
+        Log.Debug("{@type}: {@req}", typeof(OrderVersionPostageDetailInsertRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        string xmlInput = FileOutput.CreateXmlFromClass(request);
+
+        OrderVersionPostageDetailInsertResponse response;
+
+        Log.Information("Sending OrderVersionPostageDetailInsertAsync SOAP request for PostageID: {@v}",
+            request.InputParameter.OrderVersionPostageID);
+
+        try
+        {
+            response = await _soap.OrderVersionPostageDetailInsertAsync(new OrderVersionPostageDetailInsertRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = xmlInput
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("OrderVersionPostageDetailInsertAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("OrderVersionPostageDetailInsertAsync Response: {@response}", response.OrderVersionPostageDetailInsertResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionPostageDetailInsertResult>(response.OrderVersionPostageDetailInsertResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionPostageDetailInsertAsync failed with return code: {@code} and error: {@error}",
+                result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionPostageDetailInsertAsync failed with return code {result.ReturnCode}: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+}

@@ -1,0 +1,14 @@
+﻿using System.Xml.Serialization;
+
+namespace Midnight.SOAP.SDK.RequestObjects.InventoryItemLotInputs;
+
+[XmlRoot("InventoryItemLotList")]
+public class InventoryItemLotListRequestBody
+{
+    public required InventoryItemLotListInputParameter InputParameter { get; set; }
+}
+
+public class InventoryItemLotListInputParameter
+{
+    public int ItemID { get; set; }
+}
