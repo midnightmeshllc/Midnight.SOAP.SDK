@@ -1,7 +1,7 @@
 ﻿using Midnight.SOAP.SDK.CommonObjects;
 using System.Xml.Serialization;
 
-namespace Midnight.SOAP.SDK.ResponseObjects.InventoryItemLotOutputs;
+namespace Midnight.SOAP.SDK.ResponseObjects.InventoryItemOutputs;
 
 [XmlRoot("Result")]
 public class InventoryItemLotNewResult : CommonResult

@@ -1,7 +1,6 @@
-﻿
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-namespace Midnight.SOAP.SDK.RequestObjects.CustomerInputs;
+namespace Midnight.SOAP.SDK.RequestObjects.SettingInputs;
 
 [XmlRoot("CustomerTypeList")]
 public class CustomerTypeListRequestBody

@@ -1,7 +1,6 @@
-﻿
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-namespace Midnight.SOAP.SDK.RequestObjects.InventoryItemLotInputs;
+namespace Midnight.SOAP.SDK.RequestObjects.InventoryItemInputs;
 
 [XmlRoot("InventoryItemLotNew")]
 public class InventoryItemLotNewRequestBody

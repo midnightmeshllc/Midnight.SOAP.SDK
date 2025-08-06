@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Midnight.SOAP.SDK.RequestObjects.InventoryItemLocationInputs;
+namespace Midnight.SOAP.SDK.RequestObjects.InventoryItemInputs;
 
 [XmlRoot("InventoryItemLocationList")]
 

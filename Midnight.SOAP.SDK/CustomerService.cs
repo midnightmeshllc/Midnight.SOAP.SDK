@@ -1,6 +1,5 @@
 ﻿using Midnight.SOAP.SDK.Models;
 using Midnight.SOAP.SDK.RequestObjects.CustomerInputs;
-using Midnight.SOAP.SDK.ResponseObjects.CompanyOutputs;
 using Midnight.SOAP.SDK.ResponseObjects.CustomerOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -367,51 +366,4 @@ public class CustomerService
         return result;
     }
 
-    /// <summary>
-    /// Sends a SOAP request to retrieve a list of customer types and returns the result.
-    /// </summary>
-    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
-    /// fails, the method logs the error and throws an exception.</remarks>
-    /// <param name="auth">The authentication header containing credentials for the SOAP request.</param>
-    /// <param name="request">The request body containing the parameters required for the customer type list operation. Cannot be <see
-    /// langword="null"/>.</param>
-    /// <returns>A <see cref="CustomerTypeListResult"/> object containing the list of customer types and associated metadata.</returns>
-    /// <exception cref="Exception">Thrown if the SOAP request fails or if the response indicates an error, as determined by a non-zero return code.</exception>
-    public async Task<CustomerTypeListResult> CustomerTypeListAsync(ValidationSoapHeader auth, CustomerTypeListRequestBody request)
-    {
-        ArgumentNullException.ThrowIfNull(request);
-
-        Log.Information($"Converting {typeof(CustomerTypeListRequestBody)} to Xml");
-        Log.Debug("{@type}: {@request}", typeof(CustomerTypeListRequestBody), FileOutput.CreateXmlFromClass(request));
-
-        var inputXml = FileOutput.CreateXmlFromClass(request);
-        CustomerTypeListResponse response;
-
-        Log.Information("Sending CustomerTypeListAsync SOAP request");
-
-        try
-        {
-            response = await _soap.CustomerTypeListAsync(new CustomerTypeListRequest
-            {
-                ValidationSoapHeader = auth,
-                inputXML = inputXml
-            });
-        }
-        catch (Exception ex)
-        {
-            Log.Error("CustomerTypeListAsync Exception: {@ex}", ex.Message);
-            throw;
-        }
-
-        Log.Debug("CustomerTypeListAsync Response: {@res}", response.CustomerTypeListResult);
-
-        var result = XmlParsing.DeserializeXmlToObject<CustomerTypeListResult>(response.CustomerTypeListResult);
-        if (result.ReturnCode != 0)
-        {
-            Log.Error("CustomerTypeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
-            throw new Exception($"CustomerTypeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
-        }
-
-        return result;
-    }
 }
