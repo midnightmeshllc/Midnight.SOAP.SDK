@@ -2,17 +2,17 @@
 
 ## Overview
 
-**Midnight.SOAP.SDK** is a .NET 8 library that provides a modern, strongly-typed interface for integrating with the Midnight SOAP API. It simplifies authentication, request construction, and XML response parsing for operations such as customer management, order processing, and inventory control. The SDK is designed for developers who need to interact with the Midnight API in a robust and maintainable way.
+**Midnight.SOAP.SDK** is a .NET 8 library that provides a modern, strongly-typed interface for integrating with PrintReach's Midnight SOAP API. It simplifies authentication, request construction, and XML response parsing for all SOAP operations currently exposed. The SDK is designed for developers who need to interact with the Midnight API in a robust and maintainable way.
 
-*Notice: Midnight.SOAP.SDK does not currently support User-defined fields*
 ---
 
 ## Features
 
 - **Authentication**: Securely authenticate with the Midnight SOAP API using developer tokens.
 - **Order & Inventory Management**: Retrieve, update, and insert order and inventory data.
-- **Strongly-Typed Requests**: Uses strongly-typed request objects to ensure type safety and reduce runtime errors.
-- **Strongly-Typed Responses**: Converts Midnight API XML responses into strongly-typed C# models.
+- **Strongly-Typed Requests**: Uses strongly-typed request objects to ensure type safety and reduce runtime errors caused by string concatenated XML inputs.
+- **Strongly-Typed Responses**: Converts Midnight API XML response strings into strongly-typed C# models.
+- **UserDefinedFields**: Full support for UDF fields, all values will be in string format. Convert to appropriate type within your program.
 - **Logging**: Integrated Serilog logging for diagnostics and debugging.
 
 ---
@@ -44,7 +44,7 @@ dotnet build
 ## Usage
 
 ### 1. Authentication
-**IMPORTANT: Never expose your developer token in client-side code or public repositories.**
+**IMPORTANT: Never expose your developer token in client-side code or public repositories. Use a secrets manager or json configuration files that are in the .gitignore file**
 ```csharp
 using Midnight.SOAP.SDK;
 
@@ -53,14 +53,14 @@ var validationHeader = await authService.AuthenticateAsync("your-dev-token");
 ```
 
 
-### 2. Retrieve Order Version Inventory
+### 2. Retrieve Order List
 ```csharp
 using Midnight.SOAP.SDK;
-using Midnight.SOAP.SDK.RequestObjects.OrderVersionInventoryInputs;
+using Midnight.SOAP.SDK.RequestObjects.OrderInputs;
 
-var inventoryService = new OrderVersionInventoryService();
-var request = new OrderVersionInventoryListRequestBody { /* set properties */ };
-var inventoryList = await inventoryService.OrderVersionInventoryListAsync(validationHeader, request);
+var orderService = new OrderService();
+var request = new OrderListRequestBody { /* set properties */ };
+var orderList = await orderService.OrderListAsync(validationHeader, request);
 ```
 
 ### 3. Update Order Version Inventory
@@ -70,14 +70,6 @@ using Midnight.SOAP.SDK.RequestObjects.OrderVersionInventoryInputs;
 
 var updateRequest = new OrderVersionInventoryUpdateRequestBody { /* set properties */ };
 var updateResponse = await inventoryService.OrderVersionInventoryUpdateAsync(validationHeader, updateRequest);
-```
-### 4. Parse XML to Models
-```csharp
-using Midnight.SOAP.SDK;
-
-string xml = /* XML string from API */;
-var customers = XmlParser.GetCustomerData(xml);
-var orders = XmlParser.GetOrderData(xml);
 ```
 ---
 
@@ -89,7 +81,7 @@ var orders = XmlParser.GetOrderData(xml);
   - *IMPORTANT: Never expose your developer token in client-side code or public repositories.*
   - Authenticates the client using the provided developer token and returns a `ValidationSoapHeader` for use in subsequent API calls.
 
-### OrderVersionInventoryService
+<!-- ### OrderVersionInventoryService
 
 - **OrderVersionInventoryListAsync(ValidationSoapHeader auth, OrderVersionInventoryListRequestBody request)**
   - Retrieves a list of inventory items for a specific order version.
@@ -98,9 +90,9 @@ var orders = XmlParser.GetOrderData(xml);
   - Updates inventory for a specific order version.
 
 - **OrderVersionInventoryInsertAsync(ValidationSoapHeader auth, OrderVersionInventoryInsertRequestBody request)**
-  - Inserts new inventory records for an order version.
+  - Inserts new inventory records for an order version. -->
 
-### XmlParser
+<!-- ### XmlParser
 
 - **GetCustomerData(string xmlinput)**
   - Parses customer XML and returns a list of `CustomerModel`.
@@ -130,22 +122,8 @@ var orders = XmlParser.GetOrderData(xml);
   - Parses inventory lot XML and returns a list of `Lots`.
 
 - **GetInventoryLocationData(string xmlinput)**
-  - Parses inventory location XML and returns a list of `Locations`.
+  - Parses inventory location XML and returns a list of `Locations`. -->
 
----
-
-## Example: Parsing Customer XML
-```csharp
-using Midnight.SOAP.SDK;
-
-string customerXml = "<Customers>...</Customers>";
-var customers = XmlParser.GetCustomerData(customerXml);
-
-foreach (var customer in customers)
-{
-    Console.WriteLine($"{customer.CustomerID}: {customer.CustomerName}");
-}
-```
 ---
 
 ## Contributing

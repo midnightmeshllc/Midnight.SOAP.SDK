@@ -1,5 +1,4 @@
-﻿using Midnight.SOAP.SDK.Models;
-using Midnight.SOAP.SDK.RequestObjects.OrderInputs;
+﻿using Midnight.SOAP.SDK.CommonObjects;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
@@ -12,7 +11,7 @@ public class CustomerInsertRequestBody
     public required CustomerInsertInputParameter InputParameter { get; set; }
 }
 
-public class CustomerInsertInputParameter
+public class CustomerInsertInputParameter : UserDefinedFields
 {
     [Required]
     public string CustomerCode { get; set; } = string.Empty;
@@ -42,31 +41,6 @@ public class CustomerInsertInputParameter
     public string? AccountingCode { get; set; }
 
     public CustomerAddress? CustomerAddress { get; set; }
-    public CustomerShippingAddress? ShippingAddress { get; set; }
-    public CustomerBillingAddress? BillingAdress { get; set; }
-}
-
-public class CustomerBillingAddress
-{
-    public string? BillingAddressName { get; set; }
-    public string? BillingAddressLine1 { get; set; }
-    public string? BillingAddressLine2 { get; set; }
-    public string? BillingAddressLine3 { get; set; }
-    public string? BillingAddressCity { get; set; }
-    public string? BillingAddressState { get; set; }
-    public string? BillingAddressZip { get; set; }
-    public string? BillingAddressCountry { get; set; } = "United States";
-}
-
-public class CustomerShippingAddress
-{
-    public string? ShippingAddressName { get; set; }
-    public string? ShippingAddressLine1 { get; set; }
-    public string? ShippingAddressLine2 { get; set; }
-    public string? ShippingAddressLine3 { get; set; }
-    public string? ShippingAddressCity { get; set; }
-    public string? ShippingAddressState { get; set; }
-    public string? ShippingAddressZip { get; set; }
-    public string? ShippingAddressCountry { get; set; } = "United States";
-    public string? ShippingMethod { get; set; }
+    public ShippingAddress? ShippingAddress { get; set; }
+    public BillingAddress? BillingAdress { get; set; }
 }

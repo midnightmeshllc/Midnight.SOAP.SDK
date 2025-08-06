@@ -1,5 +1,6 @@
 ﻿using Midnight.SOAP.SDK.Models;
 using Midnight.SOAP.SDK.RequestObjects.CustomerInputs;
+using Midnight.SOAP.SDK.ResponseObjects.CompanyOutputs;
 using Midnight.SOAP.SDK.ResponseObjects.CustomerOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -24,6 +25,19 @@ public class CustomerService
         _soap = new Service1SoapClient(_soapConfig);
     }
 
+
+    ///GetCustomerOrders
+    ///GetOrderVersions
+    ///GetOrderVersionsByName
+    ///GetVersionDetails
+    ///GetVersionDrops
+    ///GetVersionDropsByOrder
+    ///GetVersionDetailsByOrder
+    ///ValidateOrderVersionDrops
+    ///AggregateOrderVersionDetailsByServiceID > List of Aggregated Details
+    ///AggregateOrderVersionDetailsByServiceIDForOrderID > List of Aggregated Details for order > overloads
+    ///AggregateOrderVersionDetailsByServiceIDByParentCustomerID
+
     /// <summary>
     /// Retrieves a list of customers based on the provided request parameters.
     /// </summary>
@@ -36,7 +50,7 @@ public class CustomerService
     /// <returns>A task that represents the asynchronous operation. The task result contains a list of  <see
     /// cref="CustomerModel"/> objects representing the retrieved customer data.</returns>
     /// <exception cref="ArgumentNullException">Thrown if the <paramref name="request"/> parameter is <see langword="null"/>.</exception>
-    public async Task<List<CustomerModel>> CustomerListAsync(ValidationSoapHeader auth, CustomerListRequestBody request)
+    public async Task<CustomerListResult> CustomerListAsync(ValidationSoapHeader auth, CustomerListRequestBody request)
     {
 
         ArgumentNullException.ThrowIfNull(request);
@@ -47,7 +61,6 @@ public class CustomerService
         var inputXml = FileOutput.CreateXmlFromClass(request);
 
         CustomerListResponse response;
-        List<CustomerModel> parsedResponse;
 
         Log.Information($"Sending CustomerListAsync SOAP request");
 
@@ -59,10 +72,6 @@ public class CustomerService
                 inputXML = inputXml
             });
 
-            Log.Information("Parsing CustomerListAsync response into List of {@type}", typeof(CustomerModel));
-
-            parsedResponse = XmlParser.GetCustomerData(response.CustomerListResult);
-
         }
         catch (Exception ex)
         {
@@ -72,7 +81,15 @@ public class CustomerService
 
         Log.Debug("CustomerListAsync Response: {@res}", response.CustomerListResult);
 
-        return parsedResponse;
+        var result = XmlParsing.DeserializeXmlToObject<CustomerListResult>(response.CustomerListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
 
@@ -147,6 +164,252 @@ public class CustomerService
         {
             Log.Error("CustomerInsertAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
             throw new Exception($"CustomerInsertAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of ghost numbers associated with a customer.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails,  an exception is thrown with details about the failure, including the return code and error
+    /// messages.</remarks>
+    /// <param name="auth">The authentication header containing credentials for the SOAP request.</param>
+    /// <param name="request">The request body containing the input parameters for the operation. Cannot be <see langword="null"/>.</param>
+    /// <returns>A <see cref="CustomerGhostNumberListResult"/> object containing the result of the operation,  including the list
+    /// of ghost numbers and any associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the operation fails with a non-zero return code or if an error occurs during the SOAP request.</exception>
+    public async Task<CustomerGhostNumberListResult> CustomerGhostNumberListAsync(ValidationSoapHeader auth, CustomerGhostNumberListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(CustomerGhostNumberListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(CustomerGhostNumberListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        CustomerGhostNumberListResponse response;
+
+        Log.Information("Sending CustomerGhostNumberListAsync SOAP request for CustomerID: {@id}", request.InputParameter.CustomerID);
+
+        try
+        {
+            response = await _soap.CustomerGhostNumberListAsync(new CustomerGhostNumberListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("CustomerGhostNumberListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("CustomerGhostNumberListAsync Response: {@res}", response.CustomerGhostNumberListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<CustomerGhostNumberListResult>(response.CustomerGhostNumberListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerGhostNumberListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerGhostNumberListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of customer registration IDs (CRID) based on the provided input parameters.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, the method logs the error and throws an exception with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing input parameters for the operation. Cannot be <see langword="null"/>.</param>
+    /// <returns>A <see cref="CustomerRegIDListResult"/> object containing the result of the operation, including the list of
+    /// customer registration IDs.</returns>
+    /// <exception cref="Exception">Thrown if the operation fails with a non-zero return code or if an error occurs during the SOAP request.</exception>
+    public async Task<CustomerRegIDListResult> CustomerRegIDListAsync(ValidationSoapHeader auth, CustomerRegIDListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        Log.Information($"Converting {typeof(CustomerRegIDListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(CustomerRegIDListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        CustomerRegIDListResponse response;
+
+        Log.Information("Sending CustomerRegIDListAsync SOAP request for CustomerID: {@id}", request.InputParameter.CustomerID);
+
+        try
+        {
+            response = await _soap.CustomerRegIDListAsync(new CustomerRegIDListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("CustomerRegIDListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("CustomerRegIDListAsync Response: {@res}", response.CustomerRegIDListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<CustomerRegIDListResult>(response.CustomerRegIDListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerRegIDListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerRegIDListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of customer permit numbers based on the provided request parameters.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, the method logs the error and throws an exception with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the input parameters for the operation, including the customer ID and other relevant
+    /// details.</param>
+    /// <returns>A <see cref="CustomerPermitNumberListResult"/> object containing the result of the operation, including the list
+    /// of permit numbers and any associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the operation fails with a non-zero return code or if an error occurs during the SOAP request or
+    /// response processing.</exception>
+    public async Task<CustomerPermitNumberListResult> CustomerPermitNumberListAsync(ValidationSoapHeader auth, CustomerPermitNumberListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        Log.Information($"Converting {typeof(CustomerPermitNumberListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(CustomerPermitNumberListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        CustomerPermitNumberListResponse response;
+
+        Log.Information("Sending CustomerPermitNumberListAsync SOAP request for CustomerID: {@id}", request.InputParameter.CustomerID);
+
+        try
+        {
+            response = await _soap.CustomerPermitNumberListAsync(new CustomerPermitNumberListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("CustomerPermitNumberListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("CustomerPermitNumberListAsync Response: {@res}", response.CustomerPermitNumberListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<CustomerPermitNumberListResult>(response.CustomerPermitNumberListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerPermitNumberListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerPermitNumberListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieves a list of non-profit authorization numbers for a specified customer.
+    /// </summary>
+    /// <remarks>This method sends a SOAP request to retrieve non-profit authorization numbers for a customer.
+    /// Ensure that the <paramref name="auth"/> parameter contains valid authentication credentials  and that the
+    /// <paramref name="request"/> parameter includes the required input data.</remarks>
+    /// <param name="auth">The SOAP header containing authentication information for the request. Cannot be null.</param>
+    /// <param name="request">The request body containing input parameters, including the customer ID.  Must not be null and must contain
+    /// valid data.</param>
+    /// <returns>A <see cref="CustomerNonProfitAuthNumberListResult"/> object containing the list of non-profit authorization
+    /// numbers  and associated metadata. If the operation fails, an exception is thrown.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code or if an error occurs during the request.</exception>
+    public async Task<CustomerNonProfitAuthNumberListResult> CustomerNonProfitAuthNumberListAsync(ValidationSoapHeader auth, CustomerNonProfitAuthNumberListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        Log.Information($"Converting {typeof(CustomerNonProfitAuthNumberListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(CustomerNonProfitAuthNumberListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        CustomerNonProfitAuthNumberListResponse response;
+
+        Log.Information("Sending CustomerNonProfitAuthNumberListAsync SOAP request for CustomerID: {@id}", request.InputParameter.CustomerID);
+
+        try
+        {
+            response = await _soap.CustomerNonProfitAuthNumberListAsync(new CustomerNonProfitAuthNumberListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("CustomerNonProfitAuthNumberListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("CustomerNonProfitAuthNumberListAsync Response: {@res}", response.CustomerNonProfitAuthNumberListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<CustomerNonProfitAuthNumberListResult>(response.CustomerNonProfitAuthNumberListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerNonProfitAuthNumberListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerNonProfitAuthNumberListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of customer types and returns the result.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, the method logs the error and throws an exception.</remarks>
+    /// <param name="auth">The authentication header containing credentials for the SOAP request.</param>
+    /// <param name="request">The request body containing the parameters required for the customer type list operation. Cannot be <see
+    /// langword="null"/>.</param>
+    /// <returns>A <see cref="CustomerTypeListResult"/> object containing the list of customer types and associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the response indicates an error, as determined by a non-zero return code.</exception>
+    public async Task<CustomerTypeListResult> CustomerTypeListAsync(ValidationSoapHeader auth, CustomerTypeListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(CustomerTypeListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(CustomerTypeListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        CustomerTypeListResponse response;
+
+        Log.Information("Sending CustomerTypeListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.CustomerTypeListAsync(new CustomerTypeListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("CustomerTypeListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("CustomerTypeListAsync Response: {@res}", response.CustomerTypeListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<CustomerTypeListResult>(response.CustomerTypeListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerTypeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerTypeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

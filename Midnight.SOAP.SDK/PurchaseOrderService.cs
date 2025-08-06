@@ -1,7 +1,5 @@
 ﻿
-using Midnight.SOAP.SDK.RequestObjects.JobCostingInputs;
 using Midnight.SOAP.SDK.RequestObjects.PurchaseOrderInputs;
-using Midnight.SOAP.SDK.ResponseObjects.JobCostingOutputs;
 using Midnight.SOAP.SDK.ResponseObjects.PurchaseOrderOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;

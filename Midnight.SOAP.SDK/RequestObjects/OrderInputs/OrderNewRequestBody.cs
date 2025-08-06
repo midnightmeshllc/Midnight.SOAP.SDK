@@ -1,11 +1,13 @@
-﻿namespace Midnight.SOAP.SDK.RequestObjects.OrderInputs;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+
+namespace Midnight.SOAP.SDK.RequestObjects.OrderInputs;
 
 public class OrderNewRequestBody
 {
     public required OrderNewInputParameter Order { get; set; }
 }
 
-public class OrderNewInputParameter
+public class OrderNewInputParameter : UserDefinedFieldsFirst5
 {
     public int CustomerID { get; set; }
     public string? OrderDate { get; set; }
@@ -13,8 +15,8 @@ public class OrderNewInputParameter
     public int OrderNo { get; set; }
     public string? VersionName { get; set; }
     public string? InvoiceComments { get; set; }
-    public ShippingAddress? ShippingAddress { get; set; } = new ShippingAddress();
-    public BillingAddress? BillingAddress { get; set; } = new BillingAddress();
+    public OrderShippingAddress? ShippingAddress { get; set; } = new OrderShippingAddress();
+    public OrderBillingAddress? BillingAddress { get; set; } = new OrderBillingAddress();
     public int PresseroId { get; set; }
     public int Quantity { get; set; }
     public string? ProjectName { get; set; }
@@ -83,7 +85,7 @@ public class PaymentInfo
     public int TransactionId { get; set; }
 }
 
-public class ShippingAddress
+public class OrderShippingAddress
 {
     public string? ShippingAddressContact { get; set; }
     public string? ShippingAddressLine1 { get; set; }
@@ -94,7 +96,7 @@ public class ShippingAddress
     public string? ShippingAddressZip { get; set; }
 }
 
-public class BillingAddress
+public class OrderBillingAddress
 {
     public string? BillingAddressContact { get; set; }
     public string? BillingAddressLine1 { get; set; }

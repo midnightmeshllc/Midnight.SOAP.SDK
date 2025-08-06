@@ -1,4 +1,5 @@
 ﻿
+using Midnight.SOAP.SDK.CommonObjects;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.InventoryInputs;
@@ -14,7 +15,7 @@ public class InventoryNewInputParameter
     public List<Item> Items { get; set; } = new();
 }
 
-public class Item
+public class Item : UserDefinedFields
 {
     public int CustomerID { get; set; }
     public string? ItemTypeName { get; set; }

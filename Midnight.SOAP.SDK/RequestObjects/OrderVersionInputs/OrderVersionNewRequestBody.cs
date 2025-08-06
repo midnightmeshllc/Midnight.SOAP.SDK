@@ -1,4 +1,5 @@
 ﻿
+using Midnight.SOAP.SDK.CommonObjects;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
@@ -10,7 +11,7 @@ public class OrderVersionNewRequestBody
     public required OrderVersionNewInputParameter InputParameter { get; set; }
 }
 
-public class OrderVersionNewInputParameter
+public class OrderVersionNewInputParameter : UserDefinedFields
 {
     [Required]
     public int OrderID { get; set; }

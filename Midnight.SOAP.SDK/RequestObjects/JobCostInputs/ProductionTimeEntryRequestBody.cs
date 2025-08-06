@@ -1,8 +1,7 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
-namespace Midnight.SOAP.SDK.RequestObjects.JobCostingInputs;
+namespace Midnight.SOAP.SDK.RequestObjects.JobCostInputs;
 
 [XmlRoot("JobCostProductionTimeEntry")]
 public class ProductionTimeEntryRequestBody

@@ -1,4 +1,5 @@
 ﻿
+using Midnight.SOAP.SDK.CommonObjects;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.ResponseObjects.OrderVersionPostageDetailOutputs;
@@ -6,5 +7,6 @@ namespace Midnight.SOAP.SDK.ResponseObjects.OrderVersionPostageDetailOutputs;
 [XmlRoot("Result")]
 public class OrderVersionPostageDetailInsertResult : CommonResult
 {
+    [XmlElement("OrderVersionPostageDetailID")]
     public int OrderVersionPostageDetailID { get; set; }
 }

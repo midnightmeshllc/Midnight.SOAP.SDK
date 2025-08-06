@@ -1,4 +1,5 @@
 ﻿
+using Midnight.SOAP.SDK.CommonObjects;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.InventoryInputs;
@@ -14,7 +15,7 @@ public class ItemRequestNewInputParameter
     public required List<ItemRequest> ItemRequests { get; set; } = new List<ItemRequest>();
 }
 
-public class ItemRequest
+public class ItemRequest : UserDefinedFields
 {
     public int ItemRequestTypeID { get; set; }
     public int CustomerVendorID { get; set; }

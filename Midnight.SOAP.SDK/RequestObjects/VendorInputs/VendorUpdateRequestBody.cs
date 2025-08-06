@@ -1,10 +1,11 @@
 ﻿
+using Midnight.SOAP.SDK.CommonObjects;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.VendorInputs;
 
 [XmlRoot("Vendor")]
-public class VendorUpdateRequestBody
+public class VendorUpdateRequestBody : UserDefinedFields
 {
     public required int VendorID { get; set; }
     public required string VendorName { get; set; }

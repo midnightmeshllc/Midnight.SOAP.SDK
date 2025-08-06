@@ -75,18 +75,18 @@ public class CustomerContactService
     }
 
     /// <summary>
-    /// Retrieves a list of customer contact information asynchronously based on the provided request.
+    /// Sends a SOAP request to retrieve a list of customer contacts and returns the result.
     /// </summary>
-    /// <remarks>This method sends a SOAP request to retrieve customer contact information and parses the
-    /// response. Ensure that the <paramref name="auth"/> parameter contains valid credentials and that the  <paramref
-    /// name="request"/> parameter is properly populated.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
-    /// <param name="request">The request body containing the parameters needed to query customer contact information. Cannot be <see
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails,  the method logs the error and throws an exception with relevant details.</remarks>
+    /// <param name="auth">The authentication header containing credentials for the SOAP request.</param>
+    /// <param name="request">The request body containing the parameters required for the customer contact list operation. Cannot be <see
     /// langword="null"/>.</param>
-    /// <returns>A list of <see cref="CustomerContact"/> objects representing the customer contact information. Returns an empty
-    /// list if no customer contacts are found.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
-    public async Task<List<CustomerContact>> CustomerContactListAsync(ValidationSoapHeader auth, CustomerContactListRequestBody request)
+    /// <returns>A <see cref="CustomerContactListResult"/> object containing the list of customer contacts and associated
+    /// metadata.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code, indicating an error.  The
+    /// exception message will include the return code and error details.</exception>
+    public async Task<CustomerContactListResult> CustomerContactListAsync(ValidationSoapHeader auth, CustomerContactListRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -96,7 +96,6 @@ public class CustomerContactService
         var inputXml = FileOutput.CreateXmlFromClass(request);
 
         CustomerContactListResponse response;
-        List<CustomerContact> parsedResponse;
 
         Log.Information($"Sending CustomerContactListAsync SOAP request");
 
@@ -108,8 +107,6 @@ public class CustomerContactService
                 inputXML = inputXml
             });
 
-            parsedResponse = XmlParser.GetCustomerContactData(response.CustomerContactListResult);
-
         }
         catch (Exception ex)
         {
@@ -119,7 +116,15 @@ public class CustomerContactService
 
         Log.Debug("CustomerContactListAsync Response: {@res}", response.CustomerContactListResult);
 
-        return parsedResponse;
+        var result = XmlParsing.DeserializeXmlToObject<CustomerContactListResult>(response.CustomerContactListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerContactListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerContactListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
     /// <summary>

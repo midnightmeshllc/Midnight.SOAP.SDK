@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.CustomerContactInputs;
@@ -16,7 +17,7 @@ public class CustomerContactInsertInputParamater
     public required List<CustomerContactInserts> CustomerContacts { get; set; }
 }
 
-public class CustomerContactInserts
+public class CustomerContactInserts : UserDefinedFields
 {
     public required int CustomerID { get; set; }
     public string? Salutation { get; set; } = null;

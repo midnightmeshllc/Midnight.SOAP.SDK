@@ -1,4 +1,5 @@
-﻿using Midnight.SOAP.SDK.Models;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using Midnight.SOAP.SDK.Models;
 using Serilog;
 using System.Xml.Linq;
 

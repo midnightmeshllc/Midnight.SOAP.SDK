@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.OrderVersionDropInputs;
 
@@ -8,7 +9,7 @@ public class OrderVersionDropInsertRequestBody
     public required OrderVersionDropInsertInputParameter InputParameter { get; set; }
 }
 
-public class OrderVersionDropInsertInputParameter
+public class OrderVersionDropInsertInputParameter : UserDefinedFieldsFirst5
 {
     public int VersionID { get; set; }
     public string DropDate { get; set; } = string.Empty;

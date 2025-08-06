@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.PurchaseOrderInputs;
@@ -14,7 +15,7 @@ public class PurchaseOrderNewInputParameter
     public required List<PurchaseOrder> PurchaseOrders { get; set; }
 }
 
-public class PurchaseOrder
+public class PurchaseOrder : UserDefinedFields
 {
     [Required]
     public string PurchaseOrderType { get; set; } = "PO";

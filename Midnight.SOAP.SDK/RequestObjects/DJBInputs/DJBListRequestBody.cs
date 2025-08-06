@@ -7,7 +7,6 @@ namespace Midnight.SOAP.SDK.RequestObjects.DJBInputs;
 [XmlRoot("DJBList")]
 public class DJBListRequestBody
 {
-    [Required]
     public required DJBListRequestInputParameter InputParameter { get; set; }
 }
 
@@ -22,6 +21,6 @@ public class DJBListRequestInputParameter
     public int? CustomerID { get; set; } = null;
     public int? VersionID { get; set; } = null;
     public int? ServiceID { get; set; } = null;
-    public DateTime? TaskStartDate { get; set; } = null;
+    public string? TaskStartDate { get; set; } = null;
     public bool ShowCompletedTasks { get; set; } = false;
 }

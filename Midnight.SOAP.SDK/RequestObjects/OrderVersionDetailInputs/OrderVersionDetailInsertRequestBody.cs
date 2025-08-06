@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.OrderVersionDetailInputs;
 
@@ -8,7 +9,7 @@ public class OrderVersionDetailInsertRequestBody
     public required OrderVersionDetailInsertInputParameter InputParameter { get; set; }
 }
 
-public class OrderVersionDetailInsertInputParameter
+public class OrderVersionDetailInsertInputParameter : UserDefinedFields
 {
     public int VersionID { get; set; }
     public int ServiceID { get; set; } = 0;
