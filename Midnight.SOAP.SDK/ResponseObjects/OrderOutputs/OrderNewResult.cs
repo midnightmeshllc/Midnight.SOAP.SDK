@@ -8,10 +8,10 @@ public class OrderNewResult : CommonResult
 {
     [XmlArray("Orders")]
     [XmlArrayItem("Order")]
-    public List<Order>? Orders { get; set; }
+    public List<NewOrder>? Orders { get; set; }
 }
 
-public class Order
+public class NewOrder
 {
     [XmlElement("OrderId")]
     public int OrderId { get; set; }

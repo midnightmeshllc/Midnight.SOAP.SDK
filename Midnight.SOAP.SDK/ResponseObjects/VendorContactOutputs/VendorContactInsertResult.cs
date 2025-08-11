@@ -9,10 +9,10 @@ public class VendorContactInsertResult : CommonResult
 {
     [XmlArray("VendorContacts")]
     [XmlArrayItem("VendorContact")]
-    public List<VendorContact>? VendorContacts { get; set; }
+    public List<VendorContactInserted>? VendorContacts { get; set; }
 }
 
-public class VendorContact
+public class VendorContactInserted
 {
     [XmlElement("VendorContactID")]
     public int VendorContactID { get; set; }

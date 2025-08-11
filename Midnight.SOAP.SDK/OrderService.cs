@@ -37,12 +37,11 @@ public class OrderService
     /// <returns>A task that represents the asynchronous operation. The task result contains a list of  <see cref="OrderModel"/>
     /// objects representing the retrieved orders.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
-    public async Task<List<OrderModel>> OrderListAsync(ValidationSoapHeader auth, OrderListRequestBody request)
+    public async Task<OrderListResult> OrderListAsync(ValidationSoapHeader auth, OrderListRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
         OrderListResponse response;
-        List<OrderModel> parsedResponse;
 
         Log.Information("Converting {@type} to Xml", typeof(OrderListRequestBody));
         Log.Debug("{@type}: {@req}", typeof(OrderListRequestBody), FileOutput.CreateXmlFromClass(request));
@@ -59,10 +58,6 @@ public class OrderService
                 inputXML = inputXml
             });
 
-            Log.Information("Parsing OrderListAsync response into List of {@type}", typeof(OrderModel));
-
-            parsedResponse = XmlParser.GetOrderData(response.OrderListResult);
-
         }
         catch (Exception ex)
         {
@@ -72,7 +67,15 @@ public class OrderService
 
         Log.Debug("OrderListAsync Response: {@res}", response.OrderListResult);
 
-        return parsedResponse;
+        var result = XmlParsing.DeserializeXmlToObject<OrderListResult>(response.OrderListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderListAsync failed with ReturnCode: {@code}, Errors: {@errors}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
 

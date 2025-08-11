@@ -1,6 +1,8 @@
 ﻿using Midnight.SOAP.SDK.Models;
 using Midnight.SOAP.SDK.RequestObjects.OrderVersionDetailInputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderVersionDetailOutputs;
+using Midnight.SOAP.SDK.ResponseObjects.OrderVersionOutputs;
+using Midnight.SOAP.SDK.ResponseObjects.SettingOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
 using Serilog;
@@ -24,24 +26,25 @@ public class OrderVersionDetailService
         _soap = new Service1SoapClient(_soapConfig);
     }
 
+    
     /// <summary>
-    /// Sends a SOAP request to retrieve a list of order version details and parses the response into a list of <see
-    /// cref="Details"/> objects.
+    /// Retrieves a list of order version details asynchronously via a SOAP request.
     /// </summary>
-    /// <remarks>This method logs the request and response data for debugging purposes. Ensure that the
-    /// <paramref name="auth"/> parameter contains valid credentials and the <paramref name="request"/> parameter is
-    /// properly populated before calling this method.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials for the SOAP request. This parameter cannot be null.</param>
-    /// <param name="request">The request body containing the input data for the SOAP operation. This parameter cannot be null.</param>
-    /// <returns>A list of <see cref="Details"/> objects parsed from the SOAP response. Returns an empty list if no details are
-    /// found.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is null.</exception>
-    public async Task<List<Details>> OrderVersionDetailListAsync(ValidationSoapHeader auth, OrderVersionDetailListRequestBody request)
+    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing parameters for the order version detail list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// A task representing the asynchronous operation. The task result contains an <see cref="OrderVersionDetailListResult"/> object
+    /// with the list of order version details and status information.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<OrderVersionDetailListResult> OrderVersionDetailListAsync(ValidationSoapHeader auth, OrderVersionDetailListRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
         OrderVersionDetailListResponse response;
-        List<Details> parsedResponse;
 
         Log.Information("Converting {@type} to Xml", typeof(OrderVersionDetailListRequestBody));
         Log.Debug("{@type}: {@req}", typeof(OrderVersionDetailListRequestBody), FileOutput.CreateXmlFromClass(request));
@@ -58,10 +61,6 @@ public class OrderVersionDetailService
                 inputXML = inputXml
             });
 
-            Log.Information("Parsing OrderVersionDetailListAsync response into List of {@type}", typeof(Details));
-
-            parsedResponse = XmlParser.GetOrderVersionDetailData(response.OrderVersionDetailListResult);
-
         }
         catch (Exception ex)
         {
@@ -71,7 +70,15 @@ public class OrderVersionDetailService
 
         Log.Debug("OrderVersionDetailListAsync Response: {@res}", response.OrderVersionDetailListResult);
 
-        return parsedResponse;
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionDetailListResult>(response.OrderVersionDetailListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionDetailListAsync failed with ReturnCode: {@code}, Errors: {@errors}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionDetailListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
 
@@ -165,5 +172,56 @@ public class OrderVersionDetailService
         Log.Debug("OrderVersionDetailUpdateAsync Response: {@res}", response.OrderVersionDetailUpdateResult);
 
         return response;
+    }
+
+    
+    /// <summary>
+    /// Sends a SOAP request to retrieve the estimated time details for an order version.
+    /// </summary>
+    /// <remarks>
+    /// This method serializes the provided request body to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into an <see cref="OrderVersionDetailEstimatedTimeResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the estimated time query. Cannot be <c>null</c>.</param>
+    /// <returns>An <see cref="OrderVersionDetailEstimatedTimeResult"/> containing estimated time details and status information for the requested order version.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.</exception>
+    public async Task<OrderVersionDetailEstimatedTimeResult> OrderVersionDetailEstimatedTimeAsync(ValidationSoapHeader auth, OrderVersionDetailEstimatedTimeRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        OrderVersionDetailEstimatedTimeResponse response;
+
+        Log.Information("Converting {@type} to Xml", typeof(OrderVersionDetailEstimatedTimeRequestBody));
+        Log.Debug("{@type}: {@req}", typeof(OrderVersionDetailEstimatedTimeRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        Log.Information("Sending OrderVersionDetailEstimatedTimeAsync SOAP request");
+
+        try
+        {
+            response = await _soap.OrderVersionDetailEstimatedTimeAsync(new OrderVersionDetailEstimatedTimeRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("OrderVersionDetailEstimatedTimeAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("OrderVersionDetailEstimatedTimeAsync Response: {@res}", response.OrderVersionDetailEstimatedTimeResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionDetailEstimatedTimeResult>(response.OrderVersionDetailEstimatedTimeResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionDetailEstimatedTimeAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionDetailEstimatedTimeAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+
     }
 }

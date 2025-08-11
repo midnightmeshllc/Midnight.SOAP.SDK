@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.OrderInputs;
 
@@ -8,7 +9,7 @@ public class OrderListRequestBody
     public required OrderListInputParameter InputParameter { get; set; } = new OrderListInputParameter();
 }
 
-public class OrderListInputParameter
+public class OrderListInputParameter : UserDefinedFields
 {
     public string? OrderNumber { get; set; } = string.Empty;
     public string? CopyFromOrderNumber { get; set; } = string.Empty;

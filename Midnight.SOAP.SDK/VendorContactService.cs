@@ -1,5 +1,4 @@
-﻿
-using Midnight.SOAP.SDK.RequestObjects.VendorContactInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.VendorContactInputs;
 using Midnight.SOAP.SDK.ResponseObjects.VendorContactOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -117,6 +116,57 @@ public class VendorContactService
         {
             Log.Error("VendorContactUpdateAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
             throw new Exception($"VendorContactUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of vendor contacts based on the specified request parameters.
+    /// </summary>
+    /// <remarks>
+    /// This asynchronous method serializes the provided request body to XML and communicates with the SOAP service using the supplied authentication header.
+    /// The result includes the list of vendor contacts and any associated status or error information. If the operation fails, an exception is thrown.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the vendor contact list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="VendorContactListResult"/> containing the retrieved vendor contacts and related response details.</returns>
+    /// <exception cref="Exception">Thrown if the remote service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<VendorContactListResult> VendorContactListAsync(ValidationSoapHeader auth, VendorContactListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(VendorContactListRequestBody)} to Xml");
+        Log.Debug($"{typeof(VendorContactListRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        VendorContactListResponse response;
+
+        Log.Information($"Sending VendorContactListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.VendorContactListAsync(new VendorContactListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending VendorContactListAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(VendorContactListResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<VendorContactListResult>(response.VendorContactListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("VendorContactListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"VendorContactListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

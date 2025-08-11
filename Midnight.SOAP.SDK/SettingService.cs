@@ -1,5 +1,4 @@
-﻿
-using Midnight.SOAP.SDK.RequestObjects.SettingInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.SettingInputs;
 using Midnight.SOAP.SDK.ResponseObjects.SettingOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -183,7 +182,7 @@ public class SettingService
         var inputXml = FileOutput.CreateXmlFromClass(request);
         EmployeeListResponse response;
 
-        Log.Information("Sending CustomerTypeListAsync SOAP request");
+        Log.Information("Sending EmployeeListAsync SOAP request");
 
         try
         {
@@ -206,6 +205,789 @@ public class SettingService
         {
             Log.Error("EmployeeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
             throw new Exception($"EmployeeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of job priorities from settings.
+    /// </summary>
+    /// <remarks>This method serializes the request body to XML and communicates with the SOAP service using
+    /// the provided authentication header. If the operation fails or the service returns a non-zero return code, an
+    /// exception is thrown.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the criteria for retrieving the job priority list. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="JobPriorityListResult"/> containing the prioritized list of jobs and associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<JobPriorityListResult> JobPriorityListAsync(ValidationSoapHeader auth, JobPriorityListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(JobPriorityListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(JobPriorityListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        JobPriorityListResponse response;
+
+        Log.Information("Sending JobPriorityListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.JobPriorityListAsync(new JobPriorityListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("JobPriorityListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("JobPriorityListAsync Response: {@res}", response.JobPriorityListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<JobPriorityListResult>(response.JobPriorityListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("JobPriorityListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"JobPriorityListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve the job progress list from settings.
+    /// </summary>
+    /// <remarks>This method serializes the specified request body to XML and sends it to the SOAP service
+    /// using the provided authentication header. The returned result contains job progress information and status
+    /// codes. If the operation fails, an exception is thrown with details from the response.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the job(s) for which progress information is to be retrieved. Cannot be <see
+    /// langword="null"/>.</param>
+    /// <returns>A <see cref="JobProgressListResult"/> containing progress details and status information for the requested jobs.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes
+    /// the return code and error details.</exception>
+    public async Task<JobProgressListResult> JobProgressListAsync(ValidationSoapHeader auth, JobProgressListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(JobProgressListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(JobProgressListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        JobProgressListResponse response;
+
+        Log.Information("Sending JobProgressListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.JobProgressListAsync(new JobProgressListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("JobProgressListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("JobProgressListAsync Response: {@res}", response.JobProgressListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<JobProgressListResult>(response.JobProgressListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("JobProgressListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"JobProgressListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieves a list of job types from settings asynchronously.
+    /// </summary>
+    /// <remarks>This method sends a SOAP request using the provided authentication header and request body,
+    /// and returns the parsed result containing job type information.</remarks>
+    /// <param name="auth">The authentication header used to validate the request with the remote service.</param>
+    /// <param name="request">The request body containing parameters for the job type list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="JobTypeListResult"/> containing the job type data returned by the service.</returns>
+    /// <exception cref="Exception">Thrown if the service response indicates a failure, or if an error occurs during the request or response
+    /// processing.</exception>
+    public async Task<JobTypeListResult> JobTypeListAsync(ValidationSoapHeader auth, JobTypeListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(JobTypeListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(JobTypeListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        JobTypeListResponse response;
+
+        Log.Information("Sending JobTypeListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.JobTypeListAsync(new JobTypeListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("JobTypeListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("JobTypeListAsync Response: {@res}", response.JobTypeListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<JobTypeListResult>(response.JobTypeListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("JobTypeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"JobTypeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieves a list of job frequencies from settings.
+    /// </summary>
+    /// <remarks>This asynchronous method communicates with a remote SOAP service to obtain job frequency
+    /// information. The request is serialized to XML before transmission, and the response is deserialized into a <see
+    /// cref="JobFrequencyListResult"/> object. If the operation fails, an exception is thrown containing error details
+    /// from the response.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying parameters for the job frequency query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="JobFrequencyListResult"/> containing the job frequency data returned by the SOAP service.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating an error. The exception message includes
+    /// the return code and error details.</exception>
+    public async Task<JobFrequencyListResult> JobFrequencyListAsync(ValidationSoapHeader auth, JobFrequencyListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(JobFrequencyListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(JobFrequencyListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        JobFrequencyListResponse response;
+
+        Log.Information("Sending JobFrequencyListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.JobFrequencyListAsync(new JobFrequencyListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("JobFrequencyListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("JobFrequencyListAsync Response: {@res}", response.JobFrequencyListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<JobFrequencyListResult>(response.JobFrequencyListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("JobFrequencyListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"JobFrequencyListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of mail categories based on the specified request parameters.
+    /// </summary>
+    /// <remarks>This asynchronous method communicates with the remote mail service using the provided
+    /// authentication header and request body. The result includes the list of mail categories and any associated
+    /// status or error information.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the mail category list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="MailCategoryListResult"/> containing the retrieved mail categories and related response details.</returns>
+    /// <exception cref="Exception">Thrown if the remote service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<MailCategoryListResult> MailCategoryListAsync(ValidationSoapHeader auth, MailCategoryListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(MailCategoryListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(MailCategoryListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        MailCategoryListResponse response;
+
+        Log.Information("Sending MailCategoryListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.MailCategoryListAsync(new MailCategoryListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("MailCategoryListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("MailCategoryListAsync Response: {@res}", response.MailCategoryListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<MailCategoryListResult>(response.MailCategoryListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("MailCategoryListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"MailCategoryListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of mail classes from settings.
+    /// </summary>
+    /// <remarks>
+    /// This asynchronous method communicates with the remote mail service using the provided authentication header and request body.
+    /// The result includes the list of mail classes and any associated status or error information. If the operation fails, an exception is thrown.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the mail class list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="MailClassListResult"/> containing the retrieved mail classes and related response details.</returns>
+    /// <exception cref="Exception">Thrown if the remote service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<MailClassListResult> MailClassListAsync(ValidationSoapHeader auth, MailClassListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(MailClassListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(MailClassListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        MailClassListResponse response;
+
+        Log.Information("Sending MailClassListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.MailClassListAsync(new MailClassListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("MailClassListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("MailClassListAsync Response: {@res}", response.MailClassListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<MailClassListResult>(response.MailClassListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("MailClassListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"MailClassListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of mail geographies from settings.
+    /// </summary>
+    /// <remarks>
+    /// This asynchronous method communicates with the remote mail service using the provided authentication header and request body.
+    /// The result includes the list of mail geographies and any associated status or error information. If the operation fails, an exception is thrown.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the mail geography list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="MailGeographyListResult"/> containing the retrieved mail geographies and related response details.</returns>
+    /// <exception cref="Exception">Thrown if the remote service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<MailGeographyListResult> MailGeographyListAsync(ValidationSoapHeader auth, MailGeographyListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(MailGeographyListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(MailGeographyListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        MailGeographyListResponse response;
+
+        Log.Information("Sending MailGeographyListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.MailGeographyListAsync(new MailGeographyListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("MailGeographyListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("MailGeographyListAsync Response: {@res}", response.MailGeographyListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<MailGeographyListResult>(response.MailGeographyListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("MailGeographyListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"MailGeographyListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of mail sorts from settings.
+    /// </summary>
+    /// <remarks>
+    /// This asynchronous method communicates with the remote mail service using the provided authentication header and request body.
+    /// The result includes the list of mail sorts and any associated status or error information. If the operation fails, an exception is thrown.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the mail sort list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="MailSortListResult"/> containing the retrieved mail sorts and related response details.</returns>
+    /// <exception cref="Exception">Thrown if the remote service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<MailSortListResult> MailSortListAsync(ValidationSoapHeader auth, MailSortListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(MailSortListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(MailSortListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        MailSortListResponse response;
+
+        Log.Information("Sending MailSortListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.MailSortListAsync(new MailSortListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("MailSortListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("MailSortListAsync Response: {@res}", response.MailSortListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<MailSortListResult>(response.MailSortListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("MailSortListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"MailSortListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of post offices based on the specified criteria.
+    /// </summary>
+    /// <remarks>This method serializes the request body to XML and communicates with the SOAP service using
+    /// the provided authentication header. If the response indicates a failure (non-zero return code), an exception is
+    /// thrown containing the error details.</remarks>
+    /// <param name="auth">The authentication header used to authorize the SOAP request.</param>
+    /// <param name="request">The request body containing the criteria for retrieving the post office list. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="PostOfficeListResult"/> containing the list of post offices and related response information.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP response indicates a failure (non-zero return code), with error details included in the
+    /// exception message.</exception>
+    public async Task<PostOfficeListResult> PostOfficeListAsync(ValidationSoapHeader auth, PostOfficeListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(PostOfficeListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(PostOfficeListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        PostOfficeListResponse response;
+
+        Log.Information("Sending PostOfficeListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.PostOfficeListAsync(new PostOfficeListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("PostOfficeListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("PostOfficeListAsync Response: {@res}", response.PostOfficeListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<PostOfficeListResult>(response.PostOfficeListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("PostOfficeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"PostOfficeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of postage affixes based on the specified request parameters.
+    /// </summary>
+    /// <remarks>This asynchronous method communicates with the remote service using the provided
+    /// authentication header and request body. The returned result includes the list of postage affixes and associated
+    /// status information.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the criteria for retrieving postage affixes. Cannot be <see langword="null"/>.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a <see
+    /// cref="PostageAffixListResult"/> with the retrieved postage affix data and status information.</returns>
+    /// <exception cref="Exception">Thrown if the remote service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<PostageAffixListResult> PostageAffixListAsync(ValidationSoapHeader auth, PostageAffixListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(PostageAffixListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(PostageAffixListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        PostageAffixListResponse response;
+
+        Log.Information("Sending PostageAffixListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.PostageAffixListAsync(new PostageAffixListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("PostageAffixListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("PostageAffixListAsync Response: {@res}", response.PostageAffixListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<PostageAffixListResult>(response.PostageAffixListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("PostageAffixListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"PostageAffixListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve the list of postage statuses asynchronously.
+    /// </summary>
+    /// <remarks>This method serializes the provided request body to XML and sends it using the specified
+    /// authentication header. If the response indicates a failure (non-zero return code), an exception is thrown
+    /// containing the error details.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the postage status list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="PostageStatusListResult"/> containing the list of postage statuses and associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP response indicates a failure, as determined by a non-zero return code.</exception>
+    public async Task<PostageStatusListResult> PostageStatusListAsync(ValidationSoapHeader auth, PostageStatusListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(PostageStatusListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(PostageStatusListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        PostageStatusListResponse response;
+
+        Log.Information("Sending PostageStatusListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.PostageStatusListAsync(new PostageStatusListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("PostageStatusListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("PostageStatusListAsync Response: {@res}", response.PostageStatusListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<PostageStatusListResult>(response.PostageStatusListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("PostageStatusListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"PostageStatusListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of reason codes based on the specified request parameters.
+    /// </summary>
+    /// <remarks>This method serializes the <paramref name="request"/> to XML and communicates with the SOAP
+    /// service using the provided authentication header. If the SOAP service returns a non-zero return code, an
+    /// exception is thrown containing the error details.</remarks>
+    /// <param name="auth">The authentication header used to authorize the SOAP request.</param>
+    /// <param name="request">The request body containing parameters for the reason code list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="ReasonCodeListResult"/> containing the retrieved reason codes and associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating an error. The exception message includes
+    /// the return code and error details.</exception>
+    public async Task<ReasonCodeListResult> ReasonCodeListAsync(ValidationSoapHeader auth, ReasonCodeListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ReasonCodeListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(ReasonCodeListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        ReasonCodeListResponse response;
+
+        Log.Information("Sending ReasonCodeListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.ReasonCodeListAsync(new ReasonCodeListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("ReasonCodeListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("ReasonCodeListAsync Response: {@res}", response.ReasonCodeListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<ReasonCodeListResult>(response.ReasonCodeListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("ReasonCodeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"ReasonCodeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of record resolutions based on the specified request parameters.
+    /// </summary>
+    /// <remarks>This method serializes the <see cref="RecordResolutionListRequestBody"/> to XML and transmits
+    /// it via a SOAP request.  If the operation fails, an exception is thrown containing the return code and error
+    /// details from the response.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the resolution list data to be recorded. Cannot be <see langword="null"/>.</param>
+    /// <returns>A <see cref="RecordResolutionListResult"/> containing the result of the record operation, including status and
+    /// any error information.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP response indicates a failure, including a non-zero return code or error details.</exception>
+    public async Task<RecordResolutionListResult> RecordResolutionListAsync(ValidationSoapHeader auth, RecordResolutionListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(RecordResolutionListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(RecordResolutionListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        RecordResolutionListResponse response;
+
+        Log.Information("Sending RecordResolutionListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RecordResolutionListAsync(new RecordResolutionListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("RecordResolutionListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("RecordResolutionListAsync Response: {@res}", response.RecordResolutionListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<RecordResolutionListResult>(response.RecordResolutionListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("RecordResolutionListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"RecordResolutionListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of residual instructions based on the specified request parameters.
+    /// </summary>
+    /// <remarks>This asynchronous method serializes the provided request body to XML and communicates with
+    /// the SOAP service using the supplied authentication header. If the response indicates a failure (non-zero return
+    /// code), an exception is thrown containing the error details.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the residual instruction list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="ResidualInstructionListResult"/> containing the list of residual instructions and associated
+    /// metadata returned by the SOAP service.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service response indicates a failure (non-zero return code), or if an error occurs during the
+    /// request.</exception>
+    public async Task<ResidualInstructionListResult> ResidualInstructionListAsync(ValidationSoapHeader auth, ResidualInstructionListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ResidualInstructionListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(ResidualInstructionListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        ResidualInstructionListResponse response;
+
+        Log.Information("Sending ResidualInstructionListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.ResidualInstructionListAsync(new ResidualInstructionListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("ResidualInstructionListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("ResidualInstructionListAsync Response: {@res}", response.ResidualInstructionListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<ResidualInstructionListResult>(response.ResidualInstructionListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("ResidualInstructionListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"ResidualInstructionListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of services based on the specified request parameters.
+    /// </summary>
+    /// <remarks>
+    /// This asynchronous method serializes the provided request body to XML and communicates with the SOAP service using the supplied authentication header.
+    /// The result includes the list of services and any associated status or error information. If the operation fails, an exception is thrown.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the service list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="ServiceListResult"/> containing the retrieved services and related response details.</returns>
+    /// <exception cref="Exception">Thrown if the remote service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<ServiceListResult> ServiceListAsync(ValidationSoapHeader auth, ServiceListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ServiceListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(ServiceListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        ServiceListResponse response;
+
+        Log.Information("Sending ServiceListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.ServiceListAsync(new ServiceListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("ServiceListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("ServiceListAsync Response: {@res}", response.ServiceListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<ServiceListResult>(response.ServiceListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("ServiceListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"ServiceListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of unit measures based on the specified request parameters.
+    /// </summary>
+    /// <remarks>
+    /// This asynchronous method serializes the provided request body to XML and communicates with the SOAP service using the supplied authentication header.
+    /// The result includes the list of unit measures and any associated status or error information. If the operation fails, an exception is thrown.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the unit measure list query. Cannot be <c>null</c>.</param>
+    /// <returns>A <see cref="UnitMeasureListResult"/> containing the retrieved unit measures and related response details.</returns>
+    /// <exception cref="Exception">Thrown if the remote service returns a non-zero return code, indicating an error in processing the request.</exception>
+    public async Task<UnitMeasureListResult> UnitMeasureListAsync(ValidationSoapHeader auth, UnitMeasureListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(UnitMeasureListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(UnitMeasureListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        UnitMeasureListResponse response;
+
+        Log.Information("Sending UnitMeasureListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.UnitMeasureListAsync(new UnitMeasureListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("UnitMeasureListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("UnitMeasureListAsync Response: {@res}", response.UnitMeasureListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<UnitMeasureListResult>(response.UnitMeasureListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("UnitMeasureListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"UnitMeasureListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

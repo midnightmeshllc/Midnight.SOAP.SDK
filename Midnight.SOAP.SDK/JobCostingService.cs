@@ -1,4 +1,5 @@
 ﻿using Midnight.SOAP.SDK.RequestObjects.JobCostInputs;
+using Midnight.SOAP.SDK.RequestObjects.ProofingInputs;
 using Midnight.SOAP.SDK.ResponseObjects.JobCostOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -217,6 +218,104 @@ public class JobCostingService
         {
             Log.Error("OrderVersionOtherJobCostInsertAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
             throw new Exception($"OrderVersionOtherJobCostInsertAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieves a list of temporary job cost details from the SOAP service asynchronously.
+    /// </summary>
+    /// <remarks>This method sends a request to the SOAP service to obtain temporary job cost details. The
+    /// caller must provide valid authentication credentials via the <paramref name="auth"/> parameter.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request. Cannot be null.</param>
+    /// <returns>A <see cref="JobCostDetailTempListResult"/> containing the job cost detail data and status information returned
+    /// by the service.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code or if an error occurs during the request.</exception>
+    public async Task<JobCostDetailTempListResult> JobCostDetailTempListAsync(ValidationSoapHeader auth)
+    {
+
+        JobCostDetailTempListResponse response;
+
+        Log.Information($"Sending JobCostDetailTempListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.JobCostDetailTempListAsync(new JobCostDetailTempListRequest
+            {
+                ValidationSoapHeader = auth
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending JobCostDetailTempListAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(JobCostDetailTempListResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<JobCostDetailTempListResult>(response.JobCostDetailTempListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("JobCostDetailTempListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"JobCostDetailTempListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieves a summary list of job cost order versions for the specified order number and job costing date.
+    /// </summary>
+    /// <remarks>This method sends a SOAP request to obtain job cost order version summaries. The <paramref
+    /// name="jobCostingDate"/> parameter must be a valid date string; otherwise, an exception is thrown. The result
+    /// includes a return code and any associated errors.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="orderNumber">The order number for which to retrieve job cost order version summaries.</param>
+    /// <param name="jobCostingDate">The job costing date as a string. Must be in a format parsable by <see cref="DateTime.TryParse"/> (e.g.,
+    /// "yyyy-MM-dd").</param>
+    /// <returns>A <see cref="JobCostOrderVersionServiceSummaryListResult"/> containing the summary list and result information
+    /// for the specified order and date.</returns>
+    /// <exception cref="Exception">Thrown if <paramref name="jobCostingDate"/> cannot be parsed into a valid date, or if the SOAP service returns a
+    /// non-zero return code.</exception>
+    public async Task<JobCostOrderVersionServiceSummaryListResult> JobCostOrderVersionServiceSummaryListAsync(ValidationSoapHeader auth, string orderNumber, string jobCostingDate)
+    {
+        JobCostOrderVersionServiceSummaryListResponse response;
+
+
+        try
+        {
+            bool parsed = DateTime.TryParse(jobCostingDate, out var jobCostingDateParsed);
+
+            if (parsed)
+            {
+                response = await _soap.JobCostOrderVersionServiceSummaryListAsync(new JobCostOrderVersionServiceSummaryListRequest
+                {
+                    ValidationSoapHeader = auth,
+                    orderNumber = orderNumber,
+                    jobCostingDate = jobCostingDateParsed.ToString("yyyy-MM-dd")
+                });
+            }
+            else
+            {
+                Log.Error("Error parsing {@param} into a valid Date", jobCostingDate);
+                throw new Exception("Unable to parse supplied parameter value for jobCostingDate into a valid Date");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending JobCostOrderVersionServiceSummaryListAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(JobCostOrderVersionServiceSummaryListResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<JobCostOrderVersionServiceSummaryListResult>(response.JobCostOrderVersionServiceSummaryListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("JobCostOrderVersionServiceSummaryListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"JobCostOrderVersionServiceSummaryListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

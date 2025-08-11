@@ -266,4 +266,54 @@ public class InventoryItemService
 
         return result;
     }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of item request types based on the specified criteria.
+    /// </summary>
+    /// <remarks>This method serializes the request body to XML and communicates with the SOAP service using
+    /// the provided authentication header. If the service response indicates a failure (non-zero return code), an
+    /// exception is thrown containing the error details.</remarks>
+    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
+    /// <param name="request">The request body specifying the criteria for retrieving item request types. Cannot be <c>null</c>.</param>
+    /// <returns>An <see cref="ItemRequestTypeListResult"/> containing the list of item request types and associated metadata
+    /// returned by the service.</returns>
+    /// <exception cref="Exception">Thrown if the service response indicates a failure, or if an error occurs during the request or response
+    /// processing.</exception>
+    public async Task<ItemRequestTypeListResult> ItemRequestTypeListAsync(ValidationSoapHeader auth, ItemRequestTypeListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ItemRequestTypeListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(ItemRequestTypeListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        ItemRequestTypeListResponse response;
+
+        Log.Information("Sending ItemRequestTypeListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.ItemRequestTypeListAsync(new ItemRequestTypeListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("ItemRequestTypeListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("ItemRequestTypeListAsync Response: {@res}", response.ItemRequestTypeListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<ItemRequestTypeListResult>(response.ItemRequestTypeListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("ItemRequestTypeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"ItemRequestTypeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
 }

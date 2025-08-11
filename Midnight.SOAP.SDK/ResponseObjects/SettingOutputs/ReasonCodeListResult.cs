@@ -2,20 +2,23 @@
 using Midnight.SOAP.SDK.CommonObjects;
 using System.Xml.Serialization;
 
-namespace Midnight.SOAP.SDK.ResponseObjects.VendorContactOutputs;
+namespace Midnight.SOAP.SDK.ResponseObjects.SettingOutputs;
 
 [XmlRoot("Result")]
-public class VendorContactUpdateResult : CommonResult
+public class ReasonCodeListResult : CommonResult
 {
-    [XmlArray("VendorContacts")]
-    [XmlArrayItem("VendorContact")]
-    public List<VendorContactUpdated>? VendorContacts { get; set; } = new List<VendorContactUpdated>();
+    [XmlArray("ReasonCodes")]
+    [XmlArrayItem("ReasonCode")]
+    public List<ReasonCode> ReasonCodes { get; set; } = new List<ReasonCode>();
 }
 
-public class VendorContactUpdated
+public class ReasonCode
 {
-    [XmlElement("VendorContactID")]
-    public int VendorContactID { get; set; }
+    public int? ReasonCodeID { get; set; }
+
+    [XmlElement("ReasonCode")]
+    public string? ReasonCodeValue { get; set; } // Renamed to avoid CS0542
+
     [XmlElement("Active")]
     public string? ActiveRaw { get; set; }
 

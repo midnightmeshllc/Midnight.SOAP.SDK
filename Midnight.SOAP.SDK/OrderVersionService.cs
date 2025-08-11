@@ -1,5 +1,6 @@
 ﻿using Midnight.SOAP.SDK.Models;
 using Midnight.SOAP.SDK.RequestObjects.OrderVersionInputs;
+using Midnight.SOAP.SDK.ResponseObjects.OrderOutputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderVersionOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -38,12 +39,11 @@ public class OrderVersionService
     /// <returns>A list of <see cref="Versions"/> objects representing the ordered version data retrieved from the SOAP response.
     /// Returns an empty list if no versions are found.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is null.</exception>
-    public async Task<List<Versions>> OrderVersionListAsync(ValidationSoapHeader auth, OrderVersionListRequestBody request)
+    public async Task<OrderVersionListResult> OrderVersionListAsync(ValidationSoapHeader auth, OrderVersionListRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
         OrderVersionListResponse response;
-        List<Versions> parsedResponse;
 
         Log.Information("Converting {@type} to Xml", typeof(OrderVersionListRequestBody));
         Log.Debug("{@type}: {@req}", typeof(OrderVersionListRequestBody), FileOutput.CreateXmlFromClass(request));
@@ -60,10 +60,6 @@ public class OrderVersionService
                 inputXML = inputXml
             });
 
-            Log.Information("Parsing OrderVersionListAsync response into List of {@type}", typeof(Versions));
-
-            parsedResponse = XmlParser.GetOrderVersionData(response.OrderVersionListResult);
-
         }
         catch (Exception ex)
         {
@@ -73,7 +69,16 @@ public class OrderVersionService
 
         Log.Debug("OrderVersionListAsync Response: {@res}", response.OrderVersionListResult);
 
-        return parsedResponse;
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionListResult>(response.OrderVersionListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionListAsync failed with ReturnCode: {@code}, Errors: {@errors}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+
     }
 
 
