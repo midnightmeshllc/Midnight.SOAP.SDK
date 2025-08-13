@@ -36,6 +36,68 @@ public class CustomerService
     ///AggregateOrderVersionDetailsByServiceID > List of Aggregated Details
     ///AggregateOrderVersionDetailsByServiceIDForOrderID > List of Aggregated Details for order > overloads
     ///AggregateOrderVersionDetailsByServiceIDByParentCustomerID
+    ///
+
+
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of customer postage accounts and returns the result.
+    /// </summary>
+    /// <remarks>
+    /// This method serializes the provided <paramref name="request"/> to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into a <see cref="CustomerPostageAccountListResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the customer postage account list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// A <see cref="CustomerPostageAccountListResult"/> containing postage account details and status information for the requested query.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<CustomerPostageAccountListResult> CustomerPostageAccountListAsync(ValidationSoapHeader auth, CustomerPostageAccountListRequestBody request)
+    {
+
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(CustomerPostageAccountListRequestBody)} to Xml");
+        Log.Debug($"{typeof(CustomerPostageAccountListRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        CustomerPostageAccountListResponse response;
+
+        Log.Information($"Sending CustomerPostageAccountListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.CustomerPostageAccountListAsync(new CustomerPostageAccountListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error("CustomerPostageAccountListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("CustomerPostageAccountListAsync Response: {@res}", response.CustomerPostageAccountListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<CustomerPostageAccountListResult>(response.CustomerPostageAccountListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerPostageAccountListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerPostageAccountListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
 
     /// <summary>
     /// Retrieves a list of customers based on the provided request parameters.

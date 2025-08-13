@@ -12,10 +12,10 @@ public class ProofNewRequestBody
 
 public class ProofNewRequestInputParameter
 {
-    public required List<Request> Requests { get; set; } = new List<Request>();
+    public required List<RequestNew> Requests { get; set; } = new List<RequestNew>();
 }
 
-public class Request
+public class RequestNew
 {
     [Required]
     public DateOnly RequestDate { get; set; }

@@ -1,5 +1,4 @@
-﻿
-using Midnight.SOAP.SDK.RequestObjects.ProofingInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.ProofingInputs;
 using Midnight.SOAP.SDK.ResponseObjects.ProofingOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -15,6 +14,238 @@ public class ProofingService
     {
         _soapConfig = new Service1SoapClient.EndpointConfiguration();
         _soap = new Service1SoapClient(_soapConfig);
+    }
+
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of proof attachments and returns the result.
+    /// </summary>
+    /// <remarks>
+    /// This method serializes the provided <paramref name="request"/> to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into a <see cref="ProofAttachmentListResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the proof attachment list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// A <see cref="ProofAttachmentListResult"/> containing proof attachment details and status information for the requested query.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<ProofAttachmentListResult> RequestAttachmentListAsync(ValidationSoapHeader auth, ProofAttachmentListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ProofAttachmentListRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofAttachmentListRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        RequestAttachmentListResponse response;
+
+        Log.Information($"Sending RequestAttachmentListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RequestAttachmentListAsync(new RequestAttachmentListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending RequestAttachmentListAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(ProofAttachmentListResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<ProofAttachmentListResult>(response.RequestAttachmentListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("RequestAttachmentListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"RequestAttachmentListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of proof approvers and returns the result.
+    /// </summary>
+    /// <remarks>
+    /// This method serializes the provided <paramref name="request"/> to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into a <see cref="ProofApproverListResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the proof approver list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// A <see cref="ProofApproverListResult"/> containing proof approver details and status information for the requested query.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<ProofApproverListResult> RequestApproverListAsync(ValidationSoapHeader auth, ProofApproverListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ProofApproverListRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofApproverListRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        RequestApproverListResponse response;
+
+        Log.Information($"Sending RequestApproverListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RequestApproverListAsync(new RequestApproverListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending RequestApproverListAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(ProofApproverListResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<ProofApproverListResult>(response.RequestApproverListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("RequestApproverListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"RequestApproverListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of proof request statuses and returns the result.
+    /// </summary>
+    /// <remarks>
+    /// This method serializes the provided <paramref name="request"/> to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into a <see cref="ProofStatusListResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the proof status list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// A <see cref="ProofStatusListResult"/> containing proof request status details and status information for the requested query.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<ProofStatusListResult> RequestStatusListAsync(ValidationSoapHeader auth, ProofStatusListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ProofStatusListRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofStatusListRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        RequestStatusListResponse response;
+
+        Log.Information($"Sending RequestStatusListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RequestStatusListAsync(new RequestStatusListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending RequestStatusListAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(ProofStatusListResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<ProofStatusListResult>(response.RequestStatusListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("RequestStatusListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"RequestStatusListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of proof requests and returns the result.
+    /// </summary>
+    /// <remarks>
+    /// This method serializes the provided <paramref name="request"/> to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into a <see cref="ProofListResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the proof list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// A <see cref="ProofListResult"/> containing proof request details and status information for the requested query.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<ProofListResult> RequestListAsync(ValidationSoapHeader auth, ProofListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ProofListRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofListRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        RequestListResponse response;
+
+        Log.Information($"Sending RequestListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RequestListAsync(new RequestListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending RequestListAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(ProofListResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<ProofListResult>(response.RequestListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("RequestListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"RequestListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
     /// <summary>

@@ -18,6 +18,114 @@ public class SettingService
 
 
 
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of operations and returns the result.
+    /// </summary>
+    /// <remarks>
+    /// This method serializes the provided <paramref name="request"/> to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into a <see cref="OperationListResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the operation list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// A <see cref="OperationListResult"/> containing operation details and status information for the requested query.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<OperationListResult> OperationListAsync(ValidationSoapHeader auth, OperationListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(OperationListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(OperationListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        OperationListResponse response;
+
+        Log.Information("Sending OperationListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.OperationListAsync(new OperationListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("OperationListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("OperationListAsync Response: {@res}", response.OperationListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<OperationListResult>(response.OperationListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OperationListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OperationListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of contact types and returns the result.
+    /// </summary>
+    /// <remarks>
+    /// This method serializes the provided <paramref name="request"/> to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into a <see cref="ContactTypeListResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the contact type list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// A <see cref="ContactTypeListResult"/> containing contact type details and status information for the requested query.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<ContactTypeListResult> ContactTypeListAsync(ValidationSoapHeader auth, ContactTypeListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ContactTypeListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(ContactTypeListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+        ContactTypeListResponse response;
+
+        Log.Information("Sending ContactTypeListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.ContactTypeListAsync(new ContactTypeListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("ContactTypeListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("ContactTypeListAsync Response: {@res}", response.ContactTypeListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<ContactTypeListResult>(response.ContactTypeListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("ContactTypeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"ContactTypeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
 
     /// <summary>
     /// Sends a SOAP request to retrieve a list of warehouse locations and returns the result.
@@ -921,7 +1029,8 @@ public class SettingService
     /// <summary>
     /// Sends a SOAP request to retrieve the list of postage statuses asynchronously.
     /// </summary>
-    /// <remarks>This method serializes the provided request body to XML and sends it using the specified
+    /// <remarks>
+    /// This method serializes the provided request body to XML and sends it using the specified
     /// authentication header. If the response indicates a failure (non-zero return code), an exception is thrown
     /// containing the error details.</remarks>
     /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
