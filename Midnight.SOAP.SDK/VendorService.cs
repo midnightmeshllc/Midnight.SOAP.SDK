@@ -1,7 +1,4 @@
-﻿
-using Midnight.SOAP.SDK.RequestObjects.ProofingInputs;
-using Midnight.SOAP.SDK.RequestObjects.VendorInputs;
-using Midnight.SOAP.SDK.ResponseObjects.ProofingOutputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.VendorInputs;
 using Midnight.SOAP.SDK.ResponseObjects.VendorOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -119,6 +116,58 @@ public class VendorService
         {
             Log.Error("VendorUpdateAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
             throw new Exception($"VendorUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of vendors and returns the result of the operation.
+    /// </summary>
+    /// <remarks>
+    /// This method logs the request and response details for debugging purposes. If the operation fails,
+    /// an exception is thrown with details about the failure, including the return code and error messages.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing parameters for retrieving the vendor list. Cannot be <see langword="null"/>.</param>
+    /// <returns>A <see cref="VendorListResult"/> object containing the result of the vendor list operation, including the return code, error messages, and the list of vendors.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code, indicating an error during vendor list retrieval.</exception>
+    public async Task<VendorListResult> VendorListAsync(ValidationSoapHeader auth, VendorListRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(VendorListRequestBody)} to Xml");
+        Log.Debug($"{typeof(VendorListRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        VendorListResponse response;
+
+        Log.Information($"Sending VendorListAsync SOAP request");
+
+        try
+        {
+            response = await _soap.VendorListAsync(new VendorListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending VendorListAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(VendorListResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<VendorListResult>(response.VendorListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("VendorListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"VendorListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

@@ -15,7 +15,7 @@ public class ItemRequestNewInputParameter
     public required List<ItemRequest> ItemRequests { get; set; } = new List<ItemRequest>();
 }
 
-public class ItemRequest : UserDefinedFields
+public class ItemRequest : ItemRequest_UserDefinedFields
 {
     public int ItemRequestTypeID { get; set; }
     public int CustomerVendorID { get; set; }

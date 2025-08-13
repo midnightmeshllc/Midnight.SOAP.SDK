@@ -1,11 +1,10 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-using Midnight.SOAP.SDK.Models;
+﻿using Midnight.SOAP.SDK.Models;
 using Midnight.SOAP.SDK.RequestObjects.OrderVersionInventoryInputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderVersionInventoryOutputs;
+using Midnight.SOAP.SDK.ResponseObjects.SettingOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
 using Serilog;
-using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK;
 
@@ -26,21 +25,26 @@ public class OrderVersionInventoryService
         _soap = new Service1SoapClient(_soapConfig);
     }
 
+    
     /// <summary>
-    /// Sends a SOAP request to retrieve and parse a list of inventory items based on the specified order version.
+    /// Retrieves a list of order version inventory records asynchronously via a SOAP request.
     /// </summary>
-    /// <remarks>This method logs the request and response details for debugging purposes. Ensure that the
-    /// <paramref name="auth"/>  parameter contains valid credentials and the <paramref name="request"/> parameter is
-    /// properly populated with the  required data.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials for the SOAP request. Cannot be null.</param>
-    /// <param name="request">The request body containing the parameters required to query the inventory list. Cannot be null.</param>
-    /// <returns>A list of <see cref="Inventorys"/> objects representing the inventory data for the specified order version.
-    /// Returns an empty list if no inventory data is found.</returns>
-    public async Task<List<Inventorys>> OrderVersionInventoryListAsync(ValidationSoapHeader auth, OrderVersionInventoryListRequestBody request)
+    /// <remarks>
+    /// This method serializes the provided request body to XML and sends it to the SOAP service using the authentication header.
+    /// The response is deserialized into an <see cref="OrderVersionInventoryListResult"/> object. If the operation fails, an exception is thrown with details from the response.
+    /// </remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
+    /// <param name="request">The request body specifying the parameters for the inventory list query. Cannot be <c>null</c>.</param>
+    /// <returns>
+    /// An <see cref="OrderVersionInventoryListResult"/> containing inventory details and status information for the requested order version.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes the return code and error details.
+    /// </exception>
+    public async Task<OrderVersionInventoryListResult> OrderVersionInventoryListAsync(ValidationSoapHeader auth, OrderVersionInventoryListRequestBody request)
     {
 
         OrderVersionInventoryListResponse response;
-        List<Inventorys> parsedResponse;
 
         Log.Information("Converting {@type} to Xml", typeof(OrderVersionInventoryListRequestBody));
         Log.Debug("{@type}: {@req}", typeof(OrderVersionInventoryListRequestBody), FileOutput.CreateXmlFromClass(request));
@@ -57,10 +61,6 @@ public class OrderVersionInventoryService
                 inputXML = inputXml
             });
 
-            Log.Information("Parsing OrderVersionInvetoryListAsync response into List of {@type}", typeof(Inventorys));
-
-            parsedResponse = XmlParser.GetOrderVersionInventoryData(response.OrderVersionInventoryListResult);
-
         }
         catch (Exception ex)
         {
@@ -70,7 +70,14 @@ public class OrderVersionInventoryService
 
         Log.Debug("OrderVersionInvetoryListAsync Response: {@res}", response.OrderVersionInventoryListResult);
 
-        return parsedResponse;
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionInventoryListResult>(response.OrderVersionInventoryListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionInventoryListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionInventoryListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
     /// <summary>

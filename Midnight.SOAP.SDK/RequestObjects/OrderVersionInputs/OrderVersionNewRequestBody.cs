@@ -23,10 +23,10 @@ public class OrderVersionNewInputParameter : UserDefinedFields
     public int JobTypeID { get; set; }
     public int UrgencyID { get; set; }
     public List<OrderVersionDetail>? OrderVersionDetails { get; set; }
-    public List<OrderVersionInventory>? OrderVersionInventories { get; set; }
+    public List<OrderVersionInventoryNew>? OrderVersionInventories { get; set; }
 }
 
-public class OrderVersionInventory
+public class OrderVersionInventoryNew
 {
     public int ItemID { get; set; }
     public string? Description { get; set; }

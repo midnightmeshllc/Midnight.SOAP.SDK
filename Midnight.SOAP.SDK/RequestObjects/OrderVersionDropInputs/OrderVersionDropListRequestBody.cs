@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.OrderVersionDropInputs;
 
@@ -11,6 +10,5 @@ public class OrderVersionDropListRequestBody
 
 public class OrderVersionDropListInputParameter
 {
-    [Required]
-    public int VersionID { get; set; }
+    public required int VersionID { get; set; }
 }

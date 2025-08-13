@@ -36,12 +36,11 @@ public class OrderVersionDropService
     /// <returns>A list of <see cref="Drops"/> objects representing the parsed response data. Returns an empty list if no drops
     /// are found.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
-    public async Task<List<Drops>> OrderVersionDropListAsync(ValidationSoapHeader auth, OrderVersionDropListRequestBody request)
+    public async Task<OrderVersionDropListResult> OrderVersionDropListAsync(ValidationSoapHeader auth, OrderVersionDropListRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
         OrderVersionDropListResponse response;
-        List<Drops> parsedResponse;
 
         Log.Information("Converting {@type} to Xml", typeof(OrderVersionDropListRequestBody));
         Log.Debug("{@type}: {@req}", typeof(OrderVersionDropListRequestBody), FileOutput.CreateXmlFromClass(request));
@@ -58,10 +57,6 @@ public class OrderVersionDropService
                 inputXML = inputXml
             });
 
-            Log.Information("Parsing OrderVersionDropListAsync response into List of {@type}", typeof(Drops));
-
-            parsedResponse = XmlParser.GetOrderVersionDropData(response.OrderVersionDropListResult);
-
         }
         catch (Exception ex)
         {
@@ -71,7 +66,14 @@ public class OrderVersionDropService
 
         Log.Debug("OrderVersionDropListAsync Response: {@res}", response.OrderVersionDropListResult);
 
-        return parsedResponse;
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionDropListResult>(response.OrderVersionDropListResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionDropListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionDropListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
     /// <summary>

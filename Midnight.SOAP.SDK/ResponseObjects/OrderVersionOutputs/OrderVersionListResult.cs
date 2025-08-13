@@ -12,7 +12,7 @@ public class OrderVersionListResult : CommonResult
     public List<OrderVersion> OrderVersions { get; set; } = new List<OrderVersion>();
 }
 
-public class OrderVersion : UserDefinedFields
+public class OrderVersion : OrderVersion_UserDefinedFields
 {
     public int? VersionID { get; set; }
     public int? OrderID { get; set; }
