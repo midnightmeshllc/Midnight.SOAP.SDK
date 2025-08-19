@@ -30,7 +30,7 @@ jobs:
 
       - name: Update .csproj Version
         run: |
-          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.gitversion.outputs.semVer }}<\/Version>/" Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj
+          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.gitversion.outputs.majorMinorPatch }}<\/Version>/" Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj
 
       - name: Restore dependencies
         run: dotnet restore Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj
@@ -39,7 +39,7 @@ jobs:
         run: dotnet build Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj --configuration Release --no-restore
 
       - name: Pack NuGet package
-        run: dotnet pack Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj --configuration Release --no-build --output ./nupkg /p:Version=${{ steps.gitversion.outputs.semVer }}
+        run: dotnet pack Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj --configuration Release --no-build --output ./nupkg /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
 
       - name: Publish to NuGet
         run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
@@ -54,8 +54,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.gitversion.outputs.semVer }}
-          name: Release v${{ steps.gitversion.outputs.semVer }}
+          tag_name: v${{ steps.gitversion.outputs.majorMinorPatch }}
+          name: Release v${{ steps.gitversion.outputs.majorMinorPatch }}
           body_path: ./CHANGELOG.md
           files: ./nupkg/*.nupkg
         env:
