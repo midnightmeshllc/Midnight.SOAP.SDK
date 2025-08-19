@@ -29,14 +29,11 @@ jobs:
         run: versionize --exit-insignificant-commits --configDir ../versionize
         continue-on-error: false
 
-      - name: Get Version from Versionize
+      - name: Get Version from .csproj
         id: get_version
         run: |
-          if [ -f .versionize/version.txt ]; then
-            echo "version=$(cat .versionize/version.txt)" >> $GITHUB_OUTPUT
-          else
-            echo "version=1.0.0" >> $GITHUB_OUTPUT
-          fi
+          version=$(grep '<Version>' Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj | sed -E 's/.*<Version>(.+)<\\/Version>.*/\\1/')
+          echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: Restore dependencies
         run: dotnet restore Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj
