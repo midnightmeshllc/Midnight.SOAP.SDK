@@ -14,6 +14,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright (c) MidnightMeshLLC 2025</Copyright>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Version>1.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\LICENSE.txt">
@@ -40,4 +41,10 @@
   <ItemGroup>
     <Folder Include="Public\" />
   </ItemGroup>
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<ItemGroup>
+			<_CustomFiles Include="..\automation\*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(_CustomFiles)" DestinationFolder="./../.git/hooks" />
+	</Target>
 </Project>
