@@ -6,6 +6,13 @@ using Serilog;
 
 namespace Midnight.SOAP.SDK;
 
+/// <summary>
+/// Provides methods for interacting with vendor contact data through a SOAP-based service.
+/// </summary>
+/// <remarks>This service facilitates operations such as inserting, updating, and retrieving vendor contact
+/// information. Each method communicates with the SOAP service using the provided authentication header and request
+/// body. Exceptions are thrown for failed operations, and detailed error information is included in the exception
+/// messages.</remarks>
 public class VendorContactService
 {
     private readonly Service1SoapClient.EndpointConfiguration _soapConfig;

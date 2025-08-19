@@ -1,5 +1,4 @@
-﻿using Midnight.SOAP.SDK.Models;
-using Midnight.SOAP.SDK.RequestObjects.CustomerInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.CustomerInputs;
 using Midnight.SOAP.SDK.ResponseObjects.CustomerOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -155,15 +154,17 @@ public class CustomerService
 
 
     /// <summary>
-    /// Sends a SOAP request to update customer information based on the provided input parameters.
+    /// Updates customer information by sending a SOAP request with the specified authentication header and request
+    /// body.
     /// </summary>
-    /// <remarks>This method converts the <see cref="CustomerUpdateRequestBody"/> into XML format before sending the
-    /// SOAP request. Ensure that the <paramref name="auth"/> parameter contains valid credentials and the <paramref
-    /// name="request"/> parameter includes all required fields for the update operation.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, an exception is thrown with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
     /// <param name="request">The request body containing customer update details, including the customer code and other parameters.</param>
-    /// <returns>A <see cref="CustomerUpdateResponse"/> object containing the result of the customer update operation.</returns>
-    public async Task<CustomerUpdateResponse> CustomerUpdateAsync(ValidationSoapHeader auth, CustomerUpdateRequestBody request)
+    /// <returns>A <see cref="CustomerUpdateResult"/> object containing the result of the update operation, including the return
+    /// code and any error messages.</returns>
+    /// <exception cref="Exception">Thrown if the update operation fails, as indicated by a non-zero return code or other errors in the response.</exception>
+    public async Task<CustomerUpdateResult> CustomerUpdateAsync(ValidationSoapHeader auth, CustomerUpdateRequestBody request)
     {
         CustomerUpdateResponse response;
 
@@ -190,7 +191,15 @@ public class CustomerService
 
         Log.Debug("CustomerUpdateAsync Response: {@res}", response.CustomerUpdateResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<CustomerUpdateResult>(response.CustomerUpdateResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerUpdateAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
     public async Task<CustomerInsertResult> CustomerInsertAsync(ValidationSoapHeader auth, CustomerInsertRequestBody request)

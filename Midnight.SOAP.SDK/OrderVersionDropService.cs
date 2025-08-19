@@ -1,5 +1,4 @@
-﻿using Midnight.SOAP.SDK.Models;
-using Midnight.SOAP.SDK.RequestObjects.OrderVersionDropInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.OrderVersionDropInputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderVersionDropOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -127,15 +126,17 @@ public class OrderVersionDropService
 
 
     /// <summary>
-    /// Sends a SOAP request to update the order version drop information.
+    /// Sends a SOAP request to update the order version drop and returns the result of the operation.
     /// </summary>
-    /// <remarks>This method converts the provided <paramref name="request"/> object into an XML format and
-    /// sends it as part of the SOAP request. Ensure that the <paramref name="auth"/> and <paramref name="request"/>
-    /// parameters are properly initialized before calling this method.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials for the SOAP request. Cannot be null.</param>
-    /// <param name="request">The request body containing the input parameters for the order version drop update. Cannot be null.</param>
-    /// <returns>An <see cref="OrderVersionDropUpdateResponse"/> object containing the result of the update operation.</returns>
-    public async Task<OrderVersionDropUpdateResponse> OrderVersionDropUpdateAsync(ValidationSoapHeader auth, OrderVersionDropUpdateRequestBody request)
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails,  an exception is thrown with details about the failure, including the return code and error
+    /// messages.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the input parameters for the order version drop update operation.</param>
+    /// <returns>An <see cref="OrderVersionDropUpdateResult"/> object containing the result of the update operation,  including
+    /// the return code and any associated errors.</returns>
+    /// <exception cref="Exception">Thrown if the operation fails, such as when the return code in the response indicates an error.</exception>
+    public async Task<OrderVersionDropUpdateResult> OrderVersionDropUpdateAsync(ValidationSoapHeader auth, OrderVersionDropUpdateRequestBody request)
     {
         Log.Information("Converting {@type} to Xml", typeof(OrderVersionDropUpdateRequestBody));
         Log.Debug("{@type}: {@req}", typeof(OrderVersionDropUpdateRequestBody), FileOutput.CreateXmlFromClass(request));
@@ -162,6 +163,65 @@ public class OrderVersionDropService
 
         Log.Debug("OrderVersionDropUpdateAsync Response: {@res}", response.OrderVersionDropUpdateResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionDropUpdateResult>(response.OrderVersionDropUpdateResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionDropUpdateAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionDropUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to delete a specific order version drop and returns the result of the operation.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, the method logs the error and throws an exception.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the details of the order version drop to be deleted. Cannot be <see
+    /// langword="null"/>.</param>
+    /// <returns>An <see cref="OrderVersionDropDeleteResult"/> object containing the result of the operation, including the
+    /// return code and any error messages.</returns>
+    /// <exception cref="Exception">Thrown if the operation fails with a non-zero return code, or if an error occurs during the SOAP request or
+    /// response processing.</exception>
+    public async Task<OrderVersionDropDeleteResult> OrderVersionDropDeleteAsync(ValidationSoapHeader auth, OrderVersionDropDeleteRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        OrderVersionDropDeleteResponse response;
+
+        Log.Information("Converting {@type} to Xml", typeof(OrderVersionDropDeleteRequestBody));
+        Log.Debug("{@type}: {@req}", typeof(OrderVersionDropDeleteRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        Log.Information("Sending OrderVersionDropDeleteAsync SOAP request");
+
+        try
+        {
+            response = await _soap.OrderVersionDropDeleteAsync(new OrderVersionDropDeleteRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error("OrderVersionDropDeleteAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("OrderVersionDropDeleteAsync Response: {@res}", response.OrderVersionDropDeleteResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionDropDeleteResult>(response.OrderVersionDropDeleteResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionDropDeleteAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionDropDeleteAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 }

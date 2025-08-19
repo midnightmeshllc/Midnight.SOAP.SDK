@@ -6,6 +6,13 @@ using Serilog;
 
 namespace Midnight.SOAP.SDK;
 
+/// <summary>
+/// Provides methods for interacting with Admin Setting methods of PrintReach's Midnight MIS via SOAP requests.
+/// </summary>
+/// <remarks>This service acts as a client for a SOAP-based API, offering asynchronous methods to send requests
+/// and process responses for different types of data queries. Each method in this service handles serialization of
+/// request objects to XML, communication with the SOAP service, and deserialization of responses into strongly-typed
+/// result objects. If a SOAP operation fails, exceptions are thrown with detailed error information.</remarks>
 public class SettingService
 {
     private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
@@ -16,6 +23,53 @@ public class SettingService
         _soap = new Service1SoapClient(_soapConfig);
     }
 
+
+    /// <summary>
+    /// Sends a SOAP request to retrieve a list of companies based on the provided request parameters.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the response
+    /// contains a non-zero return code, an exception is thrown with the associated error details.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the parameters for the company list query.</param>
+    /// <returns>A <see cref="CompanyListResult"/> object containing the result of the company list query,  including the return
+    /// code, any errors, and the list of companies if successful.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the response indicates an error with a non-zero return code.</exception>
+    public async Task<CompanyListResult> CompanyListAsync(ValidationSoapHeader auth, CompanyListRequestBody request)
+    {
+        CompanyListResponse response;
+
+        Log.Information($"Converting {typeof(CompanyListRequestBody)} to Xml");
+        Log.Debug("{@type}: {@request}", typeof(CompanyListRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        Log.Information("Sending CompanyListAsync SOAP request");
+        try
+        {
+            response = await _soap.CompanyListAsync(new CompanyListRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("CompanyListAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("CompanyListAsync Response: {@res}", response.CompanyListResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<CompanyListResult>(response.CompanyListResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CompanyListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CompanyListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
 
 
     /// <summary>

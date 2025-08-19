@@ -1,5 +1,4 @@
-﻿using Midnight.SOAP.SDK.Models;
-using Midnight.SOAP.SDK.RequestObjects.OrderVersionInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.OrderVersionInputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderOutputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderVersionOutputs;
 using Midnight.SOAP.SDK.Utilities;
@@ -137,15 +136,17 @@ public class OrderVersionService
 
 
     /// <summary>
-    /// Sends a SOAP request to update the version of an order and retrieves the response.
+    /// Sends a SOAP request to update the version of an order and returns the result of the operation.
     /// </summary>
-    /// <remarks>This method converts the provided <see cref="OrderVersionUpdateRequestBody"/> into XML format
-    /// and sends it as part of the SOAP request. The response contains the result of the update operation, including
-    /// any relevant details about the updated order version.</remarks>
-    /// <param name="auth">The authentication header required for the SOAP request. Must contain valid credentials.</param>
-    /// <param name="request">The request body containing the input parameters for the order version update operation. Cannot be null.</param>
-    /// <returns>A <see cref="OrderVersionUpdateResponse"/> object containing the result of the order version update operation.</returns>
-    public async Task<OrderVersionUpdateResponse> OrderVersionUpdateAsync(ValidationSoapHeader auth, OrderVersionUpdateRequestBody request)
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, an exception is thrown with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the input parameters for the order version update operation.</param>
+    /// <returns>An <see cref="OrderVersionUpdateResult"/> object containing the result of the operation, including the return
+    /// code and any errors encountered.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the operation fails, indicated by a non-zero return code in the response. The exception message
+    /// includes the return code and error details.</exception>
+    public async Task<OrderVersionUpdateResult> OrderVersionUpdateAsync(ValidationSoapHeader auth, OrderVersionUpdateRequestBody request)
     {
 
         OrderVersionUpdateResponse response;
@@ -173,20 +174,30 @@ public class OrderVersionService
 
         Log.Debug("OrderVersionUpdateAsync Response: {@res}", response.OrderVersionUpdateResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionUpdateResult>(response.OrderVersionUpdateResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionUpdateAsync failed with ReturnCode: {@code} and Errors: {@msg}", result.ReturnCode, result.ReturnErrors);
+            throw new InvalidOperationException($"OrderVersionUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
 
     /// <summary>
-    /// Deletes a specific order version permanently using a SOAP request.
+    /// Deletes a specific version of an order permanently using the provided SOAP request.
     /// </summary>
-    /// <remarks>This method performs a permanent deletion of the specified order version. Once deleted, the
-    /// version cannot be recovered. Ensure that the <paramref name="request"/> contains valid input parameters,
-    /// including a non-null and valid version ID.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
-    /// <param name="request">The request body containing the input parameters, including the version ID to be deleted.</param>
-    /// <returns>A <see cref="OrderVersionDeleteResponse"/> object containing the result of the delete operation.</returns>
-    public async Task<OrderVersionDeleteResponse> OrderVersionDeleteAsync(ValidationSoapHeader auth, OrderVersionDeleteRequestBody request)
+    /// <remarks>This method sends a SOAP request to delete a specific order version identified by the version
+    /// ID. The operation is permanent and cannot be undone. Ensure that the version ID is correct before calling this
+    /// method.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the input parameters, including the version ID of the order to be deleted.</param>
+    /// <returns>An <see cref="OrderVersionDeleteResult"/> object containing the result of the delete operation,  including the
+    /// return code and any associated error messages.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the operation fails, indicated by a non-zero return code in the response.</exception>
+    public async Task<OrderVersionDeleteResult> OrderVersionDeleteAsync(ValidationSoapHeader auth, OrderVersionDeleteRequestBody request)
     {
         Log.Warning("PERMANENT ACTION: VersionID {@vid} will not be recoverable", request.InputParameter.VersionID);
 
@@ -212,7 +223,15 @@ public class OrderVersionService
 
         Log.Debug("OrderVersionDeleteAsync Response: {@res}", response.OrderVersionDeleteResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionDeleteResult>(response.OrderVersionDeleteResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionDeleteAsync failed with ReturnCode: {@code} and Errors: {@msg}", result.ReturnCode, result.ReturnErrors);
+            throw new InvalidOperationException($"OrderVersionDeleteAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
     /// <summary>
@@ -261,6 +280,53 @@ public class OrderVersionService
         {
             Log.Error("OrderVersionNewAsync failed with ReturnCode: {@code} and Errors: {@msg}", result.ReturnCode, result.ReturnErrors);
             throw new InvalidOperationException($"OrderVersionNewAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Completes the specified order version by sending a SOAP request to the external service.
+    /// </summary>
+    /// <remarks>This method sends a SOAP request to complete an order version identified by the
+    /// <c>VersionID</c> in the request. If the operation fails, an <see cref="InvalidOperationException"/> is thrown
+    /// with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the input parameters for completing the order version.</param>
+    /// <returns>A <see cref="OrderVersionCompleteResult"/> object containing the result of the operation, including the return
+    /// code and any errors.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the operation fails, indicated by a non-zero return code in the response.</exception>
+    public async Task<OrderVersionCompleteResult> OrderVersionCompleteAsync(ValidationSoapHeader auth, OrderVersionCompleteRequestBody request)
+    {
+
+        OrderVersionCompleteResponse response;
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        Log.Information("Sending OrderVersionCompleteAsync SOAP request for VersionID: {@vid}", request.InputParameter.VersionID);
+
+        try
+        {
+            response = await _soap.OrderVersionCompleteAsync(new OrderVersionCompleteRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error("OrderVersionCompleteAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("OrderVersionCompleteAsync Response: {@res}", response.OrderVersionCompleteResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionCompleteResult>(response.OrderVersionCompleteResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionCompleteAsync failed with ReturnCode: {@code} and Errors: {@msg}", result.ReturnCode, result.ReturnErrors);
+            throw new InvalidOperationException($"OrderVersionCompleteAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

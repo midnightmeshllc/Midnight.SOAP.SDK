@@ -12,7 +12,7 @@
 - **Order & Inventory Management**: Retrieve, update, and insert order and inventory data.
 - **Strongly-Typed Requests**: Uses strongly-typed request objects to ensure type safety and reduce runtime errors caused by string concatenated XML inputs.
 - **Strongly-Typed Responses**: Converts Midnight API XML response strings into strongly-typed C# models.
-- **UserDefinedFields**: Full support for UDF fields, all values will be in string format. Convert to appropriate type within your program.
+- **User-Defined Fields Support**: The SDK provides a flexible UserDefinedFields class, where each UDF property (UDF1–UDF30) is implemented using the UDFValue class. This allows each field to accept and serialize values as string, decimal, integer, date, or time, ensuring correct XML formatting for both requests and responses. The UDFValue class handles type conversion and serializes the value as the text content of the corresponding <UDFx> XML tag.
 - **Logging**: Integrated Serilog logging for diagnostics and debugging.
 
 ---
@@ -59,8 +59,8 @@ using Midnight.SOAP.SDK;
 using Midnight.SOAP.SDK.RequestObjects.OrderInputs;
 
 var orderService = new OrderService();
-var request = new OrderListRequestBody { /* set properties */ };
-var orderList = await orderService.OrderListAsync(validationHeader, request);
+var orderListInput = new OrderListRequestBody { /* set properties */ };
+var orderListResult = await orderService.OrderListAsync(validationHeader, orderListInput);
 ```
 
 ### 3. Update Order Version Inventory
@@ -68,61 +68,11 @@ var orderList = await orderService.OrderListAsync(validationHeader, request);
 using Midnight.SOAP.SDK;
 using Midnight.SOAP.SDK.RequestObjects.OrderVersionInventoryInputs;
 
-var updateRequest = new OrderVersionInventoryUpdateRequestBody { /* set properties */ };
-var updateResponse = await inventoryService.OrderVersionInventoryUpdateAsync(validationHeader, updateRequest);
+var versionInventoryUpdateInput = new OrderVersionInventoryUpdateRequestBody { /* set properties */ };
+var versionInventoryUpdateResult = await inventoryService.OrderVersionInventoryUpdateAsync(validationHeader, versionInventoryUpdateInput);
 ```
 ---
 
-## API Documentation
-
-### AuthenticationService
-
-- **AuthenticateAsync(string devToken)**
-  - *IMPORTANT: Never expose your developer token in client-side code or public repositories.*
-  - Authenticates the client using the provided developer token and returns a `ValidationSoapHeader` for use in subsequent API calls.
-
-<!-- ### OrderVersionInventoryService
-
-- **OrderVersionInventoryListAsync(ValidationSoapHeader auth, OrderVersionInventoryListRequestBody request)**
-  - Retrieves a list of inventory items for a specific order version.
-
-- **OrderVersionInventoryUpdateAsync(ValidationSoapHeader auth, OrderVersionInventoryUpdateRequestBody request)**
-  - Updates inventory for a specific order version.
-
-- **OrderVersionInventoryInsertAsync(ValidationSoapHeader auth, OrderVersionInventoryInsertRequestBody request)**
-  - Inserts new inventory records for an order version. -->
-
-<!-- ### XmlParser
-
-- **GetCustomerData(string xmlinput)**
-  - Parses customer XML and returns a list of `CustomerModel`.
-
-- **GetCustomerContactData(string xmlinput)**
-  - Parses customer contact XML and returns a list of `CustomerContact`.
-
-- **GetOrderData(string xmlinput)**
-  - Parses order XML and returns a list of `OrderModel`.
-
-- **GetOrderVersionData(string xmlinput)**
-  - Parses order version XML and returns a list of `Versions`.
-
-- **GetOrderVersionDropData(string xmlinput)**
-  - Parses order version drop XML and returns a list of `Drops`.
-
-- **GetOrderVersionDetailData(string xmlinput)**
-  - Parses order version detail XML and returns a list of `Details`.
-
-- **GetOrderVersionInventoryData(string xmlinput)**
-  - Parses order version inventory XML and returns a list of `Inventorys`.
-
-- **GetInventoryData(string xmlinput)**
-  - Parses inventory XML and returns a list of `Items`.
-
-- **GetInventoryLotData(string xmlinput)**
-  - Parses inventory lot XML and returns a list of `Lots`.
-
-- **GetInventoryLocationData(string xmlinput)**
-  - Parses inventory location XML and returns a list of `Locations`. -->
 
 ---
 

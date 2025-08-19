@@ -10,5 +10,5 @@ public class OrderVersionDeleteRequestBody
 
 public class OrderVersionDeleteInputParameter
 {
-    public int VersionID { get; set; }
+    public required int VersionID { get; set; }
 }

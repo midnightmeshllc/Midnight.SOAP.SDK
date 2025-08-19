@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.InventoryInputs;
 
@@ -8,7 +9,7 @@ public class InventoryUpdateRequestBody
     public required InventoryUpdateInputParameter InputParameter { get; set; }
 }
 
-public class InventoryUpdateInputParameter
+public class InventoryUpdateInputParameter : UserDefinedFields
 {
     public int ItemID { get; set; }
     public int CustomerID { get; set; }

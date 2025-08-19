@@ -4,7 +4,31 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageIcon>midnightmesh-logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/kpiercy/Midnight.SOAP.SDK</RepositoryUrl>
+    <PackageTags>printreach;midnight;soap;sdk;</PackageTags>
+    <Title>Midnight SOAP API SDK</Title>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <Authors>midnightmeshllc</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>Copyright (c) MidnightMeshLLC 2025</Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\Public\midnightmesh-logo.png" Link="midnightmesh-logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -14,6 +38,6 @@
     <PackageReference Include="System.ServiceModel.Primitives" Version="8.*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ResponseObjects\InventoryTransactionOutputs\" />
+    <Folder Include="Public\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 ﻿using Midnight.SOAP.SDK.RequestObjects.JobCostInputs;
-using Midnight.SOAP.SDK.RequestObjects.ProofingInputs;
 using Midnight.SOAP.SDK.ResponseObjects.JobCostOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -7,6 +6,18 @@ using Serilog;
 
 namespace Midnight.SOAP.SDK;
 
+/// <summary>
+/// Provides methods for interacting with the Job Costing SOAP service, including operations for job costing, production
+/// time entries, service time entries, and other job cost-related functionalities.
+/// </summary>
+/// <remarks>This service acts as a client for the Job Costing SOAP API, enabling the execution of various job
+/// costing operations. Each method in this class sends a SOAP request, processes the response, and returns the result
+/// in a strongly-typed object. Exceptions are thrown for errors such as invalid input, SOAP request failures, or
+/// non-zero return codes from the service. <para> The methods in this class are asynchronous and should be awaited to
+/// ensure proper execution. Callers must provide valid authentication credentials via the <see
+/// cref="ValidationSoapHeader"/> parameter for all operations. </para> <para> Logging is performed for debugging
+/// purposes, including request and response data. Ensure that sensitive information is handled appropriately in the
+/// logs. </para></remarks>
 public class JobCostingService
 {
     private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
@@ -316,6 +327,59 @@ public class JobCostingService
         {
             Log.Error("JobCostOrderVersionServiceSummaryListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
             throw new Exception($"JobCostOrderVersionServiceSummaryListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+
+    /// <summary>
+    /// Sends a SOAP request to update other job costs for a specific order version and returns the result of the
+    /// operation.
+    /// </summary>
+    /// <remarks>This method logs the request and response data for debugging purposes. Ensure that sensitive
+    /// information is handled appropriately in the logs. The method will throw an exception if the operation fails, so
+    /// callers should handle exceptions as needed.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the details of the order version and job cost updates to be processed. This
+    /// parameter cannot be <see langword="null"/>.</param>
+    /// <returns>An <see cref="OrderVersionOtherJobCostUpdateResult"/> object containing the result of the update operation,
+    /// including the return code and any associated errors.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation completes with a non-zero return code. The exception
+    /// message will include the return code and any associated error messages.</exception>
+    public async Task<OrderVersionOtherJobCostUpdateResult> OrderVersionOtherJobCostUpdateAsync(ValidationSoapHeader auth, OrderVersionOtherJobCostUpdateRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        Log.Information($"Converting {typeof(OrderVersionOtherJobCostUpdateRequestBody)} to Xml");
+        Log.Debug($"{typeof(OrderVersionOtherJobCostUpdateRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        OrderVersionOtherJobCostUpdateResponse response;
+
+        Log.Information($"Sending OrderVersionOtherJobCostUpdateAsync SOAP request");
+
+        try
+        {
+            response = await _soap.OrderVersionOtherJobCostUpdateAsync(new OrderVersionOtherJobCostUpdateRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending OrderVersionOtherJobCostUpdateAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(OrderVersionOtherJobCostUpdateResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionOtherJobCostUpdateResult>(response.OrderVersionOtherJobCostUpdateResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionOtherJobCostUpdateAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionOtherJobCostUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

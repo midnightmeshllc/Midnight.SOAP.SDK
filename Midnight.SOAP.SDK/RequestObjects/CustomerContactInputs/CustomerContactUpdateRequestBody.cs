@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Midnight.SOAP.SDK.CommonObjects;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.CustomerContactInputs;
@@ -6,22 +6,22 @@ namespace Midnight.SOAP.SDK.RequestObjects.CustomerContactInputs;
 [XmlRoot("CustomerContactUpdate")]
 public class CustomerContactUpdateRequestBody
 {
-    [Required]
     public required CustomerContactUpdateInputParameter InputParameter { get; set; }
 }
 
 public class CustomerContactUpdateInputParameter
 {
+    [XmlArray("CustomerContacts")]
     [XmlArrayItem("CustomerContact")]
-    public required List<CustomerContactUpdates> CustomerContacts { get; set; }
+    public required List<CustomerContactUpdate> CustomerContacts { get; set; }
 }
 
 /// <summary>
 /// Set any values you do not wish to update to null.
 /// </summary>
-public class CustomerContactUpdates
+public class CustomerContactUpdate : UserDefinedFields
 {
-    public int ContactID { get; set; }
+    public required int ContactID { get; set; }
     public string? Salutation { get; set; } = null;
     public string? FirstName { get; set; } = null;
     public string? MiddleName { get; set; } = null;
@@ -38,11 +38,11 @@ public class CustomerContactUpdates
     public string? CountryCode { get; set; } = null;
     public string? ZipCode { get; set; } = null;
     public string? StateCode { get; set; } = null;
-    public string? BusinessPhone { get; set; } = null;
+    public int? BusinessPhone { get; set; } = null;
     public string? BusinessPhoneExtension { get; set; } = null;
-    public string? OtherPhone { get; set; } = null;
+    public int? OtherPhone { get; set; } = null;
     public string? OtherPhoneExtension { get; set; } = null;
-    public string? Fax { get; set; } = null;
+    public int? Fax { get; set; } = null;
     public string? FaxExtension { get; set; } = null;
     public string? BusinessEmail { get; set; } = null;
     public string? OtherEmail { get; set; } = null;

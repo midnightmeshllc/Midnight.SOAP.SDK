@@ -6,6 +6,13 @@ using Serilog;
 
 namespace Midnight.SOAP.SDK;
 
+/// <summary>
+/// Provides methods for creating, retrieving, and updating purchase orders via SOAP requests.
+/// </summary>
+/// <remarks>This service acts as a client for interacting with a SOAP-based API to manage purchase orders.  It
+/// includes methods for creating new purchase orders, retrieving a list of purchase orders,  and updating existing
+/// purchase orders. Each method handles serialization of request objects  to XML, sends the SOAP request, and
+/// deserializes the response into strongly-typed result objects.</remarks>
 public class PurchaseOrderService
 {
     private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
@@ -121,6 +128,58 @@ public class PurchaseOrderService
         {
             Log.Error("PurchaseOrderListAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
             throw new Exception($"PurchaseOrderListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Updates a purchase order asynchronously using the provided request data and authentication header.
+    /// </summary>
+    /// <remarks>This method sends a SOAP request to update a purchase order and processes the response.  If
+    /// the operation fails, an exception is thrown with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the details of the purchase order to be updated.  This parameter cannot be <see
+    /// langword="null"/>.</param>
+    /// <returns>A <see cref="PurchaseOrderUpdateResult"/> object containing the result of the update operation,  including the
+    /// return code and any associated errors.</returns>
+    /// <exception cref="Exception">Thrown if the update operation fails, including cases where the return code indicates an error.</exception>
+    public async Task<PurchaseOrderUpdateResult> PurchaseOrderUpdateAsync(ValidationSoapHeader auth, PurchaseOrderUpdateRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(PurchaseOrderUpdateRequestBody)} to Xml");
+        Log.Debug($"{typeof(PurchaseOrderUpdateRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        PurchaseOrderUpdateResponse response;
+
+        Log.Information($"Sending PurchaseOrderUpdateAsync SOAP request");
+
+        try
+        {
+            response = await _soap.PurchaseOrderUpdateAsync(new PurchaseOrderUpdateRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending PurchaseOrderUpdateAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(PurchaseOrderUpdateResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<PurchaseOrderUpdateResult>(response.PurchaseOrderUpdateResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("PurchaseOrderUpdateAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"PurchaseOrderUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

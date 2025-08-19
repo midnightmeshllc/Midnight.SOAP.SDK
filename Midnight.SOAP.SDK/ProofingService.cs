@@ -6,6 +6,16 @@ using Serilog;
 
 namespace Midnight.SOAP.SDK;
 
+/// <summary>
+/// Provides methods for interacting with a SOAP-based proofing service.
+/// </summary>
+/// <remarks>The <see cref="ProofingService"/> class encapsulates functionality for sending SOAP requests to
+/// manage proofs,  including creating, updating, deleting, and querying proof-related data. Each method in this class
+/// handles  serialization of request objects to XML, communication with the SOAP service, and deserialization of
+/// responses  into strongly-typed result objects. Exceptions are thrown for errors, including non-zero return codes
+/// from the  SOAP service. <para> This class is designed to simplify interaction with the SOAP service by abstracting
+/// the details of XML  serialization and deserialization, as well as error handling. Callers should ensure that all
+/// required  authentication headers and request parameters are provided when invoking methods. </para></remarks>
 public class ProofingService
 {
     private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
@@ -360,15 +370,15 @@ public class ProofingService
     /// messages.</remarks>
     /// <param name="auth">The authentication header containing credentials for the SOAP request.</param>
     /// <param name="request">The request body containing the details of the approver to be added. Cannot be <see langword="null"/>.</param>
-    /// <returns>A <see cref="ProofAddApproverResult"/> object containing the result of the operation, including the return code
+    /// <returns>A <see cref="ProofApproverUpdateResult"/> object containing the result of the operation, including the return code
     /// and any errors.</returns>
     /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code, indicating an error.</exception>
-    public async Task<ProofAddApproverResult> RequestApproverInsertAsync(ValidationSoapHeader auth, ProofAddApproverRequestBody request)
+    public async Task<ProofApproverUpdateResult> RequestApproverInsertAsync(ValidationSoapHeader auth, ProofApproverUpdateRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        Log.Information($"Converting {typeof(ProofAddApproverRequestBody)} to Xml");
-        Log.Debug($"{typeof(ProofAddApproverRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+        Log.Information($"Converting {typeof(ProofApproverUpdateRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofApproverUpdateRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
 
         var inputXml = FileOutput.CreateXmlFromClass(request);
 
@@ -391,9 +401,9 @@ public class ProofingService
             throw;
         }
 
-        Log.Debug($"{typeof(ProofAddApproverResult)}: {FileOutput.CreateXmlFromClass(response)}");
+        Log.Debug($"{typeof(ProofApproverUpdateResult)}: {FileOutput.CreateXmlFromClass(response)}");
 
-        var result = XmlParsing.DeserializeXmlToObject<ProofAddApproverResult>(response.RequestApproverInsertResult);
+        var result = XmlParsing.DeserializeXmlToObject<ProofApproverUpdateResult>(response.RequestApproverInsertResult);
 
         if (result.ReturnCode != 0)
         {
@@ -404,4 +414,213 @@ public class ProofingService
         return result;
     }
 
+
+    /// <summary>
+    /// Sends a SOAP request to update proof data and retrieves the result.
+    /// </summary>
+    /// <remarks>This method logs the request and response data for debugging purposes. Ensure that sensitive
+    /// information is handled appropriately in the logs. If the response contains errors, an exception is
+    /// thrown.</remarks>
+    /// <param name="auth">The authentication header containing credentials for the SOAP request.</param>
+    /// <param name="request">The request body containing the proof update data. Cannot be <see langword="null"/>.</param>
+    /// <returns>A <see cref="ProofUpdateResult"/> object containing the results of the proof update operation.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the response contains errors.</exception>
+    public async Task<ProofUpdateResult> RequestUpdateAsync(ValidationSoapHeader auth, ProofUpdateRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ProofUpdateRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofUpdateRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        RequestUpdateResponse response;
+
+        Log.Information($"Sending RequestUpdateAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RequestUpdateAsync(new RequestUpdateRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending RequestUpdateAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(ProofUpdateResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<ProofUpdateResult>(response.RequestUpdateResult);
+
+        if (result.Results.Select(r => r.ReturnErrors).Any())
+        {
+            Log.Error("RequestUpdateAsync failed");
+            throw new Exception($"RequestUpdateAsync failed");
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Sends a SOAP request to update the proof approver and returns the result of the operation.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes.  Ensure that
+    /// sensitive information is handled appropriately in the logs.</remarks>
+    /// <param name="auth">The authentication header containing credentials for the SOAP request. Cannot be null.</param>
+    /// <param name="request">The request body containing the details of the proof approver update. Cannot be null.</param>
+    /// <returns>A <see cref="ProofApproverUpdateResult"/> object containing the result of the update operation,  including the
+    /// return code and any associated errors.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code,  indicating an error. The
+    /// exception message will include the return code and error details.</exception>
+    public async Task<ProofApproverUpdateResult> RequestApproverUpdateAsync(ValidationSoapHeader auth, ProofApproverUpdateRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ProofApproverUpdateRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofApproverUpdateRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        RequestApproverUpdateResponse response;
+
+        Log.Information($"Sending RequestApproverUpdateAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RequestApproverUpdateAsync(new RequestApproverUpdateRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending RequestApproverUpdateAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(ProofApproverUpdateResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<ProofApproverUpdateResult>(response.RequestApproverUpdateResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("RequestApproverUpdateAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"RequestApproverUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+
+    /// <summary>
+    /// Sends a SOAP request to delete a proof and returns the result of the operation.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes. Ensure that
+    /// sensitive information is handled appropriately in the logs. The method will throw an exception if the operation
+    /// fails, so callers should handle exceptions as needed.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the details of the proof to be deleted. Cannot be <see langword="null"/>.</param>
+    /// <returns>A <see cref="ProofDeleteResult"/> object containing the result of the delete operation, including any return
+    /// codes or errors.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code, indicating an error. The
+    /// exception message will include the return code and error details.</exception>
+    public async Task<ProofDeleteResult> RequestDeleteAsync(ValidationSoapHeader auth, ProofDeleteRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ProofDeleteRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofDeleteRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        RequestDeleteResponse response;
+
+        Log.Information($"Sending RequestDeleteAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RequestDeleteAsync(new RequestDeleteRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending RequestDeleteAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(ProofDeleteResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<ProofDeleteResult>(response.RequestDeleteResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("RequestDeleteAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"RequestDeleteAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+
+    /// <summary>
+    /// Sends a SOAP request to delete a proof approver and returns the result of the operation.
+    /// </summary>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, an exception is thrown with details about the error.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the details of the proof approver to be deleted. Cannot be <see langword="null"/>.</param>
+    /// <returns>A <see cref="ProofApproverDeleteResult"/> object containing the result of the delete operation, including the
+    /// return code and any error messages.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code, indicating an error.</exception>
+    public async Task<ProofApproverDeleteResult> RequestApproverDeleteAsync(ValidationSoapHeader auth, ProofApproverDeleteRequestBody request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Log.Information($"Converting {typeof(ProofApproverDeleteRequestBody)} to Xml");
+        Log.Debug($"{typeof(ProofApproverDeleteRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        RequestApproverDeleteResponse response;
+
+        Log.Information($"Sending RequestApproverDeleteAsync SOAP request");
+
+        try
+        {
+            response = await _soap.RequestApproverDeleteAsync(new RequestApproverDeleteRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error occurred while sending RequestApproverDeleteAsync SOAP request");
+            throw;
+        }
+
+        Log.Debug($"{typeof(ProofApproverDeleteResult)}: {FileOutput.CreateXmlFromClass(response)}");
+
+        var result = XmlParsing.DeserializeXmlToObject<ProofApproverDeleteResult>(response.RequestApproverDeleteResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("RequestApproverDeleteAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"RequestApproverDeleteAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
 }

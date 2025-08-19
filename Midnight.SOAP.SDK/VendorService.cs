@@ -6,6 +6,14 @@ using Serilog;
 
 namespace Midnight.SOAP.SDK;
 
+/// <summary>
+/// Provides methods for interacting with a SOAP-based vendor service, including operations for inserting, updating, and
+/// retrieving vendor information.
+/// </summary>
+/// <remarks>This class acts as a client for a SOAP service, enabling operations such as vendor insertion, vendor
+/// updates, and vendor list retrieval. Each method sends a SOAP request and processes the response, logging relevant
+/// details for debugging purposes. Exceptions are thrown for failed operations, including cases where the service
+/// returns an error code.</remarks>
 public class VendorService
 {
     private readonly Service1SoapClient.EndpointConfiguration _soapConfig;

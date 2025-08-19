@@ -1,7 +1,5 @@
-﻿using Midnight.SOAP.SDK.Models;
-using Midnight.SOAP.SDK.RequestObjects.OrderVersionInventoryInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.OrderVersionInventoryInputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderVersionInventoryOutputs;
-using Midnight.SOAP.SDK.ResponseObjects.SettingOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
 using Serilog;
@@ -81,16 +79,18 @@ public class OrderVersionInventoryService
     }
 
     /// <summary>
-    /// Sends a SOAP request to update the inventory for a specific order version.
+    /// Sends a SOAP request to update the inventory for a specific order version and returns the result of the
+    /// operation.
     /// </summary>
-    /// <remarks>This method converts the provided request body into XML format and sends it as part of a SOAP
-    /// request. Ensure that the <paramref name="auth"/> parameter contains valid credentials and that the  <paramref
-    /// name="request"/> parameter includes all required input parameters.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, an exception is thrown with details about the failure, including the return code and error
+    /// messages.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
     /// <param name="request">The request body containing the input parameters for the inventory update operation.</param>
-    /// <returns>A <see cref="OrderVersionInventoryUpdateResponse"/> object containing the result of the inventory update
-    /// operation.</returns>
-    public async Task<OrderVersionInventoryUpdateResponse> OrderVersionInventoryUpdateAsync(ValidationSoapHeader auth, OrderVersionInventoryUpdateRequestBody request)
+    /// <returns>An <see cref="OrderVersionInventoryUpdateResult"/> object containing the result of the inventory update
+    /// operation, including the return code and any error messages if the operation fails.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code, indicating an error.</exception>
+    public async Task<OrderVersionInventoryUpdateResult> OrderVersionInventoryUpdateAsync(ValidationSoapHeader auth, OrderVersionInventoryUpdateRequestBody request)
     {
 
         OrderVersionInventoryUpdateResponse response;
@@ -118,7 +118,14 @@ public class OrderVersionInventoryService
 
         Log.Debug("OrderVersionInventoryUpdateAsync Response: {@res}", response.OrderVersionInventoryUpdateResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<OrderVersionInventoryUpdateResult>(response.OrderVersionInventoryUpdateResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderVersionInventoryUpdateAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderVersionInventoryUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
     public async Task<OrderVersionInventoryInsertResult> OrderVersionInventoryInsertAsync(ValidationSoapHeader auth, OrderVersionInventoryInsertRequestBody request)

@@ -1,7 +1,5 @@
-﻿using Midnight.SOAP.SDK.Models;
-using Midnight.SOAP.SDK.RequestObjects.InventoryInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.InventoryInputs;
 using Midnight.SOAP.SDK.RequestObjects.InventoryItemInputs;
-using Midnight.SOAP.SDK.RequestObjects.InventoryTransactionInputs;
 using Midnight.SOAP.SDK.ResponseObjects.InventoryOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -67,15 +65,19 @@ public class InventoryService
     }
 
     /// <summary>
-    /// Sends an asynchronous SOAP request to update inventory information based on the provided input parameters.
+    /// Sends an asynchronous SOAP request to update inventory information and returns the result of the operation.
     /// </summary>
-    /// <remarks>This method converts the provided <paramref name="request"/> object into XML format and sends
-    /// it as part of the SOAP request. Ensure that the <paramref name="auth"/> parameter contains valid credentials and
-    /// that the <paramref name="request"/> object is properly populated.</remarks>
-    /// <param name="auth">The authentication header containing credentials required to authorize the SOAP request.</param>
-    /// <param name="request">The request body containing inventory update parameters, including the item ID and other relevant details.</param>
-    /// <returns>An <see cref="InventoryUpdateResponse"/> object containing the result of the inventory update operation.</returns>
-    public async Task<InventoryUpdateResponse> InventoryUpdateAsync(ValidationSoapHeader auth, InventoryUpdateRequestBody request)
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails,  an exception is thrown with the relevant error information. Ensure that the <paramref name="auth"/> 
+    /// parameter contains valid credentials and that the <paramref name="request"/> parameter is properly
+    /// populated.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing inventory update details, including the item ID and other parameters.</param>
+    /// <returns>An <see cref="InventoryUpdateResult"/> object containing the result of the inventory update operation, 
+    /// including a return code and any error messages if applicable.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the response indicates an error, with details about the error code and
+    /// message.</exception>
+    public async Task<InventoryUpdateResult> InventoryUpdateAsync(ValidationSoapHeader auth, InventoryUpdateRequestBody request)
     {
 
         InventoryUpdateResponse response;
@@ -103,21 +105,28 @@ public class InventoryService
 
         Log.Debug("InventoryUpdateAsync Response: {@res}", response.InventoryUpdateResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<InventoryUpdateResult>(response.InventoryUpdateResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("InventoryUpdateAsync returned an error: {@error}", result.ReturnErrors);
+            throw new Exception($"InventoryUpdateAsync failed with error code {result.ReturnCode}: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
     /// <summary>
-    /// Sends a SOAP request to update inventory transaction details based on the provided input parameters.
+    /// Updates inventory transaction details asynchronously using the provided SOAP request.
     /// </summary>
-    /// <remarks>This method converts the provided <paramref name="request"/> object into XML format and sends
-    /// it as part of the SOAP request. Ensure that the <paramref name="auth"/> parameter contains valid credentials and
-    /// that the <paramref name="request"/> object is properly populated with all required fields.</remarks>
-    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
-    /// <param name="request">The request body containing inventory transaction details, including item information, lot ID, order ID, and
-    /// quantity.</param>
-    /// <returns>An <see cref="InventoryTransactionUpdateResponse"/> object containing the result of the inventory transaction
-    /// update. The response includes details about the success or failure of the operation.</returns>
-    public async Task<InventoryTransactionUpdateResponse> InventoryTransactionUpdateAsync(ValidationSoapHeader auth, InventoryTransactionUpdateRequestBody request)
+    /// <remarks>This method sends a SOAP request to update inventory transaction details and processes the
+    /// response.  If the operation fails, an exception is thrown with details about the error.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing inventory transaction details, including item, lot, order, and quantity information.</param>
+    /// <returns>An <see cref="InventoryTransactionUpdateResult"/> object containing the result of the inventory transaction
+    /// update,  including a return code and any associated errors.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating an error in the transaction update.</exception>
+    public async Task<InventoryTransactionUpdateResult> InventoryTransactionUpdateAsync(ValidationSoapHeader auth, InventoryTransactionUpdateRequestBody request)
     {
 
         InventoryTransactionUpdateResponse response;
@@ -149,9 +158,26 @@ public class InventoryService
 
         Log.Debug("InventoryTransactionUpdateAsync Response: {@res}", response.InventoryTransactionUpdateResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<InventoryTransactionUpdateResult>(response.InventoryTransactionUpdateResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("InventoryTransactionUpdateAsync returned an error: {@error}", result.ReturnErrors);
+            throw new Exception($"InventoryTransactionUpdateAsync failed with error code {result.ReturnCode}: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
+    /// <summary>
+    /// Sends a SOAP request to create a new inventory entry and retrieves the result.
+    /// </summary>
+    /// <remarks>This method communicates with an external SOAP service to create a new inventory entry.  If
+    /// the operation fails, an exception is thrown with details about the error.</remarks>
+    /// <param name="auth">The authentication header containing credentials for the SOAP request. Cannot be null.</param>
+    /// <param name="request">The request body containing the inventory details to be processed. Cannot be null.</param>
+    /// <returns>An <see cref="InventoryNewResult"/> object containing the result of the inventory creation operation.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns an error, including a non-zero return code or other processing issues.</exception>
     public async Task<InventoryNewResult> InventoryNewAsync(ValidationSoapHeader auth, InventoryNewRequestBody request)
     {
         InventoryNewResponse response;
@@ -191,6 +217,17 @@ public class InventoryService
         return result;
     }
 
+    /// <summary>
+    /// Sends a SOAP request to create a new item request and retrieves the result.
+    /// </summary>
+    /// <remarks>This method sends a SOAP request to the external service to create a new item request.  It
+    /// logs the request and response details for debugging purposes. If the operation fails,  an exception is thrown
+    /// with details about the error.</remarks>
+    /// <param name="auth">The authentication header containing credentials for the SOAP request. Cannot be null.</param>
+    /// <param name="request">The request body containing the details of the item request. Cannot be null.</param>
+    /// <returns>An <see cref="ItemRequestNewResult"/> object containing the result of the item request operation.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating an error. The exception message includes
+    /// the error code and error details.</exception>
     public async Task<ItemRequestNewResult> ItemRequestNewAsync(ValidationSoapHeader auth, ItemRequestNewRequestBody request)
     {
         ItemRequestNewResponse response;

@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.OrderVersionDropInputs;
 
@@ -10,12 +11,17 @@ public class OrderVersionDropUpdateRequestBody
 
 public class OrderVersionDropUpdateInputParameter
 {
-    public int OrderVersionDropID { get; set; }
-    public string DropDate { get; set; } = string.Empty;
-    public int Quantity { get; set; }
-    public string DropName { get; set; } = string.Empty;
-    public string TimeDue { get; set; } = string.Empty;
-    public string ActualDrop { get; set; } = string.Empty;
-    public bool DropDateComplete { get; set; }
-    public decimal PostageValue { get; set; }
+    public required int OrderVersionDropID { get; set; }
+    public string? DropDate { get; set; } = null;
+    public int? Quantity { get; set; } = null;
+    public string? DropName { get; set; } = null;
+    public string? TimeDue { get; set; } = null;
+    public string? ActualDrop { get; set; } = null;
+    public bool? DropDateComplete { get; set; } = null;
+    public decimal? PostageValue { get; set; } = null;
+    public DropUpdateUDFList UDFList { get; set; } = new DropUpdateUDFList();
+}
+
+public class DropUpdateUDFList : UserDefinedFieldsFirst5
+{
 }

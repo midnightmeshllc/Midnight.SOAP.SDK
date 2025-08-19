@@ -1,5 +1,4 @@
-﻿using Midnight.SOAP.SDK.Models;
-using Midnight.SOAP.SDK.RequestObjects.InventoryItemInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.InventoryItemInputs;
 using Midnight.SOAP.SDK.ResponseObjects.InventoryItemOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -7,6 +6,14 @@ using Serilog;
 
 namespace Midnight.SOAP.SDK;
 
+/// <summary>
+/// Provides methods for interacting with inventory item data through SOAP-based services.
+/// </summary>
+/// <remarks>The <see cref="InventoryItemService"/> class serves as a client for performing various operations
+/// related to inventory items,  such as retrieving item locations, lots, transaction types, and types, as well as
+/// creating and updating inventory item lots.  Each method sends a SOAP request to the corresponding service endpoint
+/// and processes the response.  Exceptions are thrown for failed operations, and detailed error information is logged
+/// for debugging purposes.</remarks>
 public class InventoryItemService
 {
     private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
@@ -312,6 +319,59 @@ public class InventoryItemService
         {
             Log.Error("ItemRequestTypeListAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
             throw new Exception($"ItemRequestTypeListAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
+    }
+
+
+    /// <summary>
+    /// Updates inventory item lot information asynchronously using the provided SOAP request.
+    /// </summary>
+    /// <remarks>This method sends a SOAP request to update inventory item lot information. The request is
+    /// serialized  to XML before being sent, and the response is deserialized into an <see
+    /// cref="InventoryItemLotUpdateResult"/> object. If the operation fails, an exception is thrown with details about
+    /// the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the inventory item lot update details.</param>
+    /// <returns>An <see cref="InventoryItemLotUpdateResult"/> object containing the result of the update operation,  including
+    /// the return code and any associated errors.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the returned result indicates a failure, as determined by a non-zero 
+    /// return code in the <see cref="InventoryItemLotUpdateResult"/>.</exception>
+    public async Task<InventoryItemLotUpdateResult> InventoryItemLotUpdateAsync(ValidationSoapHeader auth, InventoryItemLotUpdateRequestBody request)
+    {
+
+        InventoryItemLotUpdateResponse response;
+
+        Log.Information("Converting {@type} to Xml", typeof(InventoryItemLotUpdateRequestBody));
+        Log.Debug("{@type}: {@req}", typeof(InventoryItemLotUpdateRequestBody), FileOutput.CreateXmlFromClass(request));
+
+        var inputXml = FileOutput.CreateXmlFromClass(request);
+
+        Log.Information("Sending InventoryItemLotUpdateAsync SOAP request");
+
+        try
+        {
+            response = await _soap.InventoryItemLotUpdateAsync(new InventoryItemLotUpdateRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error("InventoryItemLotLiistAsync Exception: {@ex}", ex.Message);
+            throw;
+        }
+
+        Log.Debug("InventoryItemLotUpdateAsync Response: {@res}", response.InventoryItemLotUpdateResult);
+
+        var result = XmlParsing.DeserializeXmlToObject<InventoryItemLotUpdateResult>(response.InventoryItemLotUpdateResult);
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("InventoryItemLotUpdateAsync failed with ReturnCode: {@code}, Errors: {@message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"InventoryItemLotUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
         }
 
         return result;

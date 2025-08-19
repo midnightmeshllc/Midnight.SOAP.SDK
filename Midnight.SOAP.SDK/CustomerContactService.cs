@@ -1,5 +1,4 @@
-﻿using Midnight.SOAP.SDK.Models;
-using Midnight.SOAP.SDK.RequestObjects.CustomerContactInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.CustomerContactInputs;
 using Midnight.SOAP.SDK.ResponseObjects.CustomerContactOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -127,18 +126,20 @@ public class CustomerContactService
         return result;
     }
 
+    
     /// <summary>
-    /// Sends a SOAP request to update customer contact information asynchronously.
+    /// Updates customer contact information asynchronously using a SOAP request.
     /// </summary>
-    /// <remarks>This method converts the provided <paramref name="request"/> object into XML format and sends
-    /// it as part of a SOAP request. Ensure that the <paramref name="auth"/> parameter contains valid credentials, as
-    /// the operation requires authentication.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
-    /// <param name="request">The request body containing the customer contact update details. Cannot be <see langword="null"/>.</param>
-    /// <returns>A <see cref="CustomerContactUpdateResponse"/> object containing the result of the customer contact update
-    /// operation.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
-    public async Task<CustomerContactUpdateResponse> CustomerContactUpdateAsync(ValidationSoapHeader auth, CustomerContactUpdateRequestBody request)
+    /// <remarks>This method logs the request and response details for debugging purposes.  Ensure that
+    /// sensitive information is handled appropriately in the logs.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the customer contact information to be updated.  This parameter cannot be <see
+    /// langword="null"/>.</param>
+    /// <returns>A <see cref="CustomerContactUpdateResult"/> object containing the result of the update operation,  including the
+    /// return code and any error messages if the operation fails.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating a failure in the update operation. The
+    /// exception message will include the return code and error details.</exception>
+    public async Task<CustomerContactUpdateResult> CustomerContactUpdateAsync(ValidationSoapHeader auth, CustomerContactUpdateRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -167,7 +168,15 @@ public class CustomerContactService
 
         Log.Debug("CustomerContactUpdateAsync Response: {@res}", response.CustomerContactUpdateResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<CustomerContactUpdateResult>(response.CustomerContactUpdateResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("CustomerContactUpdateAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"CustomerContactUpdateAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
 }

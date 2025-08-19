@@ -17,15 +17,13 @@ public class PurchaseOrderNewInputParameter
 
 public class PurchaseOrderNew : PurchaseOrder_UserDefinedFields
 {
-    [Required]
-    public string PurchaseOrderType { get; set; } = "PO";
-    [Required]
-    public int VendorID { get; set; }
+    public required string PurchaseOrderType { get; set; } = "PO";
+    public required int VendorID { get; set; }
     public int? VendorContactID { get; set; }
     public string? VendorContactName { get; set; }
     public int? OrderedByEmployeeID { get; set; }
     public int? OrderID { get; set; }
-    public int? CustomerID { get; set; }
+    public int? CompanyID { get; set; }
     public string? InvoiceNumber { get; set; }
     public string? PurchaseOrderNumber { get; set; }
     public int? Phone { get; set; }
@@ -33,10 +31,10 @@ public class PurchaseOrderNew : PurchaseOrder_UserDefinedFields
     public string? EmailAddress { get; set; }
     public string? TermsCode { get; set; }
     public string? ProjectName { get; set; }
-    public DateOnly? EnterDate { get; set; }
-    public DateOnly? InvoiceDate { get; set; }
-    public DateOnly? ShipDate { get; set; }
-    public DateOnly? CloseDate { get; set; }
+    public string? EnterDate { get; set; }
+    public string? InvoiceDate { get; set; }
+    public string? ShipDate { get; set; }
+    public string? CloseDate { get; set; }
     public string? Comment { get; set; }
     public string? ShipToCompany { get; set; }
     public string? ShipToAttnLine { get; set; }
