@@ -47,11 +47,7 @@ jobs:
         run: dotnet pack Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj --configuration Release --no-build --output ./nupkg /p:Version=${{ steps.get_version.outputs.version }}
 
       - name: Publish to NuGet
-        uses: nuget/actions@v1.2.1
-        with:
-          api-key: ${{ secrets.NUGET_API_KEY }}
-          packages: ./nupkg/*.nupkg
-          source-url: https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
 
       - name: Unable to Create Release
         if: steps.get_version.outcome != 'success'
