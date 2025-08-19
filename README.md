@@ -73,6 +73,36 @@ var versionInventoryUpdateResult = await inventoryService.OrderVersionInventoryU
 ```
 ---
 
+## Commit Message and Branch Naming Conventions
+
+### Conventional Commit Messages
+All commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification, which is compatible with Versionize. Example formats:
+
+- `feat: add support for NuGet deploy and release`
+- `fix: correct null reference in authentication service`
+- `docs: update API usage section in README`
+- `refactor(service): simplify request logic`
+- `chore: update dependencies`
+- `test: add unit tests for AuthenticationService`
+
+### Branch Naming Conventions
+Branches must follow the enforced naming contract:
+
+- `feature-new-api-integration`
+- `bugfix-fix-authentication-error`
+- `hotfix-critical-production-issue`
+- `docs-update-readme`
+- `refactor-service-layer`
+- `chore-update-dependencies`
+- `test-add-auth-tests`
+- `experimental-new-architecture`
+- `build-update-ci-workflow`
+- `release-v1.2.3`
+- `merge-main-into-feature`
+
+> Branch names must match the pattern: `^(feature|bugfix|hotfix|docs|refactor|chore|test|experimental|build|release|merge)-[a-z0-9._-]+$`
+
+These conventions are enforced by git hooks and the CI/CD workflow to ensure consistency and compatibility with automated versioning and changelog generation.
 
 ---
 
