@@ -12,7 +12,7 @@
 - **Order & Inventory Management**: Retrieve, update, and insert order and inventory data.
 - **Strongly-Typed Requests**: Uses strongly-typed request objects to ensure type safety and reduce runtime errors caused by string concatenated XML inputs.
 - **Strongly-Typed Responses**: Converts Midnight API XML response strings into strongly-typed C# models.
-- **User-Defined Fields Support**: The SDK provides a flexible UserDefinedFields class, where each UDF property (UDF1–UDF30) is implemented using the UDFValue class. This allows each field to accept and serialize values as string, decimal, integer, date, or time, ensuring correct XML formatting for both requests and responses. The UDFValue class handles type conversion and serializes the value as the text content of the corresponding <UDFx> XML tag.
+- **User-Defined Fields Support**: The SDK provides a flexible UserDefinedFields class, where each UDF property (UDF1ï¿½UDF30) is implemented using the UDFValue class. This allows each field to accept and serialize values as string, decimal, integer, date, or time, ensuring correct XML formatting for both requests and responses. The UDFValue class handles type conversion and serializes the value as the text content of the corresponding <UDFx> XML tag.
 - **Logging**: Integrated Serilog logging for diagnostics and debugging.
 
 ---
@@ -25,19 +25,8 @@
 - Visual Studio 2022 or later (recommended)
 
 ### Installation
-
-1. **Clone the repository**
 ```
-git clone <your-repo-url>
-cd Midnight.SOAP.SDK
-```
-2. **Restore NuGet packages**
-```
-dotnet restore
-```
-3. **Build the solution**
-```
-dotnet build
+dotnet install Midnight.SOAP.SDK
 ```
 ---
 
