@@ -32,7 +32,11 @@ jobs:
       - name: Get Version from Versionize
         id: get_version
         run: |
-          echo "version=$(cat .versionize/version.txt)" >> $GITHUB_OUTPUT
+          if [ -f .versionize/version.txt ]; then
+            echo "version=$(cat .versionize/version.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "version=1.0.0" >> $GITHUB_OUTPUT
+          fi
 
       - name: Restore dependencies
         run: dotnet restore Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj
