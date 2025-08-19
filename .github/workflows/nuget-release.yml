@@ -6,34 +6,31 @@ on:
       - main
 
 jobs:
-  build-test-pack:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install Versionize
-        run: dotnet tool install --global Versionize
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v4.1.0
+        with:
+          versionSpec: '6.3.x'
 
-      - name: Setup git
+      - name: Run GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v4.1.0
+
+      - name: Update .csproj Version
         run: |
-          git config --local user.email "227396731+midnightmeshllc@users.noreply.github.com"
-          git config --local user.name "midnightmeshllc"
-
-      - name: Run Versionize (versioning & changelog)
-        run: versionize --exit-insignificant-commits --configDir ../versionize
-        continue-on-error: false
-
-      - name: Get Version from .csproj
-        id: get_version
-        run: |
-          version=$(grep '<Version>' Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj | sed -E 's/.*<Version>(.+)<\/Version>.*/\1/')
-          echo "version=$version" >> $GITHUB_OUTPUT
+          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.gitversion.outputs.semVer }}<\/Version>/" Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj
 
       - name: Restore dependencies
         run: dotnet restore Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj
@@ -41,53 +38,25 @@ jobs:
       - name: Build
         run: dotnet build Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj --configuration Release --no-restore
 
-      # - name: Test
-      #   run: dotnet test --no-build --verbosity normal
-
       - name: Pack NuGet package
-        run: dotnet pack Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj --configuration Release --no-build --output ./nupkg /p:Version=${{ steps.get_version.outputs.version }}
+        run: dotnet pack Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj --configuration Release --no-build --output ./nupkg /p:Version=${{ steps.gitversion.outputs.semVer }}
 
       - name: Publish to NuGet
         run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
 
-      - name: Unable to Create Release
-        if: steps.get_version.outcome != 'success'
-        run: echo "Unable to create release due to Versionize error."
-
-      - name: Push changes to GitHub
-        if: steps.get_version.outcome == 'success'
+      - name: Push changes and tags to GitHub
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ github.token }}
-          branch: ${{ github.ref }}
+          branch: main
           tags: true
 
       - name: Create GitHub Release
-        if: steps.get_version.outcome == 'success'
-        uses: actions/github-script@v5
+        uses: softprops/action-gh-release@v2
         with:
-          github-token: "${{ github.token }}"
-          script: |
-            try 
-            {
-              const version = "${{ steps.get_version.outputs.version }}";
-              const tags_url = context.payload.repository.tags_url + "?per_page=1"
-              const changelog = require('fs').readFileSync('./CHANGELOG.md', 'utf8');
-              const result = await github.request(tags_url)
-              const current_tag = result.data[0].name
-              await github.rest.repos.createRelease({
-                draft: false,
-                generate_release_notes: true,
-                name: `Release ${version}`,
-                owner: context.repo.owner,
-                body: changelog,
-                files: ./nupkg/*.nupkg,
-                prerelease: false,
-                repo: context.repo.repo,
-                tag_name: version,
-              });
-            } 
-            catch (error) 
-            {
-            core.setFailed(error.message);
-            }
+          tag_name: v${{ steps.gitversion.outputs.semVer }}
+          name: Release v${{ steps.gitversion.outputs.semVer }}
+          body_path: ./CHANGELOG.md
+          files: ./nupkg/*.nupkg
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
