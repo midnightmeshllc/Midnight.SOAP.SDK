@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.ResponseObjects.CustomerOutputs;
 
+[XmlRoot("Result")]
 public class CustomerMailerIDListResult : CommonResult
 {
     [XmlArray("MailerList")]
