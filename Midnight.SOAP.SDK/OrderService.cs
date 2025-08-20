@@ -80,16 +80,17 @@ public class OrderService
 
 
     /// <summary>
-    /// Sends a SOAP request to perform a quick add operation for an order.
+    /// Sends a SOAP request to perform a quick add operation for an order and returns the result.
     /// </summary>
     /// <remarks>This method converts the provided <paramref name="request"/> object into XML format and sends
-    /// it as part of the SOAP request. Ensure that the <paramref name="auth"/> parameter contains valid credentials, as
-    /// the operation requires authentication.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
-    /// <param name="request">The request body containing the order details to be added.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the response from the SOAP service,
-    /// including the result of the quick add operation.</returns>
-    public async Task<OrderQuickAddResponse> OrderQuickAddAsync(ValidationSoapHeader auth, OrderQuickAddRequestBody request)
+    /// it as part of a SOAP request. If the operation fails, an exception is thrown with details about the
+    /// failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the details of the order to be added.</param>
+    /// <returns>An <see cref="OrderQuickAddResult"/> object containing the result of the operation, including the return code
+    /// and any errors.</returns>
+    /// <exception cref="Exception">Thrown if the operation fails, including cases where the return code indicates an error.</exception>
+    public async Task<OrderQuickAddResult> OrderQuickAddAsync(ValidationSoapHeader auth, OrderQuickAddRequestBody request)
     {
 
         OrderQuickAddResponse response;
@@ -117,7 +118,15 @@ public class OrderService
 
         Log.Debug("OrderQuickAddAsync Response: {@res}", response.OrderQuickAddResult);
 
-        return response;
+        var result = XmlParsing.DeserializeXmlToObject<OrderQuickAddResult>(response.OrderQuickAddResult);
+
+        if (result.ReturnCode != 0)
+        {
+            Log.Error("OrderQuickAddAsync failed with ReturnCode: {@code}, Errors: {@errors}", result.ReturnCode, result.ReturnErrors);
+            throw new Exception($"OrderQuickAddAsync failed with ReturnCode: {result.ReturnCode}, Errors: {result.ReturnErrors}");
+        }
+
+        return result;
     }
 
 
