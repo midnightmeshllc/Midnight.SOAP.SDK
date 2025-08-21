@@ -6,15 +6,13 @@ namespace Midnight.SOAP.SDK.ResponseObjects.OrderOutputs;
 [XmlRoot("Result")]
 public class OrderNewResult : CommonResult
 {
-    [XmlArray("Orders")]
-    [XmlArrayItem("Order")]
-    public List<NewOrder>? Orders { get; set; }
+    public NewOrder? OrderHeader { get; set; }
 }
 
 public class NewOrder
 {
-    [XmlElement("OrderId")]
-    public int OrderId { get; set; }
+    [XmlElement("OrderID")]
+    public int? OrderID { get; set; }
     [XmlElement("OrderNumber")]
     public string? OrderNumber { get; set; }
 }
