@@ -13,7 +13,7 @@ public class ProofUpdateInputParameter
 {
     [XmlArray("Requests")]
     [XmlArrayItem("Request")]
-    public List<ProofUpdate> Requests { get; set; } = new List<ProofUpdate>();
+    public required List<ProofUpdate> Requests { get; set; } = new List<ProofUpdate>();
 }
 
 public class ProofUpdate
