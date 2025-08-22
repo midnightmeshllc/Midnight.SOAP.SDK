@@ -18,7 +18,7 @@
 # This example catches duplicate Signed-off-by lines.
 
 #!/usr/bin/env bash
-if ! head -1 "$1" | grep -qE "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|init|dependencies|peerDependencies|devDependencies|metadata)(\(.+?\))?: .{1,}$"; then
+if ! head -1 "$1" | grep -qE "^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-zA-Z0-9\-]+\))?(!)?: [^\s].{0,48}$"; then
     echo "Aborting commit. Your commit message is invalid." >&2
     exit 1
 fi
