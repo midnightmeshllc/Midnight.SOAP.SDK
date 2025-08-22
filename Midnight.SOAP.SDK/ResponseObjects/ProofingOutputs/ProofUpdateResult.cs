@@ -4,10 +4,10 @@ using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.ResponseObjects.ProofingOutputs;
 
+[XmlRoot("Result")]
 public class ProofUpdateResult
 {
-    [XmlArray("Results")]
-    [XmlArrayItem("Result")]
+    [XmlElement("Results")]
     public List<Result> Results { get; set; } = new List<Result>();
 }
 
