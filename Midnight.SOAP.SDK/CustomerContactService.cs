@@ -7,21 +7,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with customer contact information via SOAP requests.
+/// Provides methods for managing customer contact information through SOAP-based operations.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>The <see cref="CustomerContactService"/> class enables asynchronous operations for inserting,
-/// retrieving,  and updating customer contact information. Each method requires valid authentication credentials and 
-/// properly formatted request objects. This class is designed to handle SOAP-based communication with  external
-/// services, converting request objects to XML and parsing responses.</remarks>
-public class CustomerContactService
+/// <remarks>This service facilitates the insertion, retrieval, and updating of customer contact information  by
+/// interacting with a SOAP-based backend. Each operation logs request and response details for  debugging purposes and
+/// throws exceptions for error conditions, such as invalid input or failed  operations. Ensure that sensitive
+/// information is handled appropriately in logs.</remarks>
+/// <param name="_soap"></param>
+public class CustomerContactService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public CustomerContactService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Sends a SOAP request to insert customer contact information and returns the result of the operation.
@@ -180,3 +175,4 @@ public class CustomerContactService
     }
 
 }
+

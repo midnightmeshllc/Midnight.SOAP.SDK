@@ -8,23 +8,29 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with inventory data through SOAP-based web services.
+/// Provides methods for interacting with an external SOAP service to manage inventory operations.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>The <see cref="InventoryService"/> class facilitates operations such as retrieving inventory lists, 
-/// updating inventory details, and querying inventory item locations, lots, and transactions.  Each method sends a SOAP
-/// request to the underlying service and processes the response accordingly. Ensure that valid authentication
-/// credentials are provided for all operations.</remarks>
-public class InventoryService
+/// <remarks>The <see cref="InventoryService"/> class facilitates communication with a SOAP-based service to
+/// perform various inventory-related operations, such as retrieving inventory data, updating inventory details,
+/// creating new inventory entries, and managing item requests. Each method in this class sends a SOAP request and
+/// processes the response, throwing exceptions for errors encountered during the operation.  This class requires a
+/// valid instance of <see cref="Service1Soap"/> to be provided during initialization, which is used to send SOAP
+/// requests. Ensure that the provided SOAP service is properly configured and accessible.</remarks>
+/// <param name="_soap"></param>
+public class InventoryService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public InventoryService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
-    
+    /// <summary>
+    /// Sends a SOAP request to retrieve inventory data and returns the result.
+    /// </summary>
+    /// <remarks>This method communicates with a SOAP service to retrieve inventory information based on the
+    /// provided request parameters. If the SOAP service returns an error, an exception is thrown with details about the
+    /// failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing parameters for the inventory query.</param>
+    /// <returns>An <see cref="InventoryListResult"/> object containing the inventory data and any associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns an error or if an unexpected exception occurs during the request.</exception>
     public async Task<InventoryListResult> InventoryListAsync(ValidationSoapHeader auth, InventoryListRequestBody request)
     {
 

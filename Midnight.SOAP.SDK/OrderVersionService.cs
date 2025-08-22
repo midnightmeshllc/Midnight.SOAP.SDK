@@ -8,23 +8,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for managing order versions, including listing, adding, updating, and deleting versions.
+/// Provides methods for managing order versions through SOAP requests.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This service interacts with a SOAP-based API to perform operations on order versions.  Each method
-/// requires a valid <see cref="ValidationSoapHeader"/> for authentication and expects request objects  containing the
-/// necessary parameters. Ensure that unused properties in request objects are set to <see langword="null"/>  to avoid
-/// unintended behavior.</remarks>
-public class OrderVersionService
+/// <remarks>This service facilitates operations such as retrieving, adding, updating, deleting, and completing
+/// order versions by interacting with an external SOAP-based API. Each method in this service handles the conversion of
+/// request objects to XML, sends the SOAP request, and processes the response into strongly-typed result objects.
+/// Exceptions are logged and rethrown for error handling.</remarks>
+/// <param name="_soap"></param>
+public class OrderVersionService(Service1Soap _soap)
 {
-
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public OrderVersionService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
 
     /// <summary>
     /// Sends a SOAP request to retrieve and order a list of versions based on the provided input parameters.

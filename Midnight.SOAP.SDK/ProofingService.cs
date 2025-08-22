@@ -7,25 +7,19 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with a SOAP-based proofing service.
+/// Provides methods for interacting with a SOAP service to manage proofs, including creating, updating, deleting,  and
+/// retrieving proof-related data such as attachments, approvers, and statuses.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>The <see cref="ProofingService"/> class encapsulates functionality for sending SOAP requests to
-/// manage proofs,  including creating, updating, deleting, and querying proof-related data. Each method in this class
-/// handles  serialization of request objects to XML, communication with the SOAP service, and deserialization of
-/// responses  into strongly-typed result objects. Exceptions are thrown for errors, including non-zero return codes
-/// from the  SOAP service. <para> This class is designed to simplify interaction with the SOAP service by abstracting
-/// the details of XML  serialization and deserialization, as well as error handling. Callers should ensure that all
-/// required  authentication headers and request parameters are provided when invoking methods. </para></remarks>
-public class ProofingService
+/// <remarks>This service acts as a client for a SOAP-based API, enabling operations related to proofs. Each
+/// method in this  class sends a SOAP request, processes the response, and returns the result. The service handles
+/// serialization  of request objects to XML and deserialization of responses into strongly-typed result objects.  
+/// Callers should ensure that all required parameters are provided and handle exceptions appropriately, as methods  may
+/// throw exceptions for invalid input or SOAP service errors. Logging is performed for debugging purposes,  including
+/// request and response details.</remarks>
+/// <param name="_soap"></param>
+public class ProofingService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public ProofingService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
 
     /// <summary>
     /// Sends a SOAP request to retrieve a list of proof attachments and returns the result.
@@ -457,10 +451,13 @@ public class ProofingService
 
         var result = XmlParsing.DeserializeXmlToObject<ProofUpdateResult>(response.RequestUpdateResult);
 
-        if (result.Results.Select(r => r.ReturnErrors).Any())
+        foreach (var res in result.Results)
         {
-            Log.Error("RequestUpdateAsync failed");
-            throw new Exception($"RequestUpdateAsync failed");
+            if (res.ReturnCode != 0)
+            {
+                Log.Error("RequestUpdateAsync failed with ReturnCode: {ReturnCode}, ReturnErrors: {Message}", res.ReturnCode, res.ReturnErrors);
+                throw new Exception($"RequestUpdateAsync failed with ReturnCode: {res.ReturnCode}, ReturnErrors: {res.ReturnErrors}");
+            }
         }
 
         return result;

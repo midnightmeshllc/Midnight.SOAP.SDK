@@ -7,22 +7,17 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with inventory item data through SOAP-based services.
+/// Provides methods for interacting with inventory item data through SOAP-based service.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>The <see cref="InventoryItemService"/> class serves as a client for performing various operations
-/// related to inventory items,  such as retrieving item locations, lots, transaction types, and types, as well as
-/// creating and updating inventory item lots.  Each method sends a SOAP request to the corresponding service endpoint
-/// and processes the response.  Exceptions are thrown for failed operations, and detailed error information is logged
-/// for debugging purposes.</remarks>
-public class InventoryItemService
+/// <remarks>The <see cref="InventoryItemService"/> class offers a set of asynchronous methods to retrieve,
+/// create, update,  and manage inventory item data, including locations, lots, transaction types, and item types. Each
+/// method  communicates with a SOAP service, serializing request objects to XML and deserializing responses into 
+/// strongly-typed result objects. Exceptions are thrown for non-zero return codes or SOAP request failures,  and
+/// detailed logging is performed for debugging purposes.</remarks>
+/// <param name="_soap"></param>
+public class InventoryItemService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public InventoryItemService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Retrieves a list of inventory item locations based on the provided request parameters.

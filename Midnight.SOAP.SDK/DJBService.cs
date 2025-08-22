@@ -8,23 +8,17 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with the DJB SOAP service, including retrieving job statuses, fetching DJB lists,
-/// and updating DJB statuses.
+/// Provides methods for interacting with the DJB SOAP service, including operations for retrieving job statuses,
+/// fetching DJB lists, and updating DJB statuses. IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This class acts as a client for the DJB SOAP service, encapsulating the logic for sending requests
-/// and processing responses. It includes methods for common operations such as querying job statuses, retrieving DJB
-/// lists, and updating DJB statuses. Each method handles serialization and deserialization of request and response
-/// objects, as well as error handling for non-zero return codes. <para> Ensure that valid authentication credentials
-/// are provided when calling any method in this class. </para></remarks>
-public class DJBService
+/// <remarks>This class acts as a client for the DJB SOAP service, enabling the execution of various operations
+/// such as querying job statuses, retrieving DJB lists, and updating DJB statuses. Each method sends a SOAP request to
+/// the corresponding endpoint, processes the response, and returns the result as a strongly-typed object.  Exceptions
+/// are thrown for any errors encountered during the SOAP request or if the response indicates a failure. Ensure that
+/// valid authentication headers and properly populated request objects are provided when calling the methods.</remarks>
+/// <param name="_soap"></param>
+public class DJBService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public DJBService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Sends a SOAP request to retrieve the status of DJB jobs and returns the result.

@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2016.Excel;
-using Midnight.SOAP.SDK.RequestObjects.OrderInputs;
+﻿using Midnight.SOAP.SDK.RequestObjects.OrderInputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
@@ -8,22 +7,20 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with orders via SOAP-based web services.
+/// Provides methods for interacting with orders through a SOAP-based service.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>The <see cref="OrderService"/> class facilitates operations such as retrieving, adding, and updating
-/// orders by sending SOAP requests to a remote service. Each method in this class requires authentication credentials
-/// and properly formatted request objects. This class is designed for asynchronous operations and ensures that
-/// responses are parsed into appropriate models for further processing.</remarks>
-public class OrderService
+/// <remarks>The <see cref="OrderService"/> class offers a set of asynchronous methods to manage orders, including
+/// retrieving, creating, updating, and attaching files to orders. Each method communicates with a SOAP service, sending
+/// requests and processing responses. Ensure that valid authentication credentials are provided for all operations.
+/// <para> This class is designed to handle common order-related operations, such as retrieving order lists, adding new
+/// orders, updating existing orders, and managing attachments. Exceptions are thrown for invalid inputs or when the
+/// SOAP service returns an error. </para> <para> Usage of this class requires familiarity with the SOAP service's
+/// request and response structures. Ensure that all required parameters are properly populated before invoking any
+/// methods. </para></remarks>
+/// <param name="_soap"></param>
+public class OrderService(Service1Soap _soap)
 {
-
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public OrderService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Retrieves a list of orders based on the provided request parameters.

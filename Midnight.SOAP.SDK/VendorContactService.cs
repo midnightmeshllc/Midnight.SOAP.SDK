@@ -7,22 +7,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with vendor contact data through a SOAP-based service.
+/// Provides methods for interacting with vendor contact data through SOAP-based operations.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This service facilitates operations such as inserting, updating, and retrieving vendor contact
-/// information. Each method communicates with the SOAP service using the provided authentication header and request
-/// body. Exceptions are thrown for failed operations, and detailed error information is included in the exception
-/// messages.</remarks>
-public class VendorContactService
+/// <remarks>This service facilitates the insertion, update, and retrieval of vendor contact information by
+/// communicating with a SOAP service. Each method in this class performs XML serialization of the request body, sends
+/// the SOAP request, and processes the response. Exceptions are thrown for non-zero return codes or errors during the
+/// SOAP communication.</remarks>
+/// <param name="_soap"></param>
+public class VendorContactService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public VendorContactService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
 
     /// <summary>
     /// Sends a SOAP request to insert a vendor contact and returns the result of the operation.

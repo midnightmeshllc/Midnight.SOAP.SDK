@@ -7,21 +7,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with the SOAP service to manage order version drops.
+/// Provides methods for managing order version drops through SOAP requests, including retrieving, inserting, updating,
+/// and deleting order version drops. IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This service includes functionality to retrieve, insert, and update order version drop information
-/// via asynchronous SOAP requests. Each method requires authentication and properly formatted request objects. Ensure
-/// that the provided parameters meet the required conditions to avoid exceptions.</remarks>
-public class OrderVersionDropService
+/// <remarks>This service interacts with a SOAP-based API to perform operations related to order version drops.
+/// Each method sends a SOAP request, logs the request and response details for debugging purposes, and processes the
+/// response to return the result.  Ensure that valid authentication credentials are provided in the <see
+/// cref="ValidationSoapHeader"/> parameter for all operations.</remarks>
+/// <param name="_soap"></param>
+public class OrderVersionDropService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public OrderVersionDropService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
 
     /// <summary>
     /// Sends a SOAP request to retrieve a list of drops associated with a specific order version and parses the
