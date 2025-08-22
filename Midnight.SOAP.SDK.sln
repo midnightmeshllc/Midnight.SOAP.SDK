@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midnight.SOAP.SDK", "Midnight.SOAP.SDK\Midnight.SOAP.SDK.csproj", "{D59F3677-9343-4E7F-9D2B-A7C58B33991C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midnight.SOAP.SDK.Tests", "Midnight.SOAP.SDK.Tests\Midnight.SOAP.SDK.Tests.csproj", "{1A82C1B8-5C84-4B40-B8D9-1E92195733A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D59F3677-9343-4E7F-9D2B-A7C58B33991C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D59F3677-9343-4E7F-9D2B-A7C58B33991C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D59F3677-9343-4E7F-9D2B-A7C58B33991C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A82C1B8-5C84-4B40-B8D9-1E92195733A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A82C1B8-5C84-4B40-B8D9-1E92195733A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A82C1B8-5C84-4B40-B8D9-1E92195733A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A82C1B8-5C84-4B40-B8D9-1E92195733A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
