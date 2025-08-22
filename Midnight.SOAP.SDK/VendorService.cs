@@ -8,21 +8,15 @@ namespace Midnight.SOAP.SDK;
 
 /// <summary>
 /// Provides methods for interacting with a SOAP-based vendor service, including operations for inserting, updating, and
-/// retrieving vendor information.
+/// retrieving vendor information. IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This class acts as a client for a SOAP service, enabling operations such as vendor insertion, vendor
-/// updates, and vendor list retrieval. Each method sends a SOAP request and processes the response, logging relevant
-/// details for debugging purposes. Exceptions are thrown for failed operations, including cases where the service
-/// returns an error code.</remarks>
-public class VendorService
+/// <remarks>This class acts as a client for a SOAP-based vendor service, enabling the execution of vendor-related
+/// operations such as insertion, updates, and retrievals. Each method sends a SOAP request, logs the request and
+/// response details for debugging purposes, and handles any errors that occur during the operation. Exceptions are
+/// thrown for failed operations, including cases where the service returns a non-zero return code.</remarks>
+/// <param name="_soap"></param>
+public class VendorService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public VendorService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Sends a SOAP request to insert a vendor and returns the result of the operation.

@@ -7,19 +7,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with the Order Version Postage service via SOAP.
+/// Provides methods for managing postage information related to order versions via SOAP requests.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This service allows clients to insert and update postage information for order versions. It
-/// communicates with the SOAP endpoint using the <see cref="Service1SoapClient"/>.</remarks>
-public class OrderVersionPostageService
+/// <remarks>This service class includes methods to insert, update, and retrieve postage information for specific
+/// order versions. Each method communicates with a SOAP service, sending serialized XML requests and processing the
+/// responses. Exceptions are thrown for any failures, including SOAP errors or non-zero return codes in the
+/// responses.</remarks>
+/// <param name="_soap"></param>
+public class OrderVersionPostageService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public OrderVersionPostageService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Sends a SOAP request to insert postage information for a specific order version and returns the result.

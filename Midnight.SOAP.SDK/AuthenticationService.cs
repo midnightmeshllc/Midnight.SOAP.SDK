@@ -4,21 +4,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for authenticating clients and interacting with the Midnight SOAP API.
+/// Provides methods for authenticating clients and managing authentication-related operations. 
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>The <see cref="AuthenticationService"/> class is designed to facilitate client authentication  using
-/// developer tokens and to interact with the Midnight SOAP API. It provides an asynchronous  method for obtaining
-/// authentication headers required for API requests. Ensure that the developer  token used for authentication is valid
-/// and properly configured.</remarks>
-public class AuthenticationService
+/// <remarks>The <see cref="AuthenticationService"/> class is designed to handle client authentication using a
+/// developer token. It interacts with the underlying SOAP service to retrieve necessary information, such as the web
+/// service version, and returns authentication headers required for subsequent API calls. Ensure that the provided
+/// developer token is valid before using this service.</remarks>
+/// <param name="_soap"></param>
+public class AuthenticationService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1SoapClient _soap;
-    public AuthenticationService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Authenticates the client using the provided developer token and returns a validation header.

@@ -7,22 +7,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with the Order Version Inventory SOAP service,  including retrieving and updating
-/// inventory data.
+/// Provides methods for interacting with order version inventory records via SOAP requests.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This service acts as a client for the SOAP-based Order Version Inventory API,  enabling operations
-/// such as fetching inventory lists and updating inventory records.  It requires authentication via a <see
-/// cref="ValidationSoapHeader"/> and uses XML-based  request and response payloads.</remarks>
-public class OrderVersionInventoryService
+/// <remarks>This service facilitates operations such as retrieving, updating, and inserting order version
+/// inventory records. Each method communicates with a SOAP service, handling serialization of request objects to XML
+/// and deserialization of responses into strongly-typed result objects. Exceptions are thrown for failed operations,
+/// with detailed error information included.</remarks>
+/// <param name="_soap"></param>
+public class OrderVersionInventoryService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public OrderVersionInventoryService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
     
     /// <summary>
     /// Retrieves a list of order version inventory records asynchronously via a SOAP request.

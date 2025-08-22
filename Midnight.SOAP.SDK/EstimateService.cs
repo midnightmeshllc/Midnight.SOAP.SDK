@@ -8,22 +8,15 @@ namespace Midnight.SOAP.SDK;
 
 /// <summary>
 /// Provides methods for interacting with a SOAP service to manage estimates and related operations.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
 /// <remarks>The <see cref="EstimateService"/> class offers a set of asynchronous methods to perform various
 /// operations such as retrieving estimates, inserting new estimates, updating existing estimates, and calculating
 /// preview prices. Each method communicates with the SOAP service by serializing request objects to XML and
 /// deserializing the responses into strongly-typed result objects. Exceptions are thrown for invalid inputs or if the
 /// SOAP service returns an error.</remarks>
-public class EstimateService
+public class EstimateService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public EstimateService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
 
     /// <summary>
     /// Sends a SOAP request to retrieve a list of estimates and returns the result.

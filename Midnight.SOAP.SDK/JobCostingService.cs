@@ -7,26 +7,21 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with the Job Costing SOAP service, including operations for job costing, production
-/// time entries, service time entries, and other job cost-related functionalities.
+/// Provides methods for interacting with the Job Costing SOAP service, including operations for job costing, 
+/// production time entries, service time entries, and other job cost updates.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This service acts as a client for the Job Costing SOAP API, enabling the execution of various job
-/// costing operations. Each method in this class sends a SOAP request, processes the response, and returns the result
-/// in a strongly-typed object. Exceptions are thrown for errors such as invalid input, SOAP request failures, or
-/// non-zero return codes from the service. <para> The methods in this class are asynchronous and should be awaited to
-/// ensure proper execution. Callers must provide valid authentication credentials via the <see
-/// cref="ValidationSoapHeader"/> parameter for all operations. </para> <para> Logging is performed for debugging
-/// purposes, including request and response data. Ensure that sensitive information is handled appropriately in the
-/// logs. </para></remarks>
-public class JobCostingService
+/// <remarks>This service acts as a client for the Job Costing SOAP API, enabling various job costing operations
+/// such as  creating, updating, and retrieving job cost details. Each method in this class sends a SOAP request,
+/// processes  the response, and returns the result as a strongly-typed object. Exceptions are thrown for errors such as
+/// invalid input, SOAP request failures, or non-zero return codes from the service. <para> Logging is performed for
+/// debugging purposes, including request and response data. Ensure that sensitive  information is handled appropriately
+/// in the logs. </para> <para> Callers must provide valid authentication credentials via the <see
+/// cref="ValidationSoapHeader"/> parameter  for all methods. Additionally, input parameters must meet the specified
+/// requirements (e.g., non-null values)  to avoid exceptions. </para></remarks>
+/// <param name="_soap"></param>
+public class JobCostingService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public JobCostingService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Sends a SOAP request to perform a "Job Out" operation and processes the response.

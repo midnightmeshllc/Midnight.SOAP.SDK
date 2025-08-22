@@ -7,22 +7,19 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with customer data through SOAP-based web services.
+/// Provides methods for interacting with customer-related data and operations through a SOAP service.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>The <see cref="CustomerService"/> class facilitates operations such as retrieving customer lists and
-/// updating customer information by sending SOAP requests to a configured endpoint. This class requires valid
-/// authentication headers and properly formatted request objects for its methods. It is designed to handle asynchronous
-/// operations and return structured responses.</remarks>
-public class CustomerService
+/// <remarks>The <see cref="CustomerService"/> class acts as a client for a SOAP-based API, enabling operations
+/// such as retrieving customer data,  updating customer information, and managing customer-related entities like
+/// postage accounts, registration IDs, and permit numbers.  Each method in this class sends a SOAP request, processes
+/// the response, and returns the result in a strongly-typed object. <para> This class requires an instance of <see
+/// cref="Service1Soap"/> to be provided during initialization, which is used to send SOAP requests. </para> <para>
+/// Exceptions are thrown for invalid input parameters or if the SOAP service returns an error. Ensure that all required
+/// parameters are  properly populated and that the authentication header contains valid credentials. </para></remarks>
+/// <param name="_soap"></param>
+public class CustomerService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public CustomerService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
 
     ///GetCustomerOrders
     ///GetOrderVersions

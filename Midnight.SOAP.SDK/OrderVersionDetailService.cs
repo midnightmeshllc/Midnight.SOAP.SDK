@@ -1,7 +1,5 @@
 ﻿using Midnight.SOAP.SDK.RequestObjects.OrderVersionDetailInputs;
 using Midnight.SOAP.SDK.ResponseObjects.OrderVersionDetailOutputs;
-using Midnight.SOAP.SDK.ResponseObjects.OrderVersionOutputs;
-using Midnight.SOAP.SDK.ResponseObjects.SettingOutputs;
 using Midnight.SOAP.SDK.Utilities;
 using MidnightAPI;
 using Serilog;
@@ -9,22 +7,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with order version details via SOAP requests.
+/// Provides methods for managing order version details through SOAP-based asynchronous operations.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
-/// <remarks>This service includes functionality to retrieve, insert, and update order version details using
-/// asynchronous SOAP operations. Each method requires valid authentication credentials and properly formatted request
-/// bodies.</remarks>
-public class OrderVersionDetailService
+/// <remarks>This service includes functionality to retrieve, insert, update, delete, and query estimated time
+/// details for order versions. Each method communicates with a SOAP service, sending serialized XML requests and
+/// processing the corresponding responses. Exceptions are thrown for non-zero return codes or unexpected errors, with
+/// detailed logging for debugging purposes.</remarks>
+/// <param name="_soap"></param>
+public class OrderVersionDetailService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-
-    public OrderVersionDetailService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
     
     /// <summary>
     /// Retrieves a list of order version details asynchronously via a SOAP request.

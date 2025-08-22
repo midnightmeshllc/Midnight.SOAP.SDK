@@ -8,20 +8,17 @@ namespace Midnight.SOAP.SDK;
 
 /// <summary>
 /// Provides methods for creating, retrieving, and updating purchase orders via SOAP requests.
+/// IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
 /// <remarks>This service acts as a client for interacting with a SOAP-based API to manage purchase orders.  It
-/// includes methods for creating new purchase orders, retrieving a list of purchase orders,  and updating existing
-/// purchase orders. Each method handles serialization of request objects  to XML, sends the SOAP request, and
-/// deserializes the response into strongly-typed result objects.</remarks>
-public class PurchaseOrderService
+/// includes methods for creating new purchase orders, retrieving lists of existing purchase orders,  and updating
+/// purchase orders. Each method handles serialization of request objects to XML,  communication with the SOAP service,
+/// and deserialization of the response into strongly-typed objects.  Exceptions are thrown for invalid input or when
+/// the SOAP service returns an error.  Ensure that the provided authentication headers and request objects are valid
+/// and complete.</remarks>
+/// <param name="_soap"></param>
+public class PurchaseOrderService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public PurchaseOrderService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
 
     /// <summary>
     /// Sends a SOAP request to create a new purchase order and returns the result of the operation.

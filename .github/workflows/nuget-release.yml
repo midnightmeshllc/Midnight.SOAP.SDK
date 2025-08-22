@@ -6,8 +6,28 @@ on:
       - main
 
 jobs:
-  release:
+  test:
+    name: Run Unit Tests
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+      - name: Test
+        run: dotnet test Midnight.SOAP.SDK.Tests/Midnight.SOAP.SDK.Tests.csproj --no-build --configuration Release --logger trx
+
+  release:
+    name: NuGet Release
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ success() }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,10 +47,9 @@ jobs:
       - name: Run GitVersion
         id: gitversion
         uses: gittools/actions/gitversion/execute@v4.1.0
-
-      - name: Update .csproj Version
-        run: |
-          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.gitversion.outputs.majorMinorPatch }}<\/Version>/" Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj
+        with:
+          updateProjectFiles: true
+          configFilePath: ./.github/GitVersion.yml
 
       - name: Restore dependencies
         run: dotnet restore Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj

@@ -7,22 +7,16 @@ using Serilog;
 namespace Midnight.SOAP.SDK;
 
 /// <summary>
-/// Provides methods for interacting with Admin Setting methods of PrintReach's Midnight MIS via SOAP requests.
+/// Provides methods for interacting with a SOAP service to retrieve various types of data, such as company lists,
+/// operations, warehouses, and more. IMPORTANT: Must inject output of Utilities.SoapClient.Configure().
 /// </summary>
 /// <remarks>This service acts as a client for a SOAP-based API, offering asynchronous methods to send requests
-/// and process responses for different types of data queries. Each method in this service handles serialization of
-/// request objects to XML, communication with the SOAP service, and deserialization of responses into strongly-typed
-/// result objects. If a SOAP operation fails, exceptions are thrown with detailed error information.</remarks>
-public class SettingService
+/// and process responses. Each method in this service is responsible for serializing the request body to XML, sending
+/// the request to the SOAP service, and deserializing the response. If the SOAP service returns an error (non-zero
+/// return code), an exception is thrown with detailed error information.</remarks>
+/// <param name="_soap"></param>
+public class SettingService(Service1Soap _soap)
 {
-    private readonly Service1SoapClient.EndpointConfiguration _soapConfig;
-    private readonly Service1Soap _soap;
-    public SettingService()
-    {
-        _soapConfig = new Service1SoapClient.EndpointConfiguration();
-        _soap = new Service1SoapClient(_soapConfig);
-    }
-
 
     /// <summary>
     /// Sends a SOAP request to retrieve a list of companies based on the provided request parameters.
