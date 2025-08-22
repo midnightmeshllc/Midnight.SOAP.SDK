@@ -6,7 +6,7 @@ namespace Midnight.SOAP.SDK.RequestObjects.CustomerInputs;
 [XmlRoot("CustomerList")]
 public class CustomerNonProfitAuthNumberListRequestBody
 {
-    public CustomerNonProfitAuthNumberListInputParameter InputParameter { get; set; }
+    public required CustomerNonProfitAuthNumberListInputParameter InputParameter { get; set; }
 }
 
 public class CustomerNonProfitAuthNumberListInputParameter
