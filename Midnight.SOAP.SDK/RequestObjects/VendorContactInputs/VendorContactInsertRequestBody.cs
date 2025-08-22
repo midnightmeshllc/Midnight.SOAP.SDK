@@ -11,10 +11,10 @@ public class VendorContactInsertRequestBody
 
 public class VendorContactInsertInputParameter
 {
-    public required List<VendorContact> VendorContacts { get; set; }
+    public required List<VendorContactInsert> VendorContacts { get; set; }
 }
 
-public class VendorContact
+public class VendorContactInsert
 {
     public required int VendorID { get; set; }
     public string? Salutation { get; set; }
