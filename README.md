@@ -14,6 +14,7 @@
 - **Strongly-Typed Requests**: Uses strongly-typed request objects to ensure type safety and reduce runtime errors caused by string concatenated XML inputs.
 - **Strongly-Typed Responses**: Converts Midnight API XML response strings into strongly-typed C# models.
 - **User-Defined Fields Support**: The SDK provides a flexible UserDefinedFields class, where each UDF property (UDF1 to UDF30) is implemented using the `UDFValue` class. This allows each field to accept and serialize values as string, decimal, integer, date, or time, ensuring correct XML formatting for both requests and responses. The UDFValue class handles type conversion and serializes the value as the text content of the corresponding <UDF*> XML tag.
+- **Testing** : Includes comprehensive unit tests for all services and request/response objects, ensuring reliability and correctness.
 - **Logging**: Integrated logging for diagnostics and debugging using Serilog.
 
 ---
@@ -35,32 +36,39 @@ Install-Package Midnight.SOAP.SDK
 
 ## Usage
 
+### 0. Soap Client Configuration
+```csharp
+using Midnight.SOAP.SDK.Utilities;
+
+var soapClient = SoapClient.Configure();
+```
+
 ### 1. Service Initializations
 ```csharp
 using Midnight.SOAP.SDK;
 
-var authService = new AuthenticationService();
-var customerService = new CustomerService();
-var customerContactService = new CustomerContactService();
-var djbService = new DJBService();
-var estimateService = new EstimateService();
-var inventoryItemService = new InventoryItemService();
-var inventoryService = new InventoryService();
-var jobCostingService = new JobCostingService();
-var orderService = new OrderService();
-var orderVersionService = new OrderVersionService();
-var orderVersionDetailService = new OrderVersionDetailService();
-var orderVersionDropService = new OrderVersionDropService();
-var orderVersionInventoryService = new OrderVersionInventoryService();
-var orderVersionPostageService = new OrderVersionPostageService();
+var authService = new AuthenticationService(soapClient);
+var customerService = new CustomerService(soapClient);
+var customerContactService = new CustomerContactService(soapClient);
+var djbService = new DJBService(soapClient);
+var estimateService = new EstimateService(soapClient);
+var inventoryItemService = new InventoryItemService(soapClient);
+var inventoryService = new InventoryService(soapClient);
+var jobCostingService = new JobCostingService(soapClient);
+var orderService = new OrderService(soapClient);
+var orderVersionService = new OrderVersionService(soapClient);
+var orderVersionDetailService = new OrderVersionDetailService(soapClient);
+var orderVersionDropService = new OrderVersionDropService(soapClient);
+var orderVersionInventoryService = new OrderVersionInventoryService(soapClient);
+var orderVersionPostageService = new OrderVersionPostageService(soapClient);
 
 // ProofingService is the wrapper for "Request" api calls, making it clearer what the service is used for.
-var proofingService = new ProofingService();
+var proofingService = new ProofingService(soapClient);
 
-var purchaseOrderService = new PurchaseOrderService();
-var settingsService = new SettingService();
-var venderService = new VendorService();
-var vendorContactService = new VendorContactService();
+var purchaseOrderService = new PurchaseOrderService(soapClient);
+var settingsService = new SettingService(soapClient);
+var venderService = new VendorService(soapClient);
+var vendorContactService = new VendorContactService(soapClient);
 
 ```
 
@@ -194,10 +202,9 @@ For questions or support, please open an issue on the repository.
 
 ## Roadmap
 The roadmap for **Midnight.SOAP.SDK** includes:
-- Add unit tests for all services.
 - Implement custom services for common combinations of other services.
 - Implement Aggregation services for reporting, analytics, and invoicing integrations.
 - Implement additional features as requested by the community.
 - Enhance documentation with more examples and use cases.
 
-**Midnight.SOAP.SDK** makes integrating with the Midnight SOAP API fast, reliable, and developer-friendly.
+**Midnight.SOAP.SDK makes integrating with the Midnight SOAP API fast, reliable, and developer-friendly.**
