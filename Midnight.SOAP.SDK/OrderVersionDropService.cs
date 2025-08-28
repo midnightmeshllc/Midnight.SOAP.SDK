@@ -19,17 +19,17 @@ public class OrderVersionDropService(Service1Soap _soap)
 {
 
     /// <summary>
-    /// Sends a SOAP request to retrieve a list of drops associated with a specific order version and parses the
-    /// response.
+    /// Sends a SOAP request to retrieve the drop list of order versions and processes the response.
     /// </summary>
-    /// <remarks>This method logs the request and response details for debugging purposes. Ensure that the
-    /// <paramref name="auth"/> parameter contains valid credentials.</remarks>
+    /// <remarks>This method logs the request and response details for debugging purposes. If the operation
+    /// fails, the method logs the error and throws an exception.</remarks>
     /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
-    /// <param name="request">The request body containing the parameters needed to query the order version drop list. Cannot be <see
+    /// <param name="request">The request body containing the parameters for the order version drop list operation. Cannot be <see
     /// langword="null"/>.</param>
-    /// <returns>A list of <see cref="Drops"/> objects representing the parsed response data. Returns an empty list if no drops
-    /// are found.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
+    /// <returns>An <see cref="OrderVersionDropListResult"/> object containing the result of the operation, including the return
+    /// code and any errors.</returns>
+    /// <exception cref="Exception">Thrown if the operation fails with a non-zero return code or if an error occurs during the SOAP request or
+    /// response processing.</exception>
     public async Task<OrderVersionDropListResult> OrderVersionDropListAsync(ValidationSoapHeader auth, OrderVersionDropListRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);

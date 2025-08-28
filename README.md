@@ -155,7 +155,7 @@ The SDK will throw exceptions immediately after a non-zero ReturnCode is detecte
 ### Conventional Commit Messages
 All commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification, which is compatible with automated versioning tools like Versionize and GitVersion. Example formats:
 
-- `feat: add support for NuGet deploy and release`
+- `feat!: add support for NuGet deploy and release`
 - `fix: correct null reference in authentication service`
 - `docs: update API usage section in README`
 - `refactor(service): simplify request logic`
@@ -204,6 +204,7 @@ For questions or support, please open an issue on the repository.
 The roadmap for **Midnight.SOAP.SDK** includes:
 - Implement custom services for common combinations of other services.
 - Implement Aggregation services for reporting, analytics, and invoicing integrations.
+- Remove Serilog dependency and replace with Microsoft.Extensions.Logging for better compatibility with ASP.NET Core applications.
 - Implement additional features as requested by the community.
 - Enhance documentation with more examples and use cases.
 

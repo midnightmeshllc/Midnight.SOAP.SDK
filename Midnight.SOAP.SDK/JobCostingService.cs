@@ -278,7 +278,7 @@ public class JobCostingService(Service1Soap _soap)
     /// includes a return code and any associated errors.</remarks>
     /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
     /// <param name="orderNumber">The order number for which to retrieve job cost order version summaries.</param>
-    /// <param name="jobCostingDate">The job costing date as a string. Must be in a format parsable by <see cref="DateTime.TryParse"/> (e.g.,
+    /// <param name="jobCostingDate">The job costing date as a string. Must be in a format parsable by <see cref="DateTime"/> (e.g.,
     /// "yyyy-MM-dd").</param>
     /// <returns>A <see cref="JobCostOrderVersionServiceSummaryListResult"/> containing the summary list and result information
     /// for the specified order and date.</returns>

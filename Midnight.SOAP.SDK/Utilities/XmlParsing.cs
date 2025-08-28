@@ -1,10 +1,17 @@
-﻿using Midnight.SOAP.SDK.ResponseObjects.OrderVersionInventoryOutputs;
-using Serilog;
+﻿using Serilog;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.Utilities;
 
+/// <summary>
+/// Provides utility methods for parsing and processing XML data, including capturing specific XML element content and
+/// deserializing XML strings into objects.
+/// </summary>
+/// <remarks>This class contains static methods for working with XML data. It includes functionality for
+/// extracting the text content of a specific XML element and for deserializing XML strings into strongly-typed objects.
+/// The methods are designed to simplify common XML processing tasks while ensuring proper error handling and
+/// validation.</remarks>
 public class XmlParsing
 {
 
@@ -39,6 +46,18 @@ public class XmlParsing
         }
     }
 
+    /// <summary>
+    /// Deserializes the specified XML string into an object of the specified type.
+    /// </summary>
+    /// <remarks>This method uses the <see cref="System.Xml.Serialization.XmlSerializer"/> to perform the
+    /// deserialization. Ensure that the XML string matches the structure expected by the type <typeparamref
+    /// name="T"/>.</remarks>
+    /// <typeparam name="T">The type of the object to deserialize. Must be a reference type with a parameterless constructor.</typeparam>
+    /// <param name="xml">The XML string to deserialize. Cannot be null, empty, or whitespace.</param>
+    /// <returns>An instance of type <typeparamref name="T"/> populated with the data from the XML string.</returns>
+    /// <exception cref="ArgumentException">Thrown if <paramref name="xml"/> is null, empty, or consists only of whitespace.</exception>
+    /// <exception cref="InvalidOperationException">Thrown if deserialization fails, or if the deserialized object is null. The inner exception contains details
+    /// about the deserialization error.</exception>
     public static T DeserializeXmlToObject<T>(string xml)
         where T : class, new()
     {

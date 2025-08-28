@@ -294,7 +294,7 @@ public class OrderVersionPostageService(Service1Soap _soap)
     /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
     /// <param name="request">The request body containing the input parameters for the postage detail update operation.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an 
-    /// <OrderVersionPostageDetailUpdateResult> object, which includes the outcome of the update operation.</returns>
+    /// <see cref="OrderVersionPostageDetailUpdateResult"/> object, which includes the outcome of the update operation.</returns>
     /// <exception cref="Exception">Thrown if the update operation fails, including cases where the return code from the SOAP response  indicates an
     /// error. The exception message contains the return code and error details.</exception>
     public async Task<OrderVersionPostageDetailUpdateResult> OrderVersionPostageDetailUpdateAsync(ValidationSoapHeader auth, OrderVersionPostageDetailUpdateRequestBody request)
