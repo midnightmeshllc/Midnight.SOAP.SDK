@@ -1,24 +1,41 @@
-﻿
-using Midnight.SOAP.SDK.CommonObjects;
+﻿using Midnight.SOAP.SDK.CommonObjects;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.ResponseObjects.VendorContactOutputs;
 
+/// <summary>
+/// Represents the result of a vendor contact update operation in the Midnight SOAP API.
+/// </summary>
 [XmlRoot("Result")]
 public class VendorContactUpdateResult : CommonResult
 {
+    /// <summary>
+    /// Gets or sets the list of updated vendor contacts.
+    /// </summary>
     [XmlArray("VendorContacts")]
     [XmlArrayItem("VendorContact")]
     public List<VendorContactUpdated>? VendorContacts { get; set; } = new List<VendorContactUpdated>();
 }
 
+/// <summary>
+/// Represents a vendor contact that was updated.
+/// </summary>
 public class VendorContactUpdated
 {
+    /// <summary>
+    /// Gets or sets the unique identifier of the updated vendor contact.
+    /// </summary>
     [XmlElement("VendorContactID")]
     public int VendorContactID { get; set; }
+    /// <summary>
+    /// Gets or sets the raw value indicating if the vendor contact is active.
+    /// </summary>
     [XmlElement("Active")]
     public string? ActiveRaw { get; set; }
 
+    /// <summary>
+    /// Gets a value indicating whether the vendor contact is active.
+    /// </summary>
     [XmlIgnore]
     public bool Active
     {

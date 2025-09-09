@@ -122,6 +122,17 @@ public class OrderVersionInventoryService(Service1Soap _soap)
         return result;
     }
 
+    /// <summary>
+    /// Sends a SOAP request to insert inventory data for a specific order version and returns the result of the
+    /// operation.
+    /// </summary>
+    /// <remarks>This method converts the provided request object to XML format and sends it as part of a SOAP
+    /// request.  If the operation fails, an exception is thrown with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the inventory data to be inserted, including order version details.</param>
+    /// <returns>An <see cref="OrderVersionInventoryInsertResult"/> object containing the result of the operation, including the
+    /// return code and any errors.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code, indicating an error.</exception>
     public async Task<OrderVersionInventoryInsertResult> OrderVersionInventoryInsertAsync(ValidationSoapHeader auth, OrderVersionInventoryInsertRequestBody request)
     {
         OrderVersionInventoryInsertResponse response;

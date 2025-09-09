@@ -1,0 +1,106 @@
+name: Bug Report
+about: Report a bug or unexpected behavior in the Midnight.SOAP.SDK solution.
+title: "[Bug]: "
+labels: [bug]
+assignees: [midnightmeshllc, kpiercy]
+
+body:
+  - type: dropdown
+    id: package_version
+    attributes:
+      label: Package Version
+      description: Select the version of the Midnight.SOAP.SDK package where the issue occurs.
+      options:
+        - 2.0.0
+        - 1.0.4
+        - 1.0.3
+        - 1.0.2
+        - 1.0.1
+        - 1.0.0
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: custom_version
+    attributes:
+      label: Custom Version (if not listed)
+      description: If you selected "Other", please specify the package version.
+      placeholder: e.g., 10.5.2-beta
+    validations:
+      required: false
+
+  - type: dropdown
+    id: associated_service
+    attributes:
+      label: Associated Service
+      description: Select the service where the issue occurs.
+      options:
+        - AggregationService
+        - AuthenticationService
+        - CustomerContactService
+        - CustomerService
+        - DJBService
+        - EstimateService
+        - InventoryItemService
+        - InventoryService
+        - JobCostingService
+        - OrderService
+        - OrderVersionDetailService
+        - OrderVersionDropService
+        - OrderVersionInventoryService
+        - OrderVersionPostageService
+        - OrderVersionService
+        - ProofingService
+        - PurchaseOrderService
+        - SettingService
+        - VendorContactService
+        - VendorService
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: custom_service
+    attributes:
+      label: Custom Service (if not listed)
+      description: If you selected "Other", please specify the service.
+      placeholder: e.g., CustomIntegration
+    validations:
+      required: false
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: Issue Description
+      description: Describe the issue in detail, including steps to reproduce, expected behavior, and actual behavior.
+      placeholder: Describe the problem, steps to reproduce, expected and actual results.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs or Stack Traces
+      description: Paste any relevant logs, error messages, or stack traces.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment Details
+      description: OS, .NET version, and any other relevant environment information.
+      placeholder: e.g., Windows 11, .NET 8.0.1
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct.
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

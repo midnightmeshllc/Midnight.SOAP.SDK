@@ -289,7 +289,7 @@ public class EstimateService(Service1Soap _soap)
     /// fails, it logs the error and throws an exception with relevant details.</remarks>
     /// <param name="auth">The authentication header required for the SOAP request.</param>
     /// <param name="request">The request body containing the data needed to perform the estimate update.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="EstimateUpdateResult">
+    /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="EstimateUpdateResult"></see>
     /// object with the outcome of the estimate update operation.</returns>
     /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation completes with a non-zero return code. The exception
     /// message includes the return code and any associated error messages.</exception>

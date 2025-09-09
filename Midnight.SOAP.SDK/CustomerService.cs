@@ -96,17 +96,14 @@ public class CustomerService(Service1Soap _soap)
 
 
     /// <summary>
-    /// Retrieves a list of customers based on the provided request parameters.
+    /// Sends a SOAP request to retrieve a list of customers based on the specified request parameters.
     /// </summary>
-    /// <remarks>This method sends a SOAP request to retrieve customer data and parses the response into a
-    /// list  of <see cref="CustomerModel"/> objects. Ensure that the <paramref name="auth"/> parameter contains  valid
-    /// credentials and the <paramref name="request"/> parameter is properly populated.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
-    /// <param name="request">The request body containing parameters for filtering and retrieving customer data. Cannot be <see
-    /// langword="null"/>.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a list of  <see
-    /// cref="CustomerModel"/> objects representing the retrieved customer data.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if the <paramref name="request"/> parameter is <see langword="null"/>.</exception>
+    /// <remarks>This method converts the <paramref name="request"/> object to XML format and sends it as part of a
+    /// SOAP request. If the operation fails, an exception is thrown with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the parameters for the customer list query. Cannot be <see langword="null"/>.</param>
+    /// <returns>A <see cref="CustomerListResult"/> object containing the list of customers and associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the response indicates an error, such as a non-zero return code.</exception>
     public async Task<CustomerListResult> CustomerListAsync(ValidationSoapHeader auth, CustomerListRequestBody request)
     {
 
@@ -199,6 +196,16 @@ public class CustomerService(Service1Soap _soap)
         return result;
     }
 
+    /// <summary>
+    /// Sends a SOAP request to insert a customer and returns the result of the operation.
+    /// </summary>
+    /// <remarks>This method converts the provided <see cref="CustomerInsertRequestBody"/> into XML and sends
+    /// it as part of a SOAP request. If the operation fails, an exception is thrown with details about the
+    /// failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the customer data to be inserted.</param>
+    /// <returns>A <see cref="CustomerInsertResult"/> object containing the result of the customer insertion operation.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the operation returns a non-zero return code, indicating an error.</exception>
     public async Task<CustomerInsertResult> CustomerInsertAsync(ValidationSoapHeader auth, CustomerInsertRequestBody request)
     {
         CustomerInsertResponse response;

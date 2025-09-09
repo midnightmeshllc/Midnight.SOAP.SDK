@@ -23,17 +23,15 @@ public class OrderService(Service1Soap _soap)
 {
 
     /// <summary>
-    /// Retrieves a list of orders based on the provided request parameters.
+    /// Sends a SOAP request to retrieve an ordered list based on the specified request parameters.
     /// </summary>
-    /// <remarks>This method sends a SOAP request to retrieve order data and parses the response into a list
-    /// of  <see cref="OrderModel"/> objects. Ensure that the <paramref name="auth"/> parameter contains valid 
-    /// credentials and that the <paramref name="request"/> parameter is properly populated.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
-    /// <param name="request">The request body containing the parameters for filtering and retrieving the order list. Cannot be <see
-    /// langword="null"/>.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a list of  <see cref="OrderModel"/>
-    /// objects representing the retrieved orders.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
+    /// <remarks>This method sends a SOAP request to the configured service endpoint and processes the
+    /// response. If the operation fails, an exception is thrown with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the parameters for the order list operation. Cannot be <see langword="null"/>.</param>
+    /// <returns>An <see cref="OrderListResult"/> object containing the results of the order list operation.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating a failure. The exception message includes
+    /// the return code and any associated error messages.</exception>
     public async Task<OrderListResult> OrderListAsync(ValidationSoapHeader auth, OrderListRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);

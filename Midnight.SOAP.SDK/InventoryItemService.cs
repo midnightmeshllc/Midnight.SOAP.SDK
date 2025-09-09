@@ -69,16 +69,17 @@ public class InventoryItemService(Service1Soap _soap)
     }
 
     /// <summary>
-    /// Retrieves a list of inventory item lots based on the provided request parameters.
+    /// Sends a SOAP request to retrieve a list of inventory item lots based on the specified request parameters.
     /// </summary>
-    /// <remarks>This method sends a SOAP request to retrieve inventory item lot data and parses the response
-    /// into a list of <see cref="Lots"/>. Ensure that the <paramref name="auth"/> parameter contains valid credentials
-    /// and the <paramref name="request"/> parameter is properly populated with the required filtering
-    /// criteria.</remarks>
-    /// <param name="auth">The authentication header containing validation credentials required for the SOAP request.</param>
-    /// <param name="request">The request body containing the parameters for filtering and retrieving inventory item lots.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a list of <see cref="Lots"/> objects
-    /// representing the inventory item lots retrieved from the SOAP service.</returns>
+    /// <remarks>This method communicates with a SOAP service to retrieve inventory item lot data. If the
+    /// operation fails, an exception is thrown with details about the failure. Ensure that the <paramref name="auth"/>
+    /// parameter contains valid credentials and that the <paramref name="request"/> parameter is properly
+    /// populated.</remarks>
+    /// <param name="auth">The authentication header containing credentials required to authorize the request.</param>
+    /// <param name="request">The request body containing the parameters for the inventory item lot query.</param>
+    /// <returns>An <see cref="InventoryItemLotListResult"/> object containing the result of the inventory item lot query,
+    /// including the return code, any errors, and the list of inventory item lots.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP request fails or if the response indicates an error, such as a non-zero return code.</exception>
     public async Task<InventoryItemLotListResult> InventoryItemLotListAsync(ValidationSoapHeader auth, InventoryItemLotListRequestBody request)
     {
 

@@ -20,17 +20,17 @@ public class OrderVersionService(Service1Soap _soap)
 {
 
     /// <summary>
-    /// Sends a SOAP request to retrieve and order a list of versions based on the provided input parameters.
+    /// Sends a SOAP request to retrieve a list of order versions based on the specified input parameters.
     /// </summary>
-    /// <remarks>This method converts the provided request object into XML, sends it as part of a SOAP
-    /// request,  and parses the response into a list of <see cref="Versions"/> objects.  If the request fails or an
-    /// exception occurs, the method logs the error and rethrows the exception.</remarks>
-    /// <param name="auth">The authentication header required for the SOAP request. Must not be null.</param>
-    /// <param name="request">The request body containing the input parameters for ordering the version list.  Must not be null and must
-    /// include valid data for processing.</param>
-    /// <returns>A list of <see cref="Versions"/> objects representing the ordered version data retrieved from the SOAP response.
-    /// Returns an empty list if no versions are found.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is null.</exception>
+    /// <remarks>This method sends a SOAP request to the external service and processes the response. If the
+    /// operation fails, an exception is thrown with details about the failure.</remarks>
+    /// <param name="auth">The authentication header containing credentials required for the SOAP request.</param>
+    /// <param name="request">The request body containing the input parameters for the order version list operation. Cannot be <see
+    /// langword="null"/>.</param>
+    /// <returns>An <see cref="OrderVersionListResult"/> object containing the result of the operation, including the list of
+    /// order versions and any associated metadata.</returns>
+    /// <exception cref="Exception">Thrown if the SOAP service returns a non-zero return code, indicating an error. The exception message includes
+    /// the return code and error details.</exception>
     public async Task<OrderVersionListResult> OrderVersionListAsync(ValidationSoapHeader auth, OrderVersionListRequestBody request)
     {
         ArgumentNullException.ThrowIfNull(request);

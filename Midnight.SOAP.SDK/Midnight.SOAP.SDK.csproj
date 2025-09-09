@@ -6,21 +6,24 @@
     <Nullable>enable</Nullable>
     <PackageIcon>midnightmesh-logo.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/kpiercy/Midnight.SOAP.SDK</RepositoryUrl>
+    <RepositoryUrl>https://github.com/midnightmeshllc/Midnight.SOAP.SDK</RepositoryUrl>
     <PackageTags>printreach;midnight;soap;sdk;</PackageTags>
     <Title>Midnight SOAP API SDK</Title>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Authors>midnightmeshllc</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright (c) MidnightMeshLLC 2025</Copyright>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Version>1.0.4</Version>
+    <Version>2.0.0</Version>
+    <IncludeSymbols>False</IncludeSymbols>
+    <Description>A strongly-typed wrapper for PrintReach's Midnight SOAP API.</Description>
+    <PackageProjectUrl>https://github.com/midnightmeshllc/Midnight.SOAP.SDK</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>True</Optimize>
+    <Optimize>False</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>False</Optimize>
+    <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\LICENSE.txt">
