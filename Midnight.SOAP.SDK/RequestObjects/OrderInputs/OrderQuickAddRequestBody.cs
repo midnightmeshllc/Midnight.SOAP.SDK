@@ -34,5 +34,7 @@ public class OrderQuickAddInputParameter : UserDefinedFields
     public string CopyVersions { get; set; } = "Y";
     /// <summary>Gets or sets a value indicating whether to update pricing (Y/N).</summary>
     public string UpdatePricing { get; set; } = "N";
+    /// <summary> Gets or sets the identifier representing the urgency level. </summary>
+    public int? UrgencyID { get; set; }
 }
 
