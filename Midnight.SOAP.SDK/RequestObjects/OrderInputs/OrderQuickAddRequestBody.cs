@@ -1,5 +1,4 @@
 ﻿using Midnight.SOAP.SDK.CommonObjects;
-using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.OrderInputs;
@@ -13,7 +12,6 @@ public class OrderQuickAddRequestBody
     /// <summary>
     /// Gets or sets the order input parameter for quick add.
     /// </summary>
-    [Required]
     public required OrderQuickAddInputParameter Order { get; set; }
 }
 
@@ -23,8 +21,7 @@ public class OrderQuickAddRequestBody
 public class OrderQuickAddInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the customer ID.</summary>
-    [Required]
-    public int CustomerID { get; set; }
+    public required int CustomerID { get; set; }
     /// <summary>Gets or sets the order date.</summary>
     public string? OrderDate { get; set; }
     /// <summary>Gets or sets the expected quantity.</summary>
