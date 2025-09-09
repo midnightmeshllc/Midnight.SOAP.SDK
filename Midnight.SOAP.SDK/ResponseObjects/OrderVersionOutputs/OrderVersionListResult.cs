@@ -28,6 +28,8 @@ public class OrderVersion : OrderVersion_UserDefinedFields
     public int? OrderID { get; set; }
     /// <summary>Gets or sets the suffix.</summary>
     public int? Suffix { get; set; }
+    /// <summary> Gets or sets the identifier representing the urgency level. </summary>
+    public int? UrgencyID { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
     public int? Quantity { get; set; }
     /// <summary>Gets or sets the version name.</summary>
