@@ -64,7 +64,7 @@ namespace Midnight.SOAP.SDK.Tests
 
             var service = new OrderService(mockSoap.Object);
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
-            var request = new OrderQuickAddRequestBody { Order = new OrderQuickAddInputParameter() };
+            var request = new OrderQuickAddRequestBody { Order = new OrderQuickAddInputParameter { CustomerID = 123 } };
 
             var result = await service.OrderQuickAddAsync(auth, request);
 
@@ -86,7 +86,7 @@ namespace Midnight.SOAP.SDK.Tests
 
             var service = new OrderService(mockSoap.Object);
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
-            var request = new OrderQuickAddRequestBody { Order = new OrderQuickAddInputParameter() };
+            var request = new OrderQuickAddRequestBody { Order = new OrderQuickAddInputParameter { CustomerID = 123 } };
 
             await Assert.ThrowsAsync<Exception>(async () =>
             {
