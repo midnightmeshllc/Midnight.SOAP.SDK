@@ -52,6 +52,8 @@ public class OrderNewInputParameter : UserDefinedFieldsFirst5
     public string? BillToName { get; set; }
     /// <summary>Gets or sets a value indicating whether the order is paid (Y/N).</summary>
     public char OrderPaidYN { get; set; }
+    /// <summary> Gets or sets the identifier representing the urgency level. </summary>
+    public int UrgencyID { get; set; }
     /// <summary>Gets or sets a value indicating whether payment was received.</summary>
     public bool PaymentReceived { get; set; }
     /// <summary>Gets or sets the surcharge amount on services.</summary>
