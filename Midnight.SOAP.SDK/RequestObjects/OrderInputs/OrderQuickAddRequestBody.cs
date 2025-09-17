@@ -23,18 +23,18 @@ public class OrderQuickAddInputParameter : UserDefinedFields
     /// <summary>Gets or sets the customer ID.</summary>
     public required int CustomerID { get; set; }
     /// <summary>Gets or sets the order date.</summary>
-    public string? OrderDate { get; set; }
+    public string? OrderDate { get; set; } = null;
     /// <summary>Gets or sets the expected quantity.</summary>
     public int ExpectedQuantity { get; set; }
     /// <summary>Gets or sets the order comments.</summary>
-    public string? OrderComments { get; set; }
+    public string? OrderComments { get; set; } = null;
     /// <summary>Gets or sets the template ID.</summary>
-    public string? TemplateID { get; set; }
+    public string? TemplateID { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether to copy versions (Y/N).</summary>
-    public string CopyVersions { get; set; } = "Y";
+    public bool CopyVersions { get; set; } = false;
     /// <summary>Gets or sets a value indicating whether to update pricing (Y/N).</summary>
-    public string UpdatePricing { get; set; } = "N";
+    public bool UpdatePricing { get; set; } = false;
     /// <summary> Gets or sets the identifier representing the urgency level. </summary>
-    public int? UrgencyID { get; set; }
+    public int? UrgencyID { get; set; } = null;
 }
 

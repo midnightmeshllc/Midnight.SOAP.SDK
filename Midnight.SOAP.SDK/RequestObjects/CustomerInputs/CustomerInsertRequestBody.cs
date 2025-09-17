@@ -23,8 +23,7 @@ public class CustomerInsertRequestBody
 public class CustomerInsertInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the customer code.</summary>
-    [Required]
-    public string CustomerCode { get; set; } = string.Empty;
+    public required string CustomerCode { get; set; } = string.Empty;
     /// <summary>Gets or sets the customer name.</summary>
     public string? CustomerName { get; set; } = null;
     /// <summary>Gets or sets the phone number.</summary>
@@ -75,9 +74,9 @@ public class CustomerInsertInputParameter : UserDefinedFields
     public string? AccountingCode { get; set; } = null;
 
     /// <summary>Gets or sets the customer address.</summary>
-    public CustomerAddress? CustomerAddress { get; set; }
+    public CustomerAddress? CustomerAddress { get; set; } = null;
     /// <summary>Gets or sets the shipping address.</summary>
-    public ShippingAddress? ShippingAddress { get; set; }
+    public ShippingAddress? ShippingAddress { get; set; } = null;
     /// <summary>Gets or sets the billing address.</summary>
-    public BillingAddress? BillingAdress { get; set; }
+    public BillingAddress? BillingAdress { get; set; } = null;
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.CustomerInputs;
@@ -22,15 +23,15 @@ public class CustomerListRequestBody
 public class CustomerListInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the customer ID.</summary>
-    public int? CustomerID { get; set; }
+    public int? CustomerID { get; set; } = null;
     /// <summary>Gets or sets the customer type ID.</summary>
-    public int? CustomerTypeID { get; set; }
+    public int? CustomerTypeID { get; set; } = null;
     /// <summary>Gets or sets the customer code.</summary>
-    public string? CustomerCode { get; set; } = string.Empty;
+    public string? CustomerCode { get; set; } = null;
     /// <summary>Gets or sets the email address.</summary>
-    public string? EmailAddress { get; set; } = string.Empty;
+    public string? EmailAddress { get; set; } = null;
     /// <summary>Gets or sets the customer name.</summary>
-    public string? CustomerName { get; set; } = string.Empty;
+    public string? CustomerName { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the customer is active.</summary>
     public bool Active { get; set; } = true;
 

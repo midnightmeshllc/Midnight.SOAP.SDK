@@ -13,13 +13,13 @@ public class OrderVersionOtherJobCostUpdateRequestBody
     /// <summary>Gets or sets the date.</summary>
     public required string Date { get; set; }
     /// <summary>Gets or sets the type.</summary>
-    public string? Type { get; set; }
+    public string? Type { get; set; } = null;
     /// <summary>Gets or sets the source.</summary>
-    public string? Source { get; set; }
+    public string? Source { get; set; } = null;
     /// <summary>Gets or sets the quantity.</summary>
-    public decimal? Quantity { get; set; }
+    public decimal? Quantity { get; set; } = null;
     /// <summary>Gets or sets the unit price.</summary>
-    public decimal? UnitPrice { get; set; }
+    public decimal? UnitPrice { get; set; } = null;
     /// <summary>Gets or sets the description.</summary>
-    public string? Description { get; set; }
+    public string? Description { get; set; } = null;
 }

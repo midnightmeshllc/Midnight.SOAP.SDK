@@ -20,7 +20,7 @@ public class InventoryItemTransactionTypeListRequestBody
 public class InventoryItemTransactionTypeListInputParameter
 {
     /// <summary>Gets or sets the item transaction type ID.</summary>
-    public int? ItemTransactionTypeID { get; set; }
+    public int? ItemTransactionTypeID { get; set; } = null;
     /// <summary>Gets or sets the description.</summary>
-    public string? Description { get; set; }
+    public string? Description { get; set; } = null;
 }

@@ -20,9 +20,9 @@ public class UnitMeasureListRequestBody
 public class UnitMeasureListInputParameter
 {
     /// <summary>Gets or sets the unit measure code.</summary>
-    public string? UnitMeasureCode { get; set; }
+    public string? UnitMeasureCode { get; set; } = null;
     /// <summary>Gets or sets the unit measure name.</summary>
-    public string? UnitMeasureName { get; set; }
+    public string? UnitMeasureName { get; set; } = null;
     /// <summary>Gets or sets the calculation value.</summary>
-    public decimal? CalculationValue { get; set; }
+    public decimal? CalculationValue { get; set; } = null;
 }

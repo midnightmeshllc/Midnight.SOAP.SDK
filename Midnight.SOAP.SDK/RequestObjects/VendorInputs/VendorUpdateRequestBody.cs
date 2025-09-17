@@ -14,37 +14,37 @@ public class VendorUpdateRequestBody : UserDefinedFields
     /// <summary>Gets or sets the vendor name.</summary>
     public required string VendorName { get; set; }
     /// <summary>Gets or sets the contact name.</summary>
-    public string? ContactName { get; set; }
+    public string? ContactName { get; set; } = null;
     /// <summary>Gets or sets the vendor code.</summary>
-    public string? Code { get; set; }
+    public string? Code { get; set; } = null;
     /// <summary>Gets or sets the terms.</summary>
-    public string? Terms { get; set; }
+    public string? Terms { get; set; } = null;
     /// <summary>Gets or sets the email address.</summary>
-    public string? Email { get; set; }
+    public string? Email { get; set; } = null;
     /// <summary>Gets or sets the URL.</summary>
-    public string? URL { get; set; }
+    public string? URL { get; set; } = null;
     /// <summary>Gets or sets the licensee ID.</summary>
-    public int? LicenseeID { get; set; }
+    public int? LicenseeID { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the vendor is active.</summary>
-    public bool Active { get; set; }
+    public bool? Active { get; set; } = null;
     /// <summary>Gets or sets the comment.</summary>
-    public string? Comment { get; set; }
+    public string? Comment { get; set; } = null;
     /// <summary>Gets or sets address line 1.</summary>
-    public string? Address1 { get; set; }
+    public string? Address1 { get; set; } = null;
     /// <summary>Gets or sets address line 2.</summary>
-    public string? Address2 { get; set; }
+    public string? Address2 { get; set; } = null;
     /// <summary>Gets or sets address line 3.</summary>
-    public string? Address3 { get; set; }
+    public string? Address3 { get; set; } = null;
     /// <summary>Gets or sets the city.</summary>
-    public string? City { get; set; }
+    public string? City { get; set; } = null;
     /// <summary>Gets or sets the state code.</summary>
-    public string? StateCode { get; set; }
+    public string? StateCode { get; set; } = null;
     /// <summary>Gets or sets the zip code.</summary>
-    public string? ZipCode { get; set; }
+    public string? ZipCode { get; set; } = null;
     /// <summary>Gets or sets the country code.</summary>
-    public string? CountryCode { get; set; }
+    public string? CountryCode { get; set; } = null;
     /// <summary>Gets or sets the phone number.</summary>
-    public string? Phone { get; set; }
+    public string? Phone { get; set; } = null;
     /// <summary>Gets or sets the fax number.</summary>
-    public string? Fax { get; set; }
+    public string? Fax { get; set; } = null;
 }

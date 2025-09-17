@@ -20,13 +20,13 @@ public class VendorListRequestBody
 public class VendorListInputParameter
 {
     /// <summary>Gets or sets the vendor ID.</summary>
-    public int? VendorID { get; set; }
+    public int? VendorID { get; set; } = null;
     /// <summary>Gets or sets the company ID.</summary>
-    public int? CompanyID { get; set; }
+    public int? CompanyID { get; set; } = null;
     /// <summary>Gets or sets the vendor code.</summary>
-    public string? VendorCode { get; set; }
+    public string? VendorCode { get; set; } = null;
     /// <summary>Gets or sets the vendor name.</summary>
-    public string? VendorName { get; set; }
+    public string? VendorName { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the vendor is active.</summary>
     public bool Active { get; set; } = true;
 

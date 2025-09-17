@@ -22,11 +22,11 @@ public class ProofApproverListInputParameter
     /// <summary>Gets or sets the request ID.</summary>
     public required int RequestID { get; set; }
     /// <summary>Gets or sets the request approver ID.</summary>
-    public int? RequestApproverID { get; set; }
+    public int? RequestApproverID { get; set; } = null;
     /// <summary>Gets or sets the approver name.</summary>
-    public string? ApproverName { get; set; }
+    public string? ApproverName { get; set; } = null;
     /// <summary>Gets or sets the approver email address.</summary>
-    public string? ApproverEmailAddress { get; set; }
+    public string? ApproverEmailAddress { get; set; } = null;
     /// <summary>Gets or sets the approver status.</summary>
-    public string? ApproverStatus { get; set; }
+    public string? ApproverStatus { get; set; } = null;
 }

@@ -20,9 +20,9 @@ public class CustomerTypeListRequestBody
 public class CustomerTypeListInputParameter
 {
     /// <summary>Gets or sets the customer type ID.</summary>
-    public int? CustomerTypeID { get; set; }
+    public int? CustomerTypeID { get; set; } = null;
     /// <summary>Gets or sets the name of the customer type.</summary>
-    public string? Name { get; set; }
+    public string? Name { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the customer type is active.</summary>
     public bool? Active { get; set; } = true;
 }

@@ -20,13 +20,13 @@ public class PurchaseOrderListRequestBody
 public class PurchaseOrderListInputParameter
 {
     /// <summary>Gets or sets the purchase order type.</summary>
-    public string? PurchaseOrderType { get; set; }
+    public string? PurchaseOrderType { get; set; } = null;
     /// <summary>Gets or sets the purchase order ID.</summary>
-    public int? PurchaseOrderID { get; set; }
+    public int? PurchaseOrderID { get; set; } = null;
     /// <summary>Gets or sets the vendor ID.</summary>
-    public int? VendorID { get; set; }
+    public int? VendorID { get; set; } = null;
     /// <summary>Gets or sets the order ID.</summary>
-    public int? OrderID { get; set; }
+    public int? OrderID { get; set; } = null;
     /// <summary>Gets or sets the company ID.</summary>
-    public int? CompanyID { get; set; }
+    public int? CompanyID { get; set; } = null;
 }

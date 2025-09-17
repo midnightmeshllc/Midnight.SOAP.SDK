@@ -31,15 +31,15 @@ public class InventoryListItem
     /// <summary>Gets or sets the item ID.</summary>
     public int ItemID { get; set; }
     /// <summary>Gets or sets the customer ID.</summary>
-    public int? CustomerID { get; set; }
+    public int? CustomerID { get; set; } = null;
     /// <summary>Gets or sets the item type name.</summary>
-    public string? ItemTypeName { get; set; }
+    public string? ItemTypeName { get; set; } = null;
     /// <summary>Gets or sets the item code.</summary>
-    public string? ItemCode { get; set; }
+    public string? ItemCode { get; set; } = null;
     /// <summary>Gets or sets the item name.</summary>
-    public string? ItemName { get; set; }
+    public string? ItemName { get; set; } = null;
     /// <summary>Gets or sets the item description.</summary>
-    public string? ItemDescription { get; set; }
+    public string? ItemDescription { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is active.</summary>
-    public bool? Active { get; set; }
+    public bool? Active { get; set; } = null;
 }

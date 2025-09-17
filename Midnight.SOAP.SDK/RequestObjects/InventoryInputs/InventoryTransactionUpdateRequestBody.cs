@@ -33,17 +33,17 @@ public class InventoryTransactionUpdateItem
     /// <summary>Gets or sets the item transaction type ID.</summary>
     public int ItemTransactionTypeID { get; set; }
     /// <summary>Gets or sets the source warehouse location ID.</summary>
-    public int? FromWarehouseLocationID { get; set; }
+    public int? FromWarehouseLocationID { get; set; } = null;
     /// <summary>Gets or sets the destination warehouse location ID.</summary>
-    public int? ToWarehouseLocationID { get; set; }
+    public int? ToWarehouseLocationID { get; set; } = null;
     /// <summary>Gets or sets the quantity.</summary>
-    public int? Quantity { get; set; }
+    public int? Quantity { get; set; } = null;
     /// <summary>Gets or sets the lot ID.</summary>
-    public int? LotID { get; set; }
+    public int? LotID { get; set; } = null;
     /// <summary>Gets or sets the order ID.</summary>
-    public int? OrderID { get; set; }
+    public int? OrderID { get; set; } = null;
     /// <summary>Gets or sets the reason code ID.</summary>
-    public int? ReasonCodeID { get; set; }
+    public int? ReasonCodeID { get; set; } = null;
     /// <summary>Gets or sets the comment.</summary>
-    public string? Comment { get; set; }
+    public string? Comment { get; set; } = null;
 }

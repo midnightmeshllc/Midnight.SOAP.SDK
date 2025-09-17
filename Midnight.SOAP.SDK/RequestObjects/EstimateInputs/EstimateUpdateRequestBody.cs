@@ -15,71 +15,71 @@ public class EstimateUpdateRequestBody
     /// <summary>
     /// Gets or sets the updated quantity for the estimate.
     /// </summary>
-    public int? UpdatedQuantity { get; set; }
+    public int? UpdatedQuantity { get; set; } = null;
     /// <summary>
     /// Gets or sets the customer ID associated with the estimate.
     /// </summary>
-    public int? CustomerID { get; set; }
+    public int? CustomerID { get; set; } = null;
     /// <summary>
     /// Gets or sets the contact ID associated with the estimate.
     /// </summary>
-    public int? ContactID { get; set; }
+    public int? ContactID { get; set; } = null;
     /// <summary>
     /// Gets or sets the sales representative ID.
     /// </summary>
-    public int? SalesRepID { get; set; }
+    public int? SalesRepID { get; set; } = null;
     /// <summary>
     /// Gets or sets the customer service representative ID.
     /// </summary>
-    public int? CSRID { get; set; }
+    public int? CSRID { get; set; } = null;
     /// <summary>
     /// Gets or sets the licensee ID.
     /// </summary>
-    public int? LicenseeID { get; set; }
+    public int? LicenseeID { get; set; } = null;
     /// <summary>
     /// Gets or sets the project name.
     /// </summary>
-    public string? ProjectName { get; set; }
+    public string? ProjectName { get; set; } = null;
     /// <summary>
     /// Gets or sets the purchase order number.
     /// </summary>
-    public string? PONumber { get; set; }
+    public string? PONumber { get; set; } = null;
     /// <summary>
     /// Gets or sets the terms code.
     /// </summary>
-    public string? TermsCode { get; set; }
+    public string? TermsCode { get; set; } = null;
     /// <summary>
     /// Gets or sets a value indicating whether the estimate is taxable.
     /// </summary>
-    public bool EstimateTaxable { get; set; }
+    public bool EstimateTaxable { get; set; } = true;
     /// <summary>
     /// Gets or sets the estimate date.
     /// </summary>
-    public string? EstimateDate { get; set; }
+    public string? EstimateDate { get; set; } = null;
     /// <summary>
     /// Gets or sets the data in date.
     /// </summary>
-    public string? DataIn { get; set; }
+    public string? DataIn { get; set; } = null;
     /// <summary>
     /// Gets or sets the material in date.
     /// </summary>
-    public string? MaterialInDate { get; set; }
+    public string? MaterialInDate { get; set; } = null;
     /// <summary>
     /// Gets or sets the artwork in date.
     /// </summary>
-    public string? ArtworkInDate { get; set; }
+    public string? ArtworkInDate { get; set; } = null;
     /// <summary>
     /// Gets or sets the due date.
     /// </summary>
-    public string? DueDate { get; set; }
+    public string? DueDate { get; set; } = null;
     /// <summary>
     /// Gets or sets the time due.
     /// </summary>
-    public string? TimeDue { get; set; }
+    public string? TimeDue { get; set; } = null;
     /// <summary>
     /// Gets or sets the estimate detail comment.
     /// </summary>
-    public string? EstimateDetailComment { get; set; }
+    public string? EstimateDetailComment { get; set; } = null;
     /// <summary>
     /// Gets or sets the list of user-defined fields for the estimate.
     /// </summary>
@@ -87,5 +87,5 @@ public class EstimateUpdateRequestBody
     /// <summary>
     /// Gets or sets the status name of the estimate.
     /// </summary>
-    public string? StatusName { get; set; }
+    public string? StatusName { get; set; } = null;
 }

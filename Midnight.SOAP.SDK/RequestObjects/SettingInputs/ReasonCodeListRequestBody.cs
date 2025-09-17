@@ -20,9 +20,9 @@ public class ReasonCodeListRequestBody
 public class ReasonCodeListInputParameter
 {
     /// <summary>Gets or sets the reason code ID.</summary>
-    public int? ReasonCodeID { get; set; }
+    public int? ReasonCodeID { get; set; } = null;
     /// <summary>Gets or sets the reason code.</summary>
-    public string? ReasonCode { get; set; }
+    public string? ReasonCode { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the reason code is active.</summary>
     public bool Active { get; set; } = true;
 }

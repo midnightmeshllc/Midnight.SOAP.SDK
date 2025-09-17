@@ -53,7 +53,7 @@ public class CustomerContactInserts : UserDefinedFields
     /// <summary>Gets or sets a value indicating whether the contact is active.</summary>
     public bool? Active { get; set; } = true;
     /// <summary>Gets or sets the contact type ID.</summary>
-    public int? ContactTypeID { get; set; }
+    public int? ContactTypeID { get; set; } = null;
     /// <summary>Gets or sets the comment.</summary>
     public string? Comment { get; set; } = null;
     /// <summary>Gets or sets address line 1.</summary>

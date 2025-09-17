@@ -20,17 +20,17 @@ public class PostageAffixListRequestBody
 public class PostageAffixListInputParameter
 {
     /// <summary>Gets or sets the postage affix ID.</summary>
-    public int? PostageAffixID { get; set; }
+    public int? PostageAffixID { get; set; } = null;
     /// <summary>Gets or sets the name of the postage affix.</summary>
-    public string? Name { get; set; }
+    public string? Name { get; set; } = null;
     /// <summary>Gets or sets the description of the postage affix.</summary>
-    public string? Description { get; set; }
+    public string? Description { get; set; } = null;
     /// <summary>Gets or sets the GLID.</summary>
-    public string? GLID { get; set; }
+    public string? GLID { get; set; } = null;
     /// <summary>Gets or sets the inventory item.</summary>
-    public string? InvItem { get; set; }
+    public string? InvItem { get; set; } = null;
     /// <summary>Gets or sets the postage bank account.</summary>
-    public string? PostageBankAccount { get; set; }
+    public string? PostageBankAccount { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the postage affix is taxable.</summary>
     public bool Taxable { get; set; } = false;
     /// <summary>Gets or sets a value indicating whether the postage affix is active.</summary>

@@ -20,7 +20,7 @@ public class DJBJobStatusListRequestBody
 public class DJBStatusListInputParameter
 {
     /// <summary>Gets or sets the DJB job status ID.</summary>
-    public int? DJBJobStatusID { get; set; }
+    public int? DJBJobStatusID { get; set; } = null;
     /// <summary>Gets or sets the status.</summary>
-    public string? Status { get; set; } = string.Empty;
+    public string? Status { get; set; } = null;
 }

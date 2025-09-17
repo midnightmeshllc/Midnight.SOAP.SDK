@@ -32,9 +32,9 @@ public class OrderVersionPostageDetailInputParameter
     /// <summary>Gets or sets the detail total postage.</summary>
     public decimal DetailTotalPostage { get; set; }
     /// <summary>Gets or sets the detail date.</summary>
-    public string? DetailDate { get; set; }
+    public string? DetailDate { get; set; } = null;
     /// <summary>Gets or sets the weight type.</summary>
-    public string? WtType { get; set; }
+    public string? WtType { get; set; } = null;
     /// <summary>Gets or sets the precanceled flag.</summary>
-    public char Precanceled { get; set; }
+    public char? Precanceled { get; set; } = 'N';
 }

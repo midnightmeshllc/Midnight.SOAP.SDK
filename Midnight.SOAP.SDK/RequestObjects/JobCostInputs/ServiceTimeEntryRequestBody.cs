@@ -29,7 +29,7 @@ public class ServiceTimeEntryRequestItem
     /// <summary>Gets or sets the total time.</summary>
     public required decimal TotalTime { get; set; }
     /// <summary>Gets or sets the job comment.</summary>
-    public string? JobComment { get; set; }
+    public string? JobComment { get; set; } = null;
     /// <summary>Gets or sets the order ID.</summary>
-    public int? OrderID { get; set; }
+    public int? OrderID { get; set; } = null;
 }

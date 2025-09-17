@@ -20,9 +20,9 @@ public class PostageStatusListRequestBody
 public class PostageStatusListInputParameter
 {
     /// <summary>Gets or sets the postage status ID.</summary>
-    public int? PostageStatusID { get; set; }
+    public int? PostageStatusID { get; set; } = null;
     /// <summary>Gets or sets the name of the postage status.</summary>
-    public string? Name { get; set; }
+    public string? Name { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the postage status is active.</summary>
     public bool Active { get; set; } = true;
 }

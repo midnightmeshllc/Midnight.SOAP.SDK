@@ -20,9 +20,9 @@ public class JobFrequencyListRequestBody
 public class JobFrequencyListInputParameter
 {
     /// <summary>Gets or sets the job frequency ID.</summary>
-    public int? JobFrequencyID { get; set; }
+    public int? JobFrequencyID { get; set; } = null;
     /// <summary>Gets or sets the job frequency description.</summary>
-    public string? JobFrequencyDescription { get; set; }
+    public string? JobFrequencyDescription { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the job frequency is active.</summary>
     public bool Active { get; set; } = true;
 }

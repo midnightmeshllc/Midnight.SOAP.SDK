@@ -20,7 +20,7 @@ public class ItemRequestTypeListRequestBody
 public class ItemRequestTypeListInputParameter
 {
     /// <summary>Gets or sets the item request type ID.</summary>
-    public int? ItemRequestTypeID { get; set; }
+    public int? ItemRequestTypeID { get; set; } = null;
     /// <summary>Gets or sets the description.</summary>
-    public string? Description { get; set; }
+    public string? Description { get; set; } = null;
 }

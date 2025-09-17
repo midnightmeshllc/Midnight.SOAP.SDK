@@ -21,11 +21,11 @@ public class OrderVersionDetailEstimatedTimeRequestBody
 public class OrderVersionDetailEstimatedTimeInputParameter : UserDefinedFieldsFirst10
 {
     /// <summary>Gets or sets the order ID.</summary>
-    public int? OrderID { get; set; }
+    public int? OrderID { get; set; } = null;
     /// <summary>Gets or sets the version ID.</summary>
-    public int? VersionID { get; set; }
+    public int? VersionID { get; set; } = null;
     /// <summary>Gets or sets the order version detail ID.</summary>
     public int OrderVersionDetailID { get; set; }
     /// <summary>Gets or sets the service ID.</summary>
-    public int? ServiceID { get; set; }
+    public int? ServiceID { get; set; } = null;
 }

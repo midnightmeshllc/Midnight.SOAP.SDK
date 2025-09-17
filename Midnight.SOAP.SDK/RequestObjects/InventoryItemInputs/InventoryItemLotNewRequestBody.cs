@@ -33,15 +33,15 @@ public class ItemLot
     /// <summary>Gets or sets the vendor ID.</summary>
     public int VendorID { get; set; }
     /// <summary>Gets or sets the invoice number.</summary>
-    public string? InvoiceNumber { get; set; }
+    public string? InvoiceNumber { get; set; } = null;
     /// <summary>Gets or sets the enter date.</summary>
-    public string? EnterDate { get; set; }
+    public string? EnterDate { get; set; } = null;
     /// <summary>Gets or sets the item cost.</summary>
-    public decimal ItemCost { get; set; }
+    public decimal? ItemCost { get; set; } = null;
     /// <summary>Gets or sets the expiration date.</summary>
-    public string? ExpirationDate { get; set; }
+    public string? ExpirationDate { get; set; } = null;
     /// <summary>Gets or sets the weight.</summary>
-    public decimal Weight { get; set; }
+    public decimal? Weight { get; set; } = null;
     /// <summary>Gets or sets the tare weight.</summary>
-    public decimal TareWeight { get; set; }
+    public decimal? TareWeight { get; set; } = null;
 }

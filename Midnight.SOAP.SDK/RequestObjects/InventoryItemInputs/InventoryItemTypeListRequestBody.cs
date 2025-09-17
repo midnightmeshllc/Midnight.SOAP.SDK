@@ -20,7 +20,7 @@ public class InventoryItemTypeListRequestBody
 public class InventoryItemTypeListInputParameter
 {
     /// <summary>Gets or sets the item type name.</summary>
-    public string? ItemTypeName { get; set; }
+    public string? ItemTypeName { get; set; } = null;
     /// <summary>Gets or sets the item type description.</summary>
-    public string? ItemTypeDescription { get; set; }
+    public string? ItemTypeDescription { get; set; } = null;
 }

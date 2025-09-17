@@ -6,19 +6,19 @@
 public class BillingAddress
 {
     /// <summary>Gets or sets the billing address name.</summary>
-    public string? BillingAddressName { get; set; }
+    public string? BillingAddressName { get; set; } = null;
     /// <summary>Gets or sets the first line of the billing address.</summary>
-    public string? BillingAddressLine1 { get; set; }
+    public string? BillingAddressLine1 { get; set; } = null;
     /// <summary>Gets or sets the second line of the billing address.</summary>
-    public string? BillingAddressLine2 { get; set; }
+    public string? BillingAddressLine2 { get; set; } = null;
     /// <summary>Gets or sets the third line of the billing address.</summary>
-    public string? BillingAddressLine3 { get; set; }
+    public string? BillingAddressLine3 { get; set; } = null;
     /// <summary>Gets or sets the billing address city.</summary>
-    public string? BillingAddressCity { get; set; }
+    public string? BillingAddressCity { get; set; } = null;
     /// <summary>Gets or sets the billing address state.</summary>
-    public string? BillingAddressState { get; set; }
+    public string? BillingAddressState { get; set; } = null;
     /// <summary>Gets or sets the billing address zip code.</summary>
-    public string? BillingAddressZip { get; set; }
+    public string? BillingAddressZip { get; set; } = null;
     /// <summary>Gets or sets the billing address country.</summary>
-    public string? BillingAddressCountry { get; set; } = "United States";
+    public string? BillingAddressCountry { get; set; } = null;
 }

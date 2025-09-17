@@ -25,92 +25,92 @@ public class InventoryUpdateInputParameter : UserDefinedFields
     /// <summary>Gets or sets the customer ID.</summary>
     public int CustomerID { get; set; }
     /// <summary>Gets or sets the item type name.</summary>
-    public string? ItemTypeName { get; set; }
+    public string? ItemTypeName { get; set; } = null;
     /// <summary>Gets or sets the item name.</summary>
-    public string? ItemName { get; set; }
+    public string? ItemName { get; set; } = null;
     /// <summary>Gets or sets the item description.</summary>
-    public string? ItemDescription { get; set; }
+    public string? ItemDescription { get; set; } = null;
     /// <summary>Gets or sets the customer part number.</summary>
-    public string? CustomerPartNumber { get; set; }
+    public string? CustomerPartNumber { get; set; } = null;
     /// <summary>Gets or sets the version number.</summary>
-    public string? VersionNumber { get; set; }
+    public string? VersionNumber { get; set; } = null;
     /// <summary>Gets or sets the lot.</summary>
-    public string? Lot { get; set; }
+    public string? Lot { get; set; } = null;
     /// <summary>Gets or sets the expiration date.</summary>
-    public string? ExpirationDate { get; set; }
+    public string? ExpirationDate { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is discontinued.</summary>
-    public bool? Discontinued { get; set; }
+    public bool? Discontinued { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is a kit.</summary>
-    public bool? Kit { get; set; }
+    public bool? Kit { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is global.</summary>
-    public bool? Global { get; set; }
+    public bool? Global { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is active.</summary>
-    public bool? Active { get; set; }
+    public bool? Active { get; set; } = null;
     /// <summary>Gets or sets the UPC code.</summary>
-    public string? UPCCode { get; set; }
+    public string? UPCCode { get; set; } = null;
     /// <summary>Gets or sets the unit value.</summary>
-    public decimal? UnitValue { get; set; }
+    public decimal? UnitValue { get; set; } = null;
     /// <summary>Gets or sets the unit measure code.</summary>
-    public string? UnitMeasureCode { get; set; }
+    public string? UnitMeasureCode { get; set; } = null;
     /// <summary>Gets or sets the reorder point.</summary>
-    public int? ReOrderPoint { get; set; }
+    public int? ReOrderPoint { get; set; } = null;
     /// <summary>Gets or sets the reorder quantity.</summary>
-    public int? ReOrderQuantity { get; set; }
+    public int? ReOrderQuantity { get; set; } = null;
     /// <summary>Gets or sets the lead time.</summary>
-    public int? LeadTime { get; set; }
+    public int? LeadTime { get; set; } = null;
     /// <summary>Gets or sets the default quantity per container.</summary>
-    public int? DefaultQuantityPerContainer { get; set; }
+    public int? DefaultQuantityPerContainer { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is a PO item.</summary>
-    public bool? POItem { get; set; }
+    public bool? POItem { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is print on demand.</summary>
-    public bool? PrintOnDemand { get; set; }
+    public bool? PrintOnDemand { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is a digital asset.</summary>
-    public bool? DigitalAsset { get; set; }
+    public bool? DigitalAsset { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is serialized.</summary>
-    public bool? Serialized { get; set; }
+    public bool? Serialized { get; set; } = null;
     /// <summary>Gets or sets the vendor.</summary>
-    public string? Vendor { get; set; }
+    public string? Vendor { get; set; } = null;
     /// <summary>Gets or sets the color.</summary>
-    public string? Color { get; set; }
+    public string? Color { get; set; } = null;
     /// <summary>Gets or sets the material type.</summary>
-    public string? MaterialType { get; set; }
+    public string? MaterialType { get; set; } = null;
     /// <summary>Gets or sets the unit cost.</summary>
-    public decimal? UnitCost { get; set; }
+    public decimal? UnitCost { get; set; } = null;
     /// <summary>Gets or sets the cover text.</summary>
-    public string? CoverText { get; set; }
+    public string? CoverText { get; set; } = null;
     /// <summary>Gets or sets the parent sheet length.</summary>
-    public decimal? ParentSheetLength { get; set; }
+    public decimal? ParentSheetLength { get; set; } = null;
     /// <summary>Gets or sets the parent sheet width.</summary>
-    public decimal? ParentSheetWidth { get; set; }
+    public decimal? ParentSheetWidth { get; set; } = null;
     /// <summary>Gets or sets the basis weight.</summary>
-    public decimal? BasisWeight { get; set; }
+    public decimal? BasisWeight { get; set; } = null;
     /// <summary>Gets or sets the M weight.</summary>
-    public decimal? MWeight { get; set; }
+    public decimal? MWeight { get; set; } = null;
     /// <summary>Gets or sets the caliper.</summary>
-    public decimal? Caliper { get; set; }
+    public decimal? Caliper { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the item is coated.</summary>
-    public bool? Coated { get; set; }
+    public bool? Coated { get; set; } = null;
     /// <summary>Gets or sets the cost per CWT.</summary>
-    public decimal? CostPerCwt { get; set; }
+    public decimal? CostPerCwt { get; set; } = null;
     /// <summary>Gets or sets the cost per M sheets.</summary>
-    public decimal? CostPerMSheets { get; set; }
+    public decimal? CostPerMSheets { get; set; } = null;
     /// <summary>Gets or sets the paper weight.</summary>
-    public decimal? PaperWeight { get; set; }
+    public decimal? PaperWeight { get; set; } = null;
     /// <summary>Gets or sets the paper markup.</summary>
-    public decimal? PaperMarkup { get; set; }
+    public decimal? PaperMarkup { get; set; } = null;
     /// <summary>Gets or sets the weight per square foot.</summary>
-    public decimal? WeightPerSqFt { get; set; }
+    public decimal? WeightPerSqFt { get; set; } = null;
     /// <summary>Gets or sets the cost per square foot.</summary>
-    public decimal? CostPerSqFt { get; set; }
+    public decimal? CostPerSqFt { get; set; } = null;
     /// <summary>Gets or sets the parent roll length.</summary>
-    public decimal? ParentRollLength { get; set; }
+    public decimal? ParentRollLength { get; set; } = null;
     /// <summary>Gets or sets the parent roll width.</summary>
-    public decimal? ParentRollWidth { get; set; }
+    public decimal? ParentRollWidth { get; set; } = null;
     /// <summary>Gets or sets the roll weight.</summary>
-    public decimal? RollWeight { get; set; }
+    public decimal? RollWeight { get; set; } = null;
     /// <summary>Gets or sets the cost per pound.</summary>
-    public decimal? CostPerPound { get; set; }
+    public decimal? CostPerPound { get; set; } = null;
     /// <summary>Gets or sets the item comment.</summary>
-    public string? ItemComment { get; set; }
+    public string? ItemComment { get; set; } = null;
 
 }

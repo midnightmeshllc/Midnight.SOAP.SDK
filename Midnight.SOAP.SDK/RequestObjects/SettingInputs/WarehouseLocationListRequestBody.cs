@@ -20,21 +20,21 @@ public class WarehouseLocationListRequestBody
 public class WarehouseLocationListInputParameter
 {
     /// <summary>Gets or sets the warehouse location ID.</summary>
-    public int? WarehouseLocationID { get; set; }
+    public int? WarehouseLocationID { get; set; } = null;
     /// <summary>Gets or sets the description of the warehouse location.</summary>
-    public string? Description { get; set; }
+    public string? Description { get; set; } = null;
     /// <summary>Gets or sets the section of the warehouse location.</summary>
-    public string? Section { get; set; }
+    public string? Section { get; set; } = null;
     /// <summary>Gets or sets the bay of the warehouse location.</summary>
-    public string? Bay { get; set; }
+    public string? Bay { get; set; } = null;
     /// <summary>Gets or sets the slot or shelf of the warehouse location.</summary>
-    public string? SlotShelf { get; set; }
+    public string? SlotShelf { get; set; } = null;
     /// <summary>Gets or sets the size ID.</summary>
-    public int? SizeID { get; set; }
+    public int? SizeID { get; set; } = null;
     /// <summary>Gets or sets the location type.</summary>
-    public string? LocationType { get; set; }
+    public string? LocationType { get; set; } = null;
     /// <summary>Gets or sets the warehouse ID.</summary>
-    public int? WarehouseID { get; set; }
+    public int? WarehouseID { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the warehouse location is active.</summary>
     public bool Active { get; set; } = true;
 }

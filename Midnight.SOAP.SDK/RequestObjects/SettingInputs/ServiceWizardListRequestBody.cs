@@ -9,7 +9,7 @@ namespace Midnight.SOAP.SDK.RequestObjects.SettingInputs;
 public class ServiceWizardListRequestBody
 {
     /// <summary>Gets or sets the wizard number.</summary>
-    public int? WizardNumber { get; set; }
+    public int? WizardNumber { get; set; } = null;
     /// <summary>Gets or sets the category.</summary>
-    public string? Category { get; set; }
+    public string? Category { get; set; } = null;
 }

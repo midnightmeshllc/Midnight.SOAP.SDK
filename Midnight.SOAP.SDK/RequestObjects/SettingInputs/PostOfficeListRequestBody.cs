@@ -20,9 +20,9 @@ public class PostOfficeListRequestBody
 public class PostOfficeListInputParameter
 {
     /// <summary>Gets or sets the post office ID.</summary>
-    public int? PostOfficeID { get; set; }
+    public int? PostOfficeID { get; set; } = null;
     /// <summary>Gets or sets the name of the post office.</summary>
-    public string? Name { get; set; }
+    public string? Name { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the post office is active.</summary>
     public bool Active { get; set; } = true;
 }

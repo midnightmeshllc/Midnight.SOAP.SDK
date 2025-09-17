@@ -20,11 +20,11 @@ public class OrderStatusListRequestBody
 public class OrderStatusListInputParameter
 {
     /// <summary>Gets or sets the order status ID.</summary>
-    public int? OrderStatusID { get; set; }
+    public int? OrderStatusID { get; set; } = null;
     /// <summary>Gets or sets the order status name.</summary>
-    public string? OrderStatusName { get; set; }
+    public string? OrderStatusName { get; set; } = null;
     /// <summary>Gets or sets the order status type.</summary>
-    public string? OrderStatusType { get; set; }
+    public string? OrderStatusType { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the order status is active.</summary>
     public bool Active { get; set; } = true;
 }

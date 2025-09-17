@@ -20,9 +20,9 @@ public class MailGeographyListRequestBody
 public class MailGeographyListInputParameter
 {
     /// <summary>Gets or sets the mail geography ID.</summary>
-    public int? MailGeographyID { get; set; }
+    public int? MailGeographyID { get; set; } = null;
     /// <summary>Gets or sets the name of the mail geography.</summary>
-    public string? Name { get; set; }
+    public string? Name { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the mail geography is active.</summary>
     public bool Active { get; set; } = true;
 }

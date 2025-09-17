@@ -20,11 +20,11 @@ public class CustomerPostageAccountListRequestBody
 public class CustomerPostageAccountListInputParameter
 {
     /// <summary>Gets or sets the postage account ID.</summary>
-    public int? PostageAccountID { get; set; }
+    public int? PostageAccountID { get; set; } = null;
     /// <summary>Gets or sets the customer ID.</summary>
     public required int CustomerID { get; set; }
     /// <summary>Gets or sets the account number.</summary>
-    public string? AccountNumber { get; set; }
+    public string? AccountNumber { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the postage account is active.</summary>
     public bool Active { get; set; } = true;
 }

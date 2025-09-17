@@ -20,11 +20,11 @@ public class EmployeeListRequestBody
 public class EmployeeListInputParameter
 {
     /// <summary>Gets or sets the employee ID.</summary>
-    public int? EmployeeID { get; set; }
+    public int? EmployeeID { get; set; } = null;
     /// <summary>Gets or sets the employee initials.</summary>
-    public string? EmployeeInitials { get; set; }
+    public string? EmployeeInitials { get; set; } = null;
     /// <summary>Gets or sets the employee name.</summary>
-    public string? EmployeeName { get; set; }
+    public string? EmployeeName { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the employee is active.</summary>
     public bool Active { get; set; } = true;
 }

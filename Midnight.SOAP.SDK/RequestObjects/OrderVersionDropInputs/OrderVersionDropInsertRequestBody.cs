@@ -23,18 +23,18 @@ public class OrderVersionDropInsertInputParameter : UserDefinedFieldsFirst5
     /// <summary>Gets or sets the version ID.</summary>
     public int VersionID { get; set; }
     /// <summary>Gets or sets the drop date.</summary>
-    public string DropDate { get; set; } = string.Empty;
+    public string? DropDate { get; set; } = null;
     /// <summary>Gets or sets the quantity.</summary>
     public int Quantity { get; set; }
     /// <summary>Gets or sets the drop name.</summary>
-    public string DropName { get; set; } = string.Empty;
+    public string? DropName { get; set; } = null;
     /// <summary>Gets or sets the time due.</summary>
-    public string TimeDue { get; set; } = string.Empty;
+    public string? TimeDue { get; set; } = null;
     /// <summary>Gets or sets the actual drop.</summary>
-    public string ActualDrop { get; set; } = string.Empty;
+    public string? ActualDrop { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the drop date is complete.</summary>
-    public bool DropDateComplete { get; set; }
+    public bool? DropDateComplete { get; set; } = false;
     /// <summary>Gets or sets the postage value.</summary>
-    public decimal PostageValue { get; set; }
+    public decimal? PostageValue { get; set; } = null;
 
 }

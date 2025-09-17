@@ -21,10 +21,9 @@ public class OrderVersionListRequestBody
 public class OrderVersionListInputParameter
 {
     /// <summary>Gets or sets the order ID.</summary>
-    [Required]
-    public int OrderID { get; set; }
+    public required int OrderID { get; set; }
     /// <summary>Gets or sets the order drop date from.</summary>
-    public string? OrderDropDateFrom { get; set; } = string.Empty;
+    public string? OrderDropDateFrom { get; set; } = null;
     /// <summary>Gets or sets the order drop date to.</summary>
-    public string? OrderDropDateTo { get; set; } = string.Empty;
+    public string? OrderDropDateTo { get; set; } = null;
 }

@@ -34,13 +34,13 @@ public class RequestNew
     /// <summary>Gets or sets the customer ID.</summary>
     public required int CustomerID { get; set; }
     /// <summary>Gets or sets the estimate ID.</summary>
-    public int? EstimateID { get; set; }
+    public int? EstimateID { get; set; } = null;
     /// <summary>Gets or sets the version ID.</summary>
-    public int? VersionID { get; set; }
+    public int? VersionID { get; set; } = null;
     /// <summary>Gets or sets the order version detail ID.</summary>
-    public int? OrderVersionDetailID { get; set; }
+    public int? OrderVersionDetailID { get; set; } = null;
     /// <summary>Gets or sets the description.</summary>
-    public string? Description { get; set; }
+    public string? Description { get; set; } = null;
     /// <summary>Gets or sets the comment.</summary>
-    public string? Comment { get; set; }
+    public string? Comment { get; set; } = null;
 }

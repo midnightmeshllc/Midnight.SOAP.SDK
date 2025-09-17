@@ -20,9 +20,9 @@ public class JobPriorityListRequestBody
 public class JobPriorityListInputParameter
 {
     /// <summary>Gets or sets the job priority ID.</summary>
-    public int? JobPriorityID { get; set; }
+    public int? JobPriorityID { get; set; } = null;
     /// <summary>Gets or sets the job priority description.</summary>
-    public string? JobPriorityDescription { get; set; }
+    public string? JobPriorityDescription { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the job priority is active.</summary>
     public bool Active { get; set; }
 }

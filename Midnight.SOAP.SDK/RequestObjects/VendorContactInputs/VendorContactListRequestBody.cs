@@ -20,17 +20,17 @@ public class VendorContactListRequestBody
 public class VendorContactListInputParameter
 {
     /// <summary>Gets or sets the vendor ID.</summary>
-    public int? VendorID { get; set; }
+    public int? VendorID { get; set; } = null;
     /// <summary>Gets or sets the contact ID.</summary>
-    public int? ContactID { get; set; }
+    public int? ContactID { get; set; } = null;
     /// <summary>Gets or sets the first name.</summary>
-    public string? FirstName { get; set; }
+    public string? FirstName { get; set; } = null;
     /// <summary>Gets or sets the middle name.</summary>
-    public string? MiddleName { get; set; }
+    public string? MiddleName { get; set; } = null;
     /// <summary>Gets or sets the last name.</summary>
-    public string? LastName { get; set; }
+    public string? LastName { get; set; } = null;
     /// <summary>Gets or sets the email address.</summary>
-    public string? EmailAddress { get; set; }
+    public string? EmailAddress { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the contact is active.</summary>
     public bool Active { get; set; } = true;
 }

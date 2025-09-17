@@ -21,29 +21,29 @@ public class OrderListRequestBody
 public class OrderListInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the order number.</summary>
-    public string? OrderNumber { get; set; } = string.Empty;
+    public string? OrderNumber { get; set; } = null;
     /// <summary>Gets or sets the order number to copy from.</summary>
-    public string? CopyFromOrderNumber { get; set; } = string.Empty;
+    public string? CopyFromOrderNumber { get; set; } = null;
     /// <summary>Gets or sets the customer ID.</summary>
-    public int? CustomerID { get; set; }
+    public int? CustomerID { get; set; } = null;
     /// <summary>Gets or sets the customer code.</summary>
-    public string? CustomerCode { get; set; } = string.Empty;
+    public string? CustomerCode { get; set; } = null;
     /// <summary>Gets or sets the order date from.</summary>
-    public string? OrderDateFrom { get; set; } = string.Empty;
+    public string? OrderDateFrom { get; set; } = null;
     /// <summary>Gets or sets the order date to.</summary>
-    public string? OrderDateTo { get; set; } = string.Empty;
+    public string? OrderDateTo { get; set; } = null;
     /// <summary>Gets or sets the order status.</summary>
-    public string? OrderStatus { get; set; } = string.Empty;
+    public string? OrderStatus { get; set; } = null;
     /// <summary>Gets or sets the order due date from.</summary>
-    public string? OrderDueDateFrom { get; set; } = string.Empty;
+    public string? OrderDueDateFrom { get; set; } = null;
     /// <summary>Gets or sets the order due date to.</summary>
-    public string? OrderDueDateTo { get; set; } = string.Empty;
+    public string? OrderDueDateTo { get; set; } = null;
     /// <summary>Gets or sets the order close date from.</summary>
-    public string? OrderCloseDateFrom { get; set; } = string.Empty;
+    public string? OrderCloseDateFrom { get; set; } = null;
     /// <summary>Gets or sets the order close date to.</summary>
-    public string? OrderCloseDateTo { get; set; } = string.Empty;
+    public string? OrderCloseDateTo { get; set; } = null;
     /// <summary>Gets or sets the order modified date.</summary>
-    public string? Ordermodifieddate { get; set; } = string.Empty;
+    public string? Ordermodifieddate { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether to return only open orders.</summary>
     public bool? OpenOrdersOnly { get; set; } = true;
 }

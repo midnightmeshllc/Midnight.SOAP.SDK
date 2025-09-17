@@ -34,11 +34,11 @@ public class OrderVersionPostageInsertInputParameter
     /// <summary>Gets or sets the mail class ID.</summary>
     public int MailClassID { get; set; }
     /// <summary>Gets or sets the total weight.</summary>
-    public decimal TotalWeight { get; set; } = decimal.Zero;
+    public decimal? TotalWeight { get; set; } = null;
     /// <summary>Gets or sets the postage markup type.</summary>
-    public string PostageMarkupType { get; set; } = "$";
+    public string? PostageMarkupType { get; set; } = null;
     /// <summary>Gets or sets the postage markup value.</summary>
-    public decimal PostageMarkupValue { get; set; }
+    public decimal? PostageMarkupValue { get; set; } = null;
     /// <summary>Gets or sets the postage sell rate.</summary>
-    public decimal PostageSellRate { get; set; }
+    public decimal? PostageSellRate { get; set; } = null;
 }

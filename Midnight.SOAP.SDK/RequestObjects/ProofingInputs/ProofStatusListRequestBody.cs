@@ -20,9 +20,9 @@ public class ProofStatusListRequestBody
 public class ProofStatusListInputParameter
 {
     /// <summary>Gets or sets the code.</summary>
-    public string? Code { get; set; }
+    public string? Code { get; set; } = null;
     /// <summary>Gets or sets the name.</summary>
-    public string? Name { get; set; }
+    public string? Name { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the status is active.</summary>
     public bool Active { get; set; } = true;
 }

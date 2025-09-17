@@ -21,63 +21,63 @@ public class OrderNewInputParameter : UserDefinedFieldsFirst5
     /// <summary>Gets or sets the customer ID.</summary>
     public int CustomerID { get; set; }
     /// <summary>Gets or sets the order date.</summary>
-    public string? OrderDate { get; set; }
+    public string? OrderDate { get; set; } = null;
     /// <summary>Gets or sets the due date.</summary>
-    public string? DueDate { get; set; }
+    public string? DueDate { get; set; } = null;
     /// <summary>Gets or sets the order number.</summary>
     public int OrderNo { get; set; }
     /// <summary>Gets or sets the version name.</summary>
-    public string? VersionName { get; set; }
+    public string? VersionName { get; set; } = null;
     /// <summary>Gets or sets the invoice comments.</summary>
-    public string? InvoiceComments { get; set; }
+    public string? InvoiceComments { get; set; } = null;
     /// <summary>Gets or sets the shipping address.</summary>
     public OrderShippingAddress? ShippingAddress { get; set; } = new OrderShippingAddress();
     /// <summary>Gets or sets the billing address.</summary>
     public OrderBillingAddress? BillingAddress { get; set; } = new OrderBillingAddress();
     /// <summary>Gets or sets the Pressero ID.</summary>
-    public int PresseroId { get; set; }
+    public int? PresseroId { get; set; } = null;
     /// <summary>Gets or sets the quantity.</summary>
     public int Quantity { get; set; }
     /// <summary>Gets or sets the project name.</summary>
-    public string? ProjectName { get; set; }
+    public string? ProjectName { get; set; } = null;
     /// <summary>Gets or sets the contact ID.</summary>
-    public int ContactID { get; set; }
+    public int? ContactID { get; set; } = null;
     /// <summary>Gets or sets the sales representative ID.</summary>
-    public int SalesRepID { get; set; }
+    public int? SalesRepID { get; set; } = null;
     /// <summary>Gets or sets the ship to name.</summary>
-    public string? ShipToName { get; set; }
+    public string? ShipToName { get; set; } = null;
     /// <summary>Gets or sets the ship to method.</summary>
-    public string? ShipToMethod { get; set; }
+    public string? ShipToMethod { get; set; } = null;
     /// <summary>Gets or sets the bill to name.</summary>
-    public string? BillToName { get; set; }
+    public string? BillToName { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the order is paid (Y/N).</summary>
-    public char OrderPaidYN { get; set; }
+    public char OrderPaidYN { get; set; } = 'N';
     /// <summary> Gets or sets the identifier representing the urgency level. </summary>
-    public int UrgencyID { get; set; }
+    public int? UrgencyID { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether payment was received.</summary>
-    public bool PaymentReceived { get; set; }
+    public bool PaymentReceived { get; set; } = false;
     /// <summary>Gets or sets the surcharge amount on services.</summary>
-    public int SurchargeAmountOnServices { get; set; }
+    public int? SurchargeAmountOnServices { get; set; } = null;
     /// <summary>Gets or sets the surcharge amount on postage.</summary>
-    public int SurchargeAmountOnPostage { get; set; }
+    public int? SurchargeAmountOnPostage { get; set; } = null;
     /// <summary>Gets or sets the surcharge amount on escrow earmarked.</summary>
-    public int SurchargeAmountOnEscrowEarmarked { get; set; }
+    public int? SurchargeAmountOnEscrowEarmarked { get; set; } = null;
     /// <summary>Gets or sets the payment info.</summary>
-    public PaymentInfo? PaymentInfo { get; set; }
+    public PaymentInfo? PaymentInfo { get; set; } = null;
     /// <summary>Gets or sets the PO number.</summary>
-    public string? PONum { get; set; }
+    public string? PONum { get; set; } = null;
     /// <summary>Gets or sets the MOD order number.</summary>
-    public string? MODOrderNum { get; set; }
+    public string? MODOrderNum { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether to use the order number.</summary>
-    public bool UseOrderNo { get; set; }
+    public bool UseOrderNo { get; set; } = false;
     /// <summary>Gets or sets the discount.</summary>
-    public decimal Discount { get; set; }
+    public decimal? Discount { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether to update press stock pricing (Y/N).</summary>
-    public char UpdatePressStockPricingYN { get; set; }
+    public char? UpdatePressStockPricingYN { get; set; } = null;
     /// <summary>Gets or sets the order detail.</summary>
-    public OrderDetail? OrderDetail { get; set; }
+    public OrderDetail? OrderDetail { get; set; } = null;
     /// <summary>Gets or sets the order inventory.</summary>
-    public OrderInventory? OrderInventory { get; set; }
+    public OrderInventory? OrderInventory { get; set; } = null;
 }
 
 /// <summary>
@@ -97,13 +97,13 @@ public class Item
     /// <summary>Gets or sets the item ID.</summary>
     public int ItemId { get; set; }
     /// <summary>Gets or sets the description.</summary>
-    public string? Description { get; set; }
+    public string? Description { get; set; } = null;
     /// <summary>Gets or sets the quantity needed.</summary>
-    public int QuantityNeeded { get; set; }
+    public int? QuantityNeeded { get; set; } = null;
     /// <summary>Gets or sets the notes.</summary>
-    public string? Notes { get; set; }
+    public string? Notes { get; set; } = null;
     /// <summary>Gets or sets the priority.</summary>
-    public int Priority { get; set; }
+    public int? Priority { get; set; } = null;
 }
 
 /// <summary>

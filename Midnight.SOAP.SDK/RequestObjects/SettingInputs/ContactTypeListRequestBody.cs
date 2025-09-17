@@ -20,9 +20,9 @@ public class ContactTypeListRequestBody
 public class ContactTypeListInputParameter
 {
     /// <summary>Gets or sets the contact type ID.</summary>
-    public int? ContactTypeID { get; set; }
+    public int? ContactTypeID { get; set; } = null;
     /// <summary>Gets or sets the contact type name.</summary>
-    public string? ContactTypeName { get; set; }
+    public string? ContactTypeName { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the contact type is active.</summary>
     public bool Active { get; set; } = true;
 }

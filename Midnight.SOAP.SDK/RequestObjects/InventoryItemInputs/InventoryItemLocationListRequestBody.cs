@@ -24,7 +24,7 @@ public class InventoryItemLocationListInputParameter
     /// <summary>Gets or sets the item lot ID.</summary>
     public int ItemLotID { get; set; }
     /// <summary>Gets or sets the warehouse ID.</summary>
-    public int? WarehouseID { get; set; }
+    public int? WarehouseID { get; set; } = null;
     /// <summary>Gets or sets the warehouse location ID.</summary>
-    public int? WarehouseLocationID { get; set; }
+    public int? WarehouseLocationID { get; set; } = null;
 }

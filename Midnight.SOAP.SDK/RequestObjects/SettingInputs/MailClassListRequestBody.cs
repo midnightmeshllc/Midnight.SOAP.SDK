@@ -20,9 +20,9 @@ public class MailClassListRequestBody
 public class MailClassListInputParameter
 {
     /// <summary>Gets or sets the mail class ID.</summary>
-    public int? MailClassID { get; set; }
+    public int? MailClassID { get; set; } = null;
     /// <summary>Gets or sets the name of the mail class.</summary>
-    public string? Name { get; set; }
+    public string? Name { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the mail class is active.</summary>
     public bool Active { get; set; } = true;
 }

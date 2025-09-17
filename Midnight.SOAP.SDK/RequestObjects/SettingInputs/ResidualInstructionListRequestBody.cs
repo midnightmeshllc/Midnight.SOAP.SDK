@@ -20,9 +20,9 @@ public class ResidualInstructionListRequestBody
 public class ResidualInstructionListInputParameter
 {
     /// <summary>Gets or sets the residual instruction ID.</summary>
-    public int? ResidualInstructionID { get; set; }
+    public int? ResidualInstructionID { get; set; } = null;
     /// <summary>Gets or sets the name of the residual instruction.</summary>
-    public string? ResidualInstructionName { get; set; }
+    public string? ResidualInstructionName { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the residual instruction is active.</summary>
     public bool Active { get; set; } = true;
 }

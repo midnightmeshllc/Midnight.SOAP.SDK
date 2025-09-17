@@ -20,9 +20,9 @@ public class JobTypeListRequestBody
 public class JobTypeListInputParameter
 {
     /// <summary>Gets or sets the job type ID.</summary>
-    public int? JobTypeID { get; set; }
+    public int? JobTypeID { get; set; } = null;
     /// <summary>Gets or sets the job type description.</summary>
-    public string? JobTypeDescription { get; set; }
+    public string? JobTypeDescription { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the job type is active.</summary>
     public bool Active { get; set; } = true;
 }

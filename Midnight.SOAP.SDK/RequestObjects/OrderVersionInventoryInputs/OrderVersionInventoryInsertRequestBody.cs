@@ -21,17 +21,15 @@ public class OrderVersionInventoryInsertRequestBody
 public class OrderVersionInventoryInsertInputParameter
 {
     /// <summary>Gets or sets the version ID.</summary>
-    [Required]
-    public int VersionID { get; set; }
+    public required int VersionID { get; set; }
     /// <summary>Gets or sets the item ID.</summary>
-    [Required]
-    public int ItemID { get; set; }
+    public required int ItemID { get; set; }
     /// <summary>Gets or sets the description.</summary>
-    public string? Description { get; set; }
+    public string? Description { get; set; } = null;
     /// <summary>Gets or sets the quantity needed.</summary>
     public int QuantityNeeded { get; set; }
     /// <summary>Gets or sets the priority.</summary>
-    public int Priority { get; set; }
+    public int? Priority { get; set; } = null;
     /// <summary>Gets or sets the notes.</summary>
-    public string? Notes { get; set; }
+    public string? Notes { get; set; } = null;
 }

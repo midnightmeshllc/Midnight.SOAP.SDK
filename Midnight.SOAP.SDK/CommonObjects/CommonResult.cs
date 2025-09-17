@@ -21,5 +21,5 @@ public class ReturnError
 {
     /// <summary>Gets or sets the error message.</summary>
     [XmlElement("Error")]
-    public string? Error { get; set; }
+    public string? Error { get; set; } = null;
 }
