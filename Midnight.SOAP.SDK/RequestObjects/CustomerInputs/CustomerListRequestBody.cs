@@ -19,7 +19,7 @@ public class CustomerListRequestBody
 /// <summary>
 /// Represents the input parameter for listing customers in the Midnight SOAP API.
 /// </summary>
-public class CustomerListInputParameter
+public class CustomerListInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the customer ID.</summary>
     public int? CustomerID { get; set; }
