@@ -122,7 +122,7 @@ namespace Midnight.SOAP.SDK.Tests
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
             var request = new OrderVersionInventoryInsertRequestBody
             {
-                InputParameter = new OrderVersionInventoryInsertInputParameter()
+                InputParameter = new OrderVersionInventoryInsertInputParameter { ItemID = 1, VersionID = 1 }
             };
 
             var result = await service.OrderVersionInventoryInsertAsync(auth, request);
@@ -147,7 +147,7 @@ namespace Midnight.SOAP.SDK.Tests
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
             var request = new OrderVersionInventoryInsertRequestBody
             {
-                InputParameter = new OrderVersionInventoryInsertInputParameter()
+                InputParameter = new OrderVersionInventoryInsertInputParameter { ItemID= 1, VersionID = 1 }
             };
 
             await Assert.ThrowsAsync<Exception>(async () =>

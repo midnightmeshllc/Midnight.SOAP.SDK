@@ -25,7 +25,7 @@ namespace Midnight.SOAP.SDK.Tests
 
             var service = new JobCostingService(mockSoap.Object);
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
-            var request = new JobOutRequestBody { InputParameter = new JobOutInputParameter() };
+            var request = new JobOutRequestBody { InputParameter = new JobOutInputParameter { JobCostDetailTempID = 1 } };
 
             var result = await service.JobCostingJobOutAsync(auth, request);
 
@@ -47,7 +47,7 @@ namespace Midnight.SOAP.SDK.Tests
 
             var service = new JobCostingService(mockSoap.Object);
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
-            var request = new JobOutRequestBody { InputParameter = new JobOutInputParameter() };
+            var request = new JobOutRequestBody { InputParameter = new JobOutInputParameter { JobCostDetailTempID = 1 } };
 
             await Assert.ThrowsAsync<Exception>(async () =>
             {
