@@ -23,15 +23,20 @@ public class OrderVersionQuickAddInputParameter
     /// <summary>Gets or sets the order number.</summary>
     public required string OrderNumber { get; set; }
     /// <summary>Gets or sets the version drop date.</summary>
-    public string? VersionDropDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? VersionDropDate { get; set; }
     /// <summary>Gets or sets the version quantity.</summary>
-    public int? VersionQuantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? VersionQuantity { get; set; }
     /// <summary>Gets or sets the version name.</summary>
-    public string? VersionName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? VersionName { get; set; }
     /// <summary>Gets or sets the version comments.</summary>
-    public string? VersionComments { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? VersionComments { get; set; }
     /// <summary>Gets or sets the template order number.</summary>
-    public string? TemplateOrderNumber { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? TemplateOrderNumber { get; set; }
     /// <summary>Gets or sets the template version suffix.</summary>
     public int TemplateVersionSuffix { get; set; } = 0;
 }

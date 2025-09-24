@@ -23,21 +23,29 @@ public class OrderVersionDetailInsertInputParameter : UserDefinedFields
     /// <summary>Gets or sets the version ID.</summary>
     public int VersionID { get; set; }
     /// <summary>Gets or sets the service ID.</summary>
-    public int? ServiceID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ServiceID { get; set; }
     /// <summary>Gets or sets the service name.</summary>
-    public string? ServiceName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ServiceName { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
-    public int? Quantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Quantity { get; set; }
     /// <summary>Gets or sets the unit price.</summary>
-    public decimal? UnitPrice { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? UnitPrice { get; set; }
     /// <summary>Gets or sets a value indicating whether the detail is taxable.</summary>
     public bool Taxable { get; set; } = false;
     /// <summary>Gets or sets the priority.</summary>
-    public int? Priority { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Priority { get; set; }
     /// <summary>Gets or sets the service hyperlink.</summary>
-    public string? ServiceHyperlink { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ServiceHyperlink { get; set; }
     /// <summary>Gets or sets the file location.</summary>
-    public string? FileLocation { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? FileLocation { get; set; }
     /// <summary>Gets or sets the comment.</summary>
-    public string? Comment { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Comment { get; set; }
 }

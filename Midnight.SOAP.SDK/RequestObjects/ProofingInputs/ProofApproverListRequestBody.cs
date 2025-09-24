@@ -22,11 +22,15 @@ public class ProofApproverListInputParameter
     /// <summary>Gets or sets the request ID.</summary>
     public required int RequestID { get; set; }
     /// <summary>Gets or sets the request approver ID.</summary>
-    public int? RequestApproverID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? RequestApproverID { get; set; }
     /// <summary>Gets or sets the approver name.</summary>
-    public string? ApproverName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ApproverName { get; set; }
     /// <summary>Gets or sets the approver email address.</summary>
-    public string? ApproverEmailAddress { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ApproverEmailAddress { get; set; }
     /// <summary>Gets or sets the approver status.</summary>
-    public string? ApproverStatus { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ApproverStatus { get; set; }
 }

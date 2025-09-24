@@ -25,58 +25,84 @@ public class CustomerInsertInputParameter : UserDefinedFields
     /// <summary>Gets or sets the customer code.</summary>
     public required string CustomerCode { get; set; } = string.Empty;
     /// <summary>Gets or sets the customer name.</summary>
-    public string? CustomerName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CustomerName { get; set; }
     /// <summary>Gets or sets the phone number.</summary>
-    public string? Phone { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Phone { get; set; }
     /// <summary>Gets or sets the phone extension.</summary>
-    public string? PhoneExtension { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PhoneExtension { get; set; }
     /// <summary>Gets or sets the fax number.</summary>
-    public string? Fax { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Fax { get; set; }
     /// <summary>Gets or sets the email address.</summary>
-    public string? Email { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Email { get; set; }
     /// <summary>Gets or sets the website.</summary>
-    public string? Website { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Website { get; set; }
     /// <summary>Gets or sets the terms.</summary>
-    public string? Terms { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Terms { get; set; }
     /// <summary>Gets or sets the company name.</summary>
-    public string? Company { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Company { get; set; }
     /// <summary>Gets or sets the customer notes.</summary>
-    public string? CustomerNotes { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CustomerNotes { get; set; }
     /// <summary>Gets or sets the customer type.</summary>
-    public string? CustomerType { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CustomerType { get; set; }
     /// <summary>Gets or sets the parent customer code.</summary>
-    public int? ParentCustomerCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ParentCustomerCode { get; set; }
     /// <summary>Gets or sets the sales representative.</summary>
-    public string? SalesRep { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? SalesRep { get; set; }
     /// <summary>Gets or sets the customer service representative.</summary>
-    public string? CSR { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CSR { get; set; }
     /// <summary>Gets or sets the permit number.</summary>
-    public string? PermitNumber { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PermitNumber { get; set; }
     /// <summary>Gets or sets the account status.</summary>
-    public string? AccountStatus { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? AccountStatus { get; set; }
     /// <summary>Gets or sets a value indicating whether notification is enabled.</summary>
-    public bool? Notification { get; set; } = false;
+    [XmlElement(IsNullable = true)]
+    public bool? Notification { get; set; }
     /// <summary>Gets or sets the notification text.</summary>
-    public string? NotificationText { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? NotificationText { get; set; }
     /// <summary>Gets or sets a value indicating whether the customer is taxable.</summary>
-    public bool? Taxable { get; set; } = true;
+    [XmlElement(IsNullable = true)]
+    public bool? Taxable { get; set; }
     /// <summary>Gets or sets the tax jurisdiction name.</summary>
-    public string? TaxJurisdictionName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? TaxJurisdictionName { get; set; }
     /// <summary>Gets or sets the tax exemption name.</summary>
-    public string? TaxExemptionName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? TaxExemptionName { get; set; }
     /// <summary>Gets or sets the postage markup type.</summary>
-    public string? PostageMarkupType { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PostageMarkupType { get; set; }
     /// <summary>Gets or sets the postage markup value.</summary>
-    public decimal? PostageMarkupValue { get; set; } = decimal.Zero;
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageMarkupValue { get; set; }
     /// <summary>Gets or sets the unpaid balance limit.</summary>
-    public decimal? UpaidBalanceLimit { get; set; } = decimal.Zero;
+    [XmlElement(IsNullable = true)]
+    public decimal? UpaidBalanceLimit { get; set; }
     /// <summary>Gets or sets the accounting code.</summary>
-    public string? AccountingCode { get; set; } = null;
-
+    [XmlElement(IsNullable = true)]
+    public string? AccountingCode { get; set; }
     /// <summary>Gets or sets the customer address.</summary>
-    public CustomerAddress? CustomerAddress { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public CustomerAddress? CustomerAddress { get; set; }
     /// <summary>Gets or sets the shipping address.</summary>
-    public ShippingAddress? ShippingAddress { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public ShippingAddress? ShippingAddress { get; set; }
     /// <summary>Gets or sets the billing address.</summary>
-    public BillingAddress? BillingAdress { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public BillingAddress? BillingAdress { get; set; }
 }

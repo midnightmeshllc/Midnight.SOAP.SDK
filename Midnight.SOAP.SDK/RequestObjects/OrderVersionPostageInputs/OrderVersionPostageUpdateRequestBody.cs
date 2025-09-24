@@ -22,59 +22,87 @@ public class OrderVersionPostageUpdateInputParameter
     /// <summary>Gets or sets the order version postage ID.</summary>
     public required int OrderVersionPostageID { get; set; }
     /// <summary>Gets or sets the postage affix ID.</summary>
-    public int? PostageAffixID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? PostageAffixID { get; set; }
     /// <summary>Gets or sets the postage affix name.</summary>
-    public string? PostageAffixName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PostageAffixName { get; set; }
     /// <summary>Gets or sets the postage quantity.</summary>
-    public int? PostageQuantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? PostageQuantity { get; set; }
     /// <summary>Gets or sets the postage rate.</summary>
-    public decimal? PostageRate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageRate { get; set; }
     /// <summary>Gets or sets the postage total.</summary>
-    public decimal? PostageTotal { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageTotal { get; set; }
     /// <summary>Gets or sets the date used.</summary>
-    public string? DateUsed { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DateUsed { get; set; }
     /// <summary>Gets or sets the mail class ID.</summary>
-    public int? MailClassID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? MailClassID { get; set; }
     /// <summary>Gets or sets the total weight.</summary>
-    public decimal? TotalWeight { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? TotalWeight { get; set; }
     /// <summary>Gets or sets the form number.</summary>
-    public string? FormNo { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? FormNo { get; set; }
     /// <summary>Gets or sets the lot.</summary>
-    public string? Lot { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Lot { get; set; }
     /// <summary>Gets or sets the permit number.</summary>
-    public string? PermitNo { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PermitNo { get; set; }
     /// <summary>Gets or sets the non-profit information.</summary>
-    public string? NonProfit { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? NonProfit { get; set; }
     /// <summary>Gets or sets the post office.</summary>
-    public string? PostOffice { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PostOffice { get; set; }
     /// <summary>Gets or sets the post office city.</summary>
-    public string? POCity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? POCity { get; set; }
     /// <summary>Gets or sets the post office zip code.</summary>
-    public string? POZip { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? POZip { get; set; }
     /// <summary>Gets or sets the weight status.</summary>
-    public string? WTStatus { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? WTStatus { get; set; }
     /// <summary>Gets or sets the processing category.</summary>
-    public int? ProcessingCategory { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ProcessingCategory { get; set; }
     /// <summary>Gets or sets the FTtr1 value.</summary>
-    public string? FTtr1 { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? FTtr1 { get; set; }
     /// <summary>Gets or sets the FTtr2 value.</summary>
-    public string? FTtr2 { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? FTtr2 { get; set; }
     /// <summary>Gets or sets the number of sacks.</summary>
-    public int? Sacks { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Sacks { get; set; }
     /// <summary>Gets or sets the number of pallets.</summary>
-    public int? Pallets { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Pallets { get; set; }
     /// <summary>Gets or sets the flat tray value.</summary>
-    public string? FlatTr { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? FlatTr { get; set; }
     /// <summary>Gets or sets other information.</summary>
-    public string? Other { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Other { get; set; }
     /// <summary>Gets or sets the tare weight.</summary>
-    public decimal? TareWt { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? TareWt { get; set; }
     /// <summary>Gets or sets a value indicating whether the postage is precanceled.</summary>
-    public bool? Precanceled { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public bool? Precanceled { get; set; }
     /// <summary>Gets or sets the postage markup type.</summary>
-    public string? PostageMarkupType { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PostageMarkupType { get; set; }
     /// <summary>Gets or sets the postage markup value.</summary>
-    public decimal? PostageMarkupValue { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageMarkupValue { get; set; }
     /// <summary>Gets or sets the postage sell rate.</summary>
-    public decimal? PostageSellRate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageSellRate { get; set; }
 }

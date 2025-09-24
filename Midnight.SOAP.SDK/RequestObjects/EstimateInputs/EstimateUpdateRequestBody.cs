@@ -15,39 +15,48 @@ public class EstimateUpdateRequestBody
     /// <summary>
     /// Gets or sets the updated quantity for the estimate.
     /// </summary>
-    public int? UpdatedQuantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? UpdatedQuantity { get; set; }
     /// <summary>
     /// Gets or sets the customer ID associated with the estimate.
     /// </summary>
-    public int? CustomerID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CustomerID { get; set; }
     /// <summary>
     /// Gets or sets the contact ID associated with the estimate.
     /// </summary>
-    public int? ContactID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ContactID { get; set; }
     /// <summary>
     /// Gets or sets the sales representative ID.
     /// </summary>
-    public int? SalesRepID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? SalesRepID { get; set; }
     /// <summary>
     /// Gets or sets the customer service representative ID.
     /// </summary>
-    public int? CSRID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CSRID { get; set; }
     /// <summary>
     /// Gets or sets the licensee ID.
     /// </summary>
-    public int? LicenseeID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? LicenseeID { get; set; }
     /// <summary>
     /// Gets or sets the project name.
     /// </summary>
-    public string? ProjectName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ProjectName { get; set; }
     /// <summary>
     /// Gets or sets the purchase order number.
     /// </summary>
-    public string? PONumber { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PONumber { get; set; }
     /// <summary>
     /// Gets or sets the terms code.
     /// </summary>
-    public string? TermsCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? TermsCode { get; set; }
     /// <summary>
     /// Gets or sets a value indicating whether the estimate is taxable.
     /// </summary>
@@ -55,31 +64,38 @@ public class EstimateUpdateRequestBody
     /// <summary>
     /// Gets or sets the estimate date.
     /// </summary>
-    public string? EstimateDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateDate { get; set; }
     /// <summary>
     /// Gets or sets the data in date.
     /// </summary>
-    public string? DataIn { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DataIn { get; set; }
     /// <summary>
     /// Gets or sets the material in date.
     /// </summary>
-    public string? MaterialInDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? MaterialInDate { get; set; }
     /// <summary>
     /// Gets or sets the artwork in date.
     /// </summary>
-    public string? ArtworkInDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ArtworkInDate { get; set; }
     /// <summary>
     /// Gets or sets the due date.
     /// </summary>
-    public string? DueDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DueDate { get; set; }
     /// <summary>
     /// Gets or sets the time due.
     /// </summary>
-    public string? TimeDue { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? TimeDue { get; set; }
     /// <summary>
     /// Gets or sets the estimate detail comment.
     /// </summary>
-    public string? EstimateDetailComment { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateDetailComment { get; set; }
     /// <summary>
     /// Gets or sets the list of user-defined fields for the estimate.
     /// </summary>
@@ -87,5 +103,6 @@ public class EstimateUpdateRequestBody
     /// <summary>
     /// Gets or sets the status name of the estimate.
     /// </summary>
-    public string? StatusName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? StatusName { get; set; }
 }

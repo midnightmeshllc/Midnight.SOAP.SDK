@@ -29,7 +29,8 @@ public class JobOutInputParameter
     /// <summary>Gets or sets a value indicating whether the job is complete.</summary>
     public bool Complete { get; set; } = true;
     /// <summary>Gets or sets the DJB status ID.</summary>
-    public int? DJBStatusID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? DJBStatusID { get; set; }
     /// <summary>Gets or sets a value indicating whether the job is a rework.</summary>
     public bool Rework { get; set; } = false;
 }

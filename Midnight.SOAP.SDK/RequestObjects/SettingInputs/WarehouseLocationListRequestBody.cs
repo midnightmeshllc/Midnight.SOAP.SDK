@@ -20,21 +20,29 @@ public class WarehouseLocationListRequestBody
 public class WarehouseLocationListInputParameter
 {
     /// <summary>Gets or sets the warehouse location ID.</summary>
-    public int? WarehouseLocationID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? WarehouseLocationID { get; set; }
     /// <summary>Gets or sets the description of the warehouse location.</summary>
-    public string? Description { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Description { get; set; }
     /// <summary>Gets or sets the section of the warehouse location.</summary>
-    public string? Section { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Section { get; set; }
     /// <summary>Gets or sets the bay of the warehouse location.</summary>
-    public string? Bay { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Bay { get; set; }
     /// <summary>Gets or sets the slot or shelf of the warehouse location.</summary>
-    public string? SlotShelf { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? SlotShelf { get; set; }
     /// <summary>Gets or sets the size ID.</summary>
-    public int? SizeID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? SizeID { get; set; }
     /// <summary>Gets or sets the location type.</summary>
-    public string? LocationType { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? LocationType { get; set; }
     /// <summary>Gets or sets the warehouse ID.</summary>
-    public int? WarehouseID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? WarehouseID { get; set; }
     /// <summary>Gets or sets a value indicating whether the warehouse location is active.</summary>
     public bool Active { get; set; } = true;
 }

@@ -25,11 +25,14 @@ public class OrderVersionInventoryInsertInputParameter
     /// <summary>Gets or sets the item ID.</summary>
     public required int ItemID { get; set; }
     /// <summary>Gets or sets the description.</summary>
-    public string? Description { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Description { get; set; }
     /// <summary>Gets or sets the quantity needed.</summary>
     public int QuantityNeeded { get; set; }
     /// <summary>Gets or sets the priority.</summary>
-    public int? Priority { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Priority { get; set; }
     /// <summary>Gets or sets the notes.</summary>
-    public string? Notes { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Notes { get; set; }
 }

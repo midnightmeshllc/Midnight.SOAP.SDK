@@ -23,7 +23,9 @@ public class OrderVersionListInputParameter
     /// <summary>Gets or sets the order ID.</summary>
     public required int OrderID { get; set; }
     /// <summary>Gets or sets the order drop date from.</summary>
-    public string? OrderDropDateFrom { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? OrderDropDateFrom { get; set; }
     /// <summary>Gets or sets the order drop date to.</summary>
-    public string? OrderDropDateTo { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? OrderDropDateTo { get; set; }
 }

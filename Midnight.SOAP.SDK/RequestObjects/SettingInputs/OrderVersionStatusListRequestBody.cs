@@ -20,9 +20,11 @@ public class OrderVersionStatusListRequestBody
 public class OrderVersionStatusListInputParameter
 {
     /// <summary>Gets or sets the order version status ID.</summary>
-    public int? OrderVersionStatusID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? OrderVersionStatusID { get; set; }
     /// <summary>Gets or sets the name of the order version status.</summary>
-    public string? Name { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the order version status is active.</summary>
     public bool Active { get; set; } = true;
 }

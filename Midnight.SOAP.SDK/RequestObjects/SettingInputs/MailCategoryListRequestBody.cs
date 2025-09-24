@@ -20,9 +20,11 @@ public class MailCategoryListRequestBody
 public class MailCategoryListInputParameter
 {
     /// <summary>Gets or sets the mail category ID.</summary>
-    public int? MailCategoryID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? MailCategoryID { get; set; }
     /// <summary>Gets or sets the name of the mail category.</summary>
-    public string? Name { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the mail category is active.</summary>
     public bool Active { get; set; } = true;
 }

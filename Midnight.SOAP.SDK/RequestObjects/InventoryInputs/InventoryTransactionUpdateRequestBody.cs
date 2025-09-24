@@ -33,17 +33,24 @@ public class InventoryTransactionUpdateItem
     /// <summary>Gets or sets the item transaction type ID.</summary>
     public int ItemTransactionTypeID { get; set; }
     /// <summary>Gets or sets the source warehouse location ID.</summary>
-    public int? FromWarehouseLocationID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? FromWarehouseLocationID { get; set; }
     /// <summary>Gets or sets the destination warehouse location ID.</summary>
-    public int? ToWarehouseLocationID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ToWarehouseLocationID { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
-    public int? Quantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Quantity { get; set; }
     /// <summary>Gets or sets the lot ID.</summary>
-    public int? LotID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? LotID { get; set; }
     /// <summary>Gets or sets the order ID.</summary>
-    public int? OrderID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? OrderID { get; set; }
     /// <summary>Gets or sets the reason code ID.</summary>
-    public int? ReasonCodeID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ReasonCodeID { get; set; }
     /// <summary>Gets or sets the comment.</summary>
-    public string? Comment { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Comment { get; set; }
 }

@@ -20,9 +20,11 @@ public class JobFrequencyListRequestBody
 public class JobFrequencyListInputParameter
 {
     /// <summary>Gets or sets the job frequency ID.</summary>
-    public int? JobFrequencyID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? JobFrequencyID { get; set; }
     /// <summary>Gets or sets the job frequency description.</summary>
-    public string? JobFrequencyDescription { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? JobFrequencyDescription { get; set; }
     /// <summary>Gets or sets a value indicating whether the job frequency is active.</summary>
     public bool Active { get; set; } = true;
 }

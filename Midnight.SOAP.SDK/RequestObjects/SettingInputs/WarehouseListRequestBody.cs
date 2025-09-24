@@ -20,9 +20,14 @@ public class WarehouseListRequestBody
 public class WarehouseListInputParameter
 {
     /// <summary>Gets or sets the warehouse ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? WarehouseID { get; set; } = null;
+
     /// <summary>Gets or sets the name of the warehouse.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; } = null;
+
     /// <summary>Gets or sets the default receiving ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? DefaultReceivingID { get; set; } = null;
 }

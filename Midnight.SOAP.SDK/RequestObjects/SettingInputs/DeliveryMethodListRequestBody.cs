@@ -20,9 +20,11 @@ public class DeliveryMethodListRequestBody
 public class DeliveryMethodListInputParameter
 {
     /// <summary>Gets or sets the delivery method ID.</summary>
-    public int? DeliveryMethodID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? DeliveryMethodID { get; set; }
     /// <summary>Gets or sets the delivery method name.</summary>
-    public string? DeliveryMethodName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DeliveryMethodName { get; set; }
     /// <summary>Gets or sets a value indicating whether the delivery method is active.</summary>
     public bool Active { get; set; } = true;
 }

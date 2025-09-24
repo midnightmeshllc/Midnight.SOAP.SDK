@@ -23,16 +23,20 @@ public class CustomerListRequestBody
 public class CustomerListInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the customer ID.</summary>
-    public int? CustomerID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CustomerID { get; set; }
     /// <summary>Gets or sets the customer type ID.</summary>
-    public int? CustomerTypeID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CustomerTypeID { get; set; }
     /// <summary>Gets or sets the customer code.</summary>
-    public string? CustomerCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CustomerCode { get; set; }
     /// <summary>Gets or sets the email address.</summary>
-    public string? EmailAddress { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EmailAddress { get; set; }
     /// <summary>Gets or sets the customer name.</summary>
-    public string? CustomerName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CustomerName { get; set; }
     /// <summary>Gets or sets a value indicating whether the customer is active.</summary>
     public bool Active { get; set; } = true;
-
 }

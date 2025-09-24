@@ -9,9 +9,11 @@ namespace Midnight.SOAP.SDK.RequestObjects.SettingInputs;
 public class OperationListRequestBody
 {
     /// <summary>Gets or sets the operation code.</summary>
-    public string? OperationCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? OperationCode { get; set; }
     /// <summary>Gets or sets the description of the operation.</summary>
-    public string? Description { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Description { get; set; }
     /// <summary>Gets or sets a value indicating whether the operation is active.</summary>
     public bool Active { get; set; } = true;
 }

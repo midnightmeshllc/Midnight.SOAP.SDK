@@ -20,9 +20,13 @@ public class ResidualInstructionListRequestBody
 public class ResidualInstructionListInputParameter
 {
     /// <summary>Gets or sets the residual instruction ID.</summary>
-    public int? ResidualInstructionID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ResidualInstructionID { get; set; }
+
     /// <summary>Gets or sets the name of the residual instruction.</summary>
-    public string? ResidualInstructionName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ResidualInstructionName { get; set; }
+
     /// <summary>Gets or sets a value indicating whether the residual instruction is active.</summary>
     public bool Active { get; set; } = true;
 }

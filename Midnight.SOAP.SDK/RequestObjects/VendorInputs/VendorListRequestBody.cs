@@ -19,14 +19,22 @@ public class VendorListRequestBody
 /// </summary>
 public class VendorListInputParameter
 {
+    [XmlElement(IsNullable = true)]
     /// <summary>Gets or sets the vendor ID.</summary>
-    public int? VendorID { get; set; } = null;
+    public int? VendorID { get; set; }
+
+    [XmlElement(IsNullable = true)]
     /// <summary>Gets or sets the company ID.</summary>
-    public int? CompanyID { get; set; } = null;
+    public int? CompanyID { get; set; }
+
+    [XmlElement(IsNullable = true)]
     /// <summary>Gets or sets the vendor code.</summary>
-    public string? VendorCode { get; set; } = null;
+    public string? VendorCode { get; set; }
+
+    [XmlElement(IsNullable = true)]
     /// <summary>Gets or sets the vendor name.</summary>
-    public string? VendorName { get; set; } = null;
+    public string? VendorName { get; set; }
+
     /// <summary>Gets or sets a value indicating whether the vendor is active.</summary>
     public bool Active { get; set; } = true;
 

@@ -20,29 +20,40 @@ public class ProofListRequestBody
 public class ProofListInputParameter
 {
     /// <summary>Gets or sets the request status code.</summary>
-    public string? RequestStatusCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? RequestStatusCode { get; set; }
     /// <summary>Gets or sets the request ID.</summary>
-    public int? RequestID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? RequestID { get; set; }
     /// <summary>Gets or sets the request date from.</summary>
     public required string RequestDateFrom { get; set; }
     /// <summary>Gets or sets the request date to.</summary>
     public required string RequestDateTo { get; set; }
     /// <summary>Gets or sets the user name.</summary>
-    public string? UserName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? UserName { get; set; }
     /// <summary>Gets or sets the customer ID.</summary>
-    public int? CustomerID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CustomerID { get; set; }
     /// <summary>Gets or sets the customer name.</summary>
-    public string? CustomerName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CustomerName { get; set; }
     /// <summary>Gets or sets the estimate ID.</summary>
-    public int? EstimateID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? EstimateID { get; set; }
     /// <summary>Gets or sets the estimate detail ID.</summary>
-    public int? EstimateDetailID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? EstimateDetailID { get; set; }
     /// <summary>Gets or sets the estimate service name.</summary>
-    public string? EstimateServiceName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateServiceName { get; set; }
     /// <summary>Gets or sets the order ID.</summary>
-    public int? OrderID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? OrderID { get; set; }
     /// <summary>Gets or sets the order version detail ID.</summary>
-    public int? OrderVersionDetailID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? OrderVersionDetailID { get; set; }
     /// <summary>Gets or sets the order service name.</summary>
-    public string? OrderServiceName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? OrderServiceName { get; set; }
 }

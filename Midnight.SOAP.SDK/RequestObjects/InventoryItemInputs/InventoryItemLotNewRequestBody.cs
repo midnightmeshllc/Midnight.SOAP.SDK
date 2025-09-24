@@ -33,15 +33,21 @@ public class ItemLot
     /// <summary>Gets or sets the vendor ID.</summary>
     public int VendorID { get; set; }
     /// <summary>Gets or sets the invoice number.</summary>
-    public string? InvoiceNumber { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? InvoiceNumber { get; set; }
     /// <summary>Gets or sets the enter date.</summary>
-    public string? EnterDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EnterDate { get; set; }
     /// <summary>Gets or sets the item cost.</summary>
-    public decimal? ItemCost { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? ItemCost { get; set; }
     /// <summary>Gets or sets the expiration date.</summary>
-    public string? ExpirationDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ExpirationDate { get; set; }
     /// <summary>Gets or sets the weight.</summary>
-    public decimal? Weight { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? Weight { get; set; }
     /// <summary>Gets or sets the tare weight.</summary>
-    public decimal? TareWeight { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? TareWeight { get; set; }
 }

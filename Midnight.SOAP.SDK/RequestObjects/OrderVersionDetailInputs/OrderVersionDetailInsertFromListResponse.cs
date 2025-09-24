@@ -1,4 +1,6 @@
-﻿namespace Midnight.SOAP.SDK.RequestObjects.OrderVersionDetailInputs;
+﻿using System.Xml.Serialization;
+
+namespace Midnight.SOAP.SDK.RequestObjects.OrderVersionDetailInputs;
 
 /// <summary>
 /// Represents the response for inserting an order version detail from a list in the Midnight SOAP API.
@@ -6,6 +8,7 @@
 public class OrderVersionDetailInsertFromListResponse
 {
     /// <summary>Gets or sets the order number.</summary>
+    [XmlElement(IsNullable = true)]
     public string? OrderNumber { get; set; } = string.Empty;
     /// <summary>Gets or sets the order ID.</summary>
     public int OrderID { get; set; } = 0;

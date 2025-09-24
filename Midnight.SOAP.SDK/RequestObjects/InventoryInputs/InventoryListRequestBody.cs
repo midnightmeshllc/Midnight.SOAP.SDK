@@ -31,15 +31,21 @@ public class InventoryListItem
     /// <summary>Gets or sets the item ID.</summary>
     public int ItemID { get; set; }
     /// <summary>Gets or sets the customer ID.</summary>
-    public int? CustomerID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CustomerID { get; set; }
     /// <summary>Gets or sets the item type name.</summary>
-    public string? ItemTypeName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ItemTypeName { get; set; }
     /// <summary>Gets or sets the item code.</summary>
-    public string? ItemCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ItemCode { get; set; }
     /// <summary>Gets or sets the item name.</summary>
-    public string? ItemName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ItemName { get; set; }
     /// <summary>Gets or sets the item description.</summary>
-    public string? ItemDescription { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ItemDescription { get; set; }
     /// <summary>Gets or sets a value indicating whether the item is active.</summary>
-    public bool? Active { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public bool? Active { get; set; }
 }

@@ -20,7 +20,9 @@ public class InventoryItemTypeListRequestBody
 public class InventoryItemTypeListInputParameter
 {
     /// <summary>Gets or sets the item type name.</summary>
-    public string? ItemTypeName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ItemTypeName { get; set; }
     /// <summary>Gets or sets the item type description.</summary>
-    public string? ItemTypeDescription { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ItemTypeDescription { get; set; }
 }

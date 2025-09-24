@@ -20,13 +20,22 @@ public class PurchaseOrderListRequestBody
 public class PurchaseOrderListInputParameter
 {
     /// <summary>Gets or sets the purchase order type.</summary>
-    public string? PurchaseOrderType { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PurchaseOrderType { get; set; }
+
     /// <summary>Gets or sets the purchase order ID.</summary>
-    public int? PurchaseOrderID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? PurchaseOrderID { get; set; }
+
     /// <summary>Gets or sets the vendor ID.</summary>
-    public int? VendorID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? VendorID { get; set; }
+
     /// <summary>Gets or sets the order ID.</summary>
-    public int? OrderID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? OrderID { get; set; }
+
     /// <summary>Gets or sets the company ID.</summary>
-    public int? CompanyID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CompanyID { get; set; }
 }

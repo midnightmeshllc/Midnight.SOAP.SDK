@@ -20,17 +20,23 @@ public class VendorContactListRequestBody
 public class VendorContactListInputParameter
 {
     /// <summary>Gets or sets the vendor ID.</summary>
-    public int? VendorID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? VendorID { get; set; }
     /// <summary>Gets or sets the contact ID.</summary>
-    public int? ContactID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ContactID { get; set; }
     /// <summary>Gets or sets the first name.</summary>
-    public string? FirstName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? FirstName { get; set; }
     /// <summary>Gets or sets the middle name.</summary>
-    public string? MiddleName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? MiddleName { get; set; }
     /// <summary>Gets or sets the last name.</summary>
-    public string? LastName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? LastName { get; set; }
     /// <summary>Gets or sets the email address.</summary>
-    public string? EmailAddress { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EmailAddress { get; set; }
     /// <summary>Gets or sets a value indicating whether the contact is active.</summary>
     public bool Active { get; set; } = true;
 }

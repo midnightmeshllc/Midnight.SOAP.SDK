@@ -21,21 +21,30 @@ public class EstimateListRequestBody
 public class EstimateListInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the estimate number.</summary>
-    public string? EstimateNumber { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateNumber { get; set; }
     /// <summary>Gets or sets the estimate number to copy from.</summary>
-    public string? CopyFromEstimateNumber { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CopyFromEstimateNumber { get; set; }
     /// <summary>Gets or sets the customer ID.</summary>
-    public int? CustomerID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CustomerID { get; set; }
     /// <summary>Gets or sets the customer code.</summary>
-    public string? CustomerCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CustomerCode { get; set; }
     /// <summary>Gets or sets the estimate date from.</summary>
-    public string? EstimateDateFrom { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateDateFrom { get; set; }
     /// <summary>Gets or sets the estimate date to.</summary>
-    public string? EstimateDateTo { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateDateTo { get; set; }
     /// <summary>Gets or sets the estimate status.</summary>
-    public string? EstimateStatus { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateStatus { get; set; }
     /// <summary>Gets or sets the estimate due date from.</summary>
-    public string? EstimateDueDateFrom { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateDueDateFrom { get; set; }
     /// <summary>Gets or sets the estimate due date to.</summary>
-    public string? EstimateDueDateTo { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? EstimateDueDateTo { get; set; }
 }
