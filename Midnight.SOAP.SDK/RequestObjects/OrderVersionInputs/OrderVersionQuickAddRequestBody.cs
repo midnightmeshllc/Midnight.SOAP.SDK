@@ -21,18 +21,22 @@ public class OrderVersionQuickAddRequestBody
 public class OrderVersionQuickAddInputParameter
 {
     /// <summary>Gets or sets the order number.</summary>
-    [Required]
     public required string OrderNumber { get; set; }
     /// <summary>Gets or sets the version drop date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? VersionDropDate { get; set; }
     /// <summary>Gets or sets the version quantity.</summary>
+    [XmlElement(IsNullable = true)]
     public int? VersionQuantity { get; set; }
     /// <summary>Gets or sets the version name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? VersionName { get; set; }
     /// <summary>Gets or sets the version comments.</summary>
+    [XmlElement(IsNullable = true)]
     public string? VersionComments { get; set; }
     /// <summary>Gets or sets the template order number.</summary>
+    [XmlElement(IsNullable = true)]
     public string? TemplateOrderNumber { get; set; }
     /// <summary>Gets or sets the template version suffix.</summary>
-    public int TemplateVersionSuffix { get; set; }
+    public int TemplateVersionSuffix { get; set; } = 0;
 }

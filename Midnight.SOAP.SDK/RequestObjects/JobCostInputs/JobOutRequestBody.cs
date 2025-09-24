@@ -21,16 +21,16 @@ public class JobOutRequestBody
 public class JobOutInputParameter
 {
     /// <summary>Gets or sets the job cost detail temp ID.</summary>
-    [Required]
-    public int JobCostDetailTempID { get; set; }
+    public required int JobCostDetailTempID { get; set; }
     /// <summary>Gets or sets the stop time.</summary>
     public DateTime StopTime { get; set; }
     /// <summary>Gets or sets the stop count.</summary>
     public int StopCount { get; set; }
     /// <summary>Gets or sets a value indicating whether the job is complete.</summary>
-    public bool Complete { get; set; }
+    public bool Complete { get; set; } = true;
     /// <summary>Gets or sets the DJB status ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? DJBStatusID { get; set; }
     /// <summary>Gets or sets a value indicating whether the job is a rework.</summary>
-    public bool Rework { get; set; }
+    public bool Rework { get; set; } = false;
 }

@@ -20,9 +20,12 @@ public class CustomerTypeListRequestBody
 public class CustomerTypeListInputParameter
 {
     /// <summary>Gets or sets the customer type ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? CustomerTypeID { get; set; }
     /// <summary>Gets or sets the name of the customer type.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the customer type is active.</summary>
-    public bool? Active { get; set; } = true;
+    [XmlElement(IsNullable = true)]
+    public bool? Active { get; set; }
 }

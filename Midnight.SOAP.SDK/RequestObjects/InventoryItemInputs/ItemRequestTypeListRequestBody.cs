@@ -20,7 +20,9 @@ public class ItemRequestTypeListRequestBody
 public class ItemRequestTypeListInputParameter
 {
     /// <summary>Gets or sets the item request type ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ItemRequestTypeID { get; set; }
     /// <summary>Gets or sets the description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
 }

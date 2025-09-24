@@ -37,51 +37,75 @@ public class CustomerContactInserts : UserDefinedFields
     /// <summary>Gets or sets the customer ID.</summary>
     public required int CustomerID { get; set; }
     /// <summary>Gets or sets the salutation.</summary>
-    public string? Salutation { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Salutation { get; set; }
     /// <summary>Gets or sets the first name.</summary>
-    public string? FirstName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? FirstName { get; set; }
     /// <summary>Gets or sets the middle name.</summary>
-    public string? MiddleName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? MiddleName { get; set; }
     /// <summary>Gets or sets the last name.</summary>
-    public string? LastName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? LastName { get; set; }
     /// <summary>Gets or sets the suffix.</summary>
-    public string? Suffix { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Suffix { get; set; }
     /// <summary>Gets or sets the title.</summary>
-    public string? Title { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Title { get; set; }
     /// <summary>Gets or sets the company.</summary>
-    public string? Company { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Company { get; set; }
     /// <summary>Gets or sets a value indicating whether the contact is active.</summary>
-    public bool? Active { get; set; } = true;
+    [XmlElement(IsNullable = true)]
+    public bool? Active { get; set; }
     /// <summary>Gets or sets the contact type ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ContactTypeID { get; set; }
     /// <summary>Gets or sets the comment.</summary>
-    public string? Comment { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Comment { get; set; }
     /// <summary>Gets or sets address line 1.</summary>
-    public string? Address1 { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Address1 { get; set; }
     /// <summary>Gets or sets address line 2.</summary>
-    public string? Address2 { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Address2 { get; set; }
     /// <summary>Gets or sets address line 3.</summary>
-    public string? Address3 { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Address3 { get; set; }
     /// <summary>Gets or sets the country code.</summary>
-    public string? CountryCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CountryCode { get; set; }
     /// <summary>Gets or sets the zip code.</summary>
-    public string? ZipCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ZipCode { get; set; }
     /// <summary>Gets or sets the state code.</summary>
-    public string? StateCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? StateCode { get; set; }
     /// <summary>Gets or sets the business phone.</summary>
-    public string? BusinessPhone { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? BusinessPhone { get; set; }
     /// <summary>Gets or sets the business phone extension.</summary>
-    public string? BusinessPhoneExtension { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? BusinessPhoneExtension { get; set; }
     /// <summary>Gets or sets the other phone.</summary>
-    public string? OtherPhone { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? OtherPhone { get; set; }
     /// <summary>Gets or sets the other phone extension.</summary>
-    public string? OtherPhoneExtension { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? OtherPhoneExtension { get; set; }
     /// <summary>Gets or sets the fax number.</summary>
-    public string? Fax { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Fax { get; set; }
     /// <summary>Gets or sets the fax extension.</summary>
-    public string? FaxExtension { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? FaxExtension { get; set; }
     /// <summary>Gets or sets the business email.</summary>
-    public string? BusinessEmail { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? BusinessEmail { get; set; }
     /// <summary>Gets or sets the other email.</summary>
-    public string? OtherEmail { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? OtherEmail { get; set; }
 }

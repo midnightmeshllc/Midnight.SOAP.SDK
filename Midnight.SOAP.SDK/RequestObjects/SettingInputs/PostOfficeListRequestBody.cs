@@ -20,8 +20,10 @@ public class PostOfficeListRequestBody
 public class PostOfficeListInputParameter
 {
     /// <summary>Gets or sets the post office ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? PostOfficeID { get; set; }
     /// <summary>Gets or sets the name of the post office.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the post office is active.</summary>
     public bool Active { get; set; } = true;

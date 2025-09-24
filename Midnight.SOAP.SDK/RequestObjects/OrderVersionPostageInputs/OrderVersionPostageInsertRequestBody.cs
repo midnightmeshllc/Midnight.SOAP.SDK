@@ -34,11 +34,15 @@ public class OrderVersionPostageInsertInputParameter
     /// <summary>Gets or sets the mail class ID.</summary>
     public int MailClassID { get; set; }
     /// <summary>Gets or sets the total weight.</summary>
-    public decimal TotalWeight { get; set; } = decimal.Zero;
+    [XmlElement(IsNullable = true)]
+    public decimal? TotalWeight { get; set; }
     /// <summary>Gets or sets the postage markup type.</summary>
-    public string PostageMarkupType { get; set; } = "$";
+    [XmlElement(IsNullable = true)]
+    public string? PostageMarkupType { get; set; }
     /// <summary>Gets or sets the postage markup value.</summary>
-    public decimal PostageMarkupValue { get; set; }
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageMarkupValue { get; set; }
     /// <summary>Gets or sets the postage sell rate.</summary>
-    public decimal PostageSellRate { get; set; }
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageSellRate { get; set; }
 }

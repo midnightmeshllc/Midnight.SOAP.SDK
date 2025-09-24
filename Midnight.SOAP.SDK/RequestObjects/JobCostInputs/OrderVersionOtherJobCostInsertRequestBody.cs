@@ -15,13 +15,18 @@ public class OrderVersionOtherJobCostInsertRequestBody
     /// <summary>Gets or sets the date.</summary>
     public required string Date { get; set; } = string.Empty;
     /// <summary>Gets or sets the type.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Type { get; set; }
     /// <summary>Gets or sets the source.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Source { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
-    public decimal? Quantity { get; set; } = decimal.Zero;
+    [XmlElement(IsNullable = true)]
+    public decimal? Quantity { get; set; }
     /// <summary>Gets or sets the unit price.</summary>
-    public decimal? UnitPrice { get; set; } = decimal.Zero;
+    [XmlElement(IsNullable = true)]
+    public decimal? UnitPrice { get; set; }
     /// <summary>Gets or sets the description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
 }

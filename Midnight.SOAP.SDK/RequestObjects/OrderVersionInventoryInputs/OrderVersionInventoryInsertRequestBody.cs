@@ -21,17 +21,18 @@ public class OrderVersionInventoryInsertRequestBody
 public class OrderVersionInventoryInsertInputParameter
 {
     /// <summary>Gets or sets the version ID.</summary>
-    [Required]
-    public int VersionID { get; set; }
+    public required int VersionID { get; set; }
     /// <summary>Gets or sets the item ID.</summary>
-    [Required]
-    public int ItemID { get; set; }
+    public required int ItemID { get; set; }
     /// <summary>Gets or sets the description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
     /// <summary>Gets or sets the quantity needed.</summary>
     public int QuantityNeeded { get; set; }
     /// <summary>Gets or sets the priority.</summary>
-    public int Priority { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? Priority { get; set; }
     /// <summary>Gets or sets the notes.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Notes { get; set; }
 }

@@ -22,7 +22,7 @@ namespace Midnight.SOAP.SDK.Tests
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
             var request = new OrderVersionListRequestBody
             {
-                InputParameter = new OrderVersionListInputParameter()
+                InputParameter = new OrderVersionListInputParameter { OrderID = 1 }
             };
 
             var result = await service.OrderVersionListAsync(auth, request);
@@ -47,7 +47,7 @@ namespace Midnight.SOAP.SDK.Tests
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
             var request = new OrderVersionListRequestBody
             {
-                InputParameter = new OrderVersionListInputParameter()
+                InputParameter = new OrderVersionListInputParameter { OrderID= 1 }
             };
 
             await Assert.ThrowsAsync<Exception>(async () =>
@@ -222,7 +222,7 @@ namespace Midnight.SOAP.SDK.Tests
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
             var request = new OrderVersionNewRequestBody
             {
-                InputParameter = new OrderVersionNewInputParameter()
+                InputParameter = new OrderVersionNewInputParameter { OrderID = 1 }
             };
 
             var result = await service.OrderVersionNewAsync(auth, request);
@@ -247,7 +247,7 @@ namespace Midnight.SOAP.SDK.Tests
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
             var request = new OrderVersionNewRequestBody
             {
-                InputParameter = new OrderVersionNewInputParameter()
+                InputParameter = new OrderVersionNewInputParameter { OrderID= 1 }
             };
 
             await Assert.ThrowsAsync<InvalidOperationException>(async () =>

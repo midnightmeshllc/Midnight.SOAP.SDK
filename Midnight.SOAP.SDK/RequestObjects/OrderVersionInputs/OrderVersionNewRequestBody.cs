@@ -22,25 +22,32 @@ public class OrderVersionNewRequestBody
 public class OrderVersionNewInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the order ID.</summary>
-    [Required]
-    public int OrderID { get; set; }
+    public required int OrderID { get; set; }
     /// <summary>Gets or sets the due date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? DueDate { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
     public int Quantity { get; set; }
     /// <summary>Gets or sets the name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; }
     /// <summary>Gets or sets the comment.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Comment { get; set; }
     /// <summary>Gets or sets the data processing status ID.</summary>
-    public int DataProcessingStatusID { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? DataProcessingStatusID { get; set; }
     /// <summary>Gets or sets the job type ID.</summary>
-    public int JobTypeID { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? JobTypeID { get; set; }
     /// <summary>Gets or sets the urgency ID.</summary>
-    public int UrgencyID { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? UrgencyID { get; set; }
     /// <summary>Gets or sets the list of order version details.</summary>
+    [XmlElement(IsNullable = true)]
     public List<OrderVersionDetail>? OrderVersionDetails { get; set; }
     /// <summary>Gets or sets the list of order version inventories.</summary>
+    [XmlElement(IsNullable = true)]
     public List<OrderVersionInventoryNew>? OrderVersionInventories { get; set; }
 }
 
@@ -52,12 +59,16 @@ public class OrderVersionInventoryNew
     /// <summary>Gets or sets the item ID.</summary>
     public int ItemID { get; set; }
     /// <summary>Gets or sets the description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
     /// <summary>Gets or sets the quantity needed.</summary>
-    public int QuantityNeeded { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? QuantityNeeded { get; set; }
     /// <summary>Gets or sets the item priority.</summary>
-    public int ItemPriority { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? ItemPriority { get; set; }
     /// <summary>Gets or sets the notes.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Notes { get; set; }
 }
 
@@ -69,19 +80,26 @@ public class OrderVersionDetail
     /// <summary>Gets or sets the service ID.</summary>
     public int ServiceID { get; set; }
     /// <summary>Gets or sets the service name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ServiceName { get; set; }
     /// <summary>Gets or sets the service quantity.</summary>
-    public int ServiceQuantity { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? ServiceQuantity { get; set; }
     /// <summary>Gets or sets the service unit price.</summary>
-    public decimal ServiceUnitPrice { get; set; }
+    [XmlElement(IsNullable = true)]
+    public decimal? ServiceUnitPrice { get; set; }
     /// <summary>Gets or sets a value indicating whether the service is taxable.</summary>
-    public bool ServiceTaxable { get; set; }
+    public bool ServiceTaxable { get; set; } = true;
     /// <summary>Gets or sets the service priority.</summary>
-    public int ServicePriority { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? ServicePriority { get; set; }
     /// <summary>Gets or sets the service hyperlink.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Servicehyperlink { get; set; }
     /// <summary>Gets or sets the file location.</summary>
+    [XmlElement(IsNullable = true)]
     public string? FileLocation { get; set; }
     /// <summary>Gets or sets the service comment.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ServiceComment { get; set; }
 }

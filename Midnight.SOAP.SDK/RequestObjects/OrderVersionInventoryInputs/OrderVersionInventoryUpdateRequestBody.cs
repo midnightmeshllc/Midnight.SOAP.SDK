@@ -22,11 +22,15 @@ public class OrderVersionInventoryUpdateInputParameter
     /// <summary>Gets or sets the order inventory ID.</summary>
     public required int OrderInventoryID { get; set; }
     /// <summary>Gets or sets the description.</summary>
-    public string? Description { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Description { get; set; }
     /// <summary>Gets or sets the quantity needed.</summary>
-    public int? QuantityNeeded { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? QuantityNeeded { get; set; }
     /// <summary>Gets or sets the priority.</summary>
-    public int? Priority { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Priority { get; set; }
     /// <summary>Gets or sets the notes.</summary>
-    public string? Notes { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Notes { get; set; }
 }

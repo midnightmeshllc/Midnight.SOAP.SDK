@@ -9,32 +9,32 @@ public class UserDefinedFieldsFirst10
 {
     /// <summary>Gets or sets UDF1.</summary>
     [XmlElement("UDF1")]
-    public UDFValue? UDF1 { get; set; }
+    public UDFValue? UDF1 { get; set; } = null;
     /// <summary>Gets or sets UDF2.</summary>
     [XmlElement("UDF2")]
-    public UDFValue? UDF2 { get; set; }
+    public UDFValue? UDF2 { get; set; } = null;
     /// <summary>Gets or sets UDF3.</summary>
     [XmlElement("UDF3")]
-    public UDFValue? UDF3 { get; set; }
+    public UDFValue? UDF3 { get; set; } = null;
     /// <summary>Gets or sets UDF4.</summary>
     [XmlElement("UDF4")]
-    public UDFValue? UDF4 { get; set; }
+    public UDFValue? UDF4 { get; set; } = null;
     /// <summary>Gets or sets UDF5.</summary>
     [XmlElement("UDF5")]
-    public UDFValue? UDF5 { get; set; }
+    public UDFValue? UDF5 { get; set; } = null;
     /// <summary>Gets or sets UDF6.</summary>
     [XmlElement("UDF6")]
-    public UDFValue? UDF6 { get; set; }
+    public UDFValue? UDF6 { get; set; } = null;
     /// <summary>Gets or sets UDF7.</summary>
     [XmlElement("UDF7")]
-    public UDFValue? UDF7 { get; set; }
+    public UDFValue? UDF7 { get; set; } = null;
     /// <summary>Gets or sets UDF8.</summary>
     [XmlElement("UDF8")]
-    public UDFValue? UDF8 { get; set; }
+    public UDFValue? UDF8 { get; set; } = null;
     /// <summary>Gets or sets UDF9.</summary>
     [XmlElement("UDF9")]
-    public UDFValue? UDF9 { get; set; }
+    public UDFValue? UDF9 { get; set; } = null;
     /// <summary>Gets or sets UDF10.</summary>
     [XmlElement("UDF10")]
-    public UDFValue? UDF10 { get; set; }
+    public UDFValue? UDF10 { get; set; } = null;
 }

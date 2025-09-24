@@ -22,25 +22,35 @@ public class DJBListRequestBody
 public class DJBListRequestInputParameter
 {
     /// <summary>Gets or sets the service type ID.</summary>
-    public int? ServiceTypeID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ServiceTypeID { get; set; }
     /// <summary>Gets or sets the priority ID.</summary>
-    public int? PriorityID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? PriorityID { get; set; }
     /// <summary>Gets or sets the employee ID.</summary>
-    public int? EmployeeID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? EmployeeID { get; set; }
     /// <summary>Gets or sets the machine ID.</summary>
-    public int? MachineID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? MachineID { get; set; }
     /// <summary>Gets or sets the order ID.</summary>
-    public int? OrderID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? OrderID { get; set; }
     /// <summary>Gets or sets the CSR ID.</summary>
-    public int? CSRID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CSRID { get; set; }
     /// <summary>Gets or sets the customer ID.</summary>
-    public int? CustomerID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CustomerID { get; set; }
     /// <summary>Gets or sets the version ID.</summary>
-    public int? VersionID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? VersionID { get; set; }
     /// <summary>Gets or sets the service ID.</summary>
-    public int? ServiceID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ServiceID { get; set; }
     /// <summary>Gets or sets the task start date.</summary>
-    public string? TaskStartDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? TaskStartDate { get; set; }
     /// <summary>Gets or sets a value indicating whether to show completed tasks.</summary>
     public bool ShowCompletedTasks { get; set; } = false;
 }

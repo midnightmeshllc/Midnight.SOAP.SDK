@@ -20,9 +20,13 @@ public class DocumentTypeListRequestBody
 public class DocumentTypeListInputParameter
 {
     /// <summary>Gets or sets the document type ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? DocumentTypeID { get; set; }
+
     /// <summary>Gets or sets the name of the document type.</summary>
-    public string? Name { get; set; } = string.Empty;
+    [XmlElement(IsNullable = true)]
+    public string? Name { get; set; }
+
     /// <summary>Gets or sets a value indicating whether the document type is active.</summary>
     public bool Active { get; set; } = true;
 }

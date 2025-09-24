@@ -23,75 +23,111 @@ public class OrderVersionUpdateInputParameter : UserDefinedFields
     /// <summary>Gets or sets the version ID.</summary>
     public required int VersionID { get; set; }
     /// <summary>Gets or sets the version name.</summary>
-    public string? VersionName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? VersionName { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
-    public int? Quantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Quantity { get; set; }
     /// <summary>Gets or sets the DP in start date.</summary>
-    public string? DPInStartDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DPInStartDate { get; set; }
     /// <summary>Gets or sets the DP out date.</summary>
-    public string? DPOutDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DPOutDate { get; set; }
     /// <summary>Gets or sets the DP out time.</summary>
-    public string? DPOutTime { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DPOutTime { get; set; }
     /// <summary>Gets or sets the PO drop.</summary>
-    public int? PODrop { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? PODrop { get; set; }
     /// <summary>Gets or sets the weight.</summary>
-    public decimal? Weight { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? Weight { get; set; }
     /// <summary>Gets or sets the thickness.</summary>
-    public decimal? Thickness { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? Thickness { get; set; }
     /// <summary>Gets or sets the height.</summary>
-    public decimal? Height { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? Height { get; set; }
     /// <summary>Gets or sets the width.</summary>
-    public decimal? Width { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? Width { get; set; }
     /// <summary>Gets or sets the number of Canadian records.</summary>
-    public int? CanadianRecords { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? CanadianRecords { get; set; }
     /// <summary>Gets or sets the number of foreign records.</summary>
-    public int? ForeignRecords { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ForeignRecords { get; set; }
     /// <summary>Gets or sets the number of unmailables.</summary>
-    public int? Unmailables { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Unmailables { get; set; }
     /// <summary>Gets or sets the actual billed value.</summary>
-    public int? ActualBilled { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? ActualBilled { get; set; }
     /// <summary>Gets or sets the DP initials.</summary>
-    public string? DPInitials { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DPInitials { get; set; }
     /// <summary>Gets or sets the data checked date.</summary>
-    public string? DataCheckedDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DataCheckedDate { get; set; }
     /// <summary>Gets or sets the DP actual quantity.</summary>
-    public int? DPActualQuantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? DPActualQuantity { get; set; }
     /// <summary>Gets or sets the mail sort.</summary>
-    public int? MailSort { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? MailSort { get; set; }
     /// <summary>Gets or sets the mail class.</summary>
-    public int? MailClass { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? MailClass { get; set; }
     /// <summary>Gets or sets the postage affix.</summary>
-    public string? PostageAffix { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PostageAffix { get; set; }
     /// <summary>Gets or sets the postage required.</summary>
-    public decimal? PostageRequired { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageRequired { get; set; }
     /// <summary>Gets or sets the mail geography.</summary>
-    public string? MailGeography { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? MailGeography { get; set; }
     /// <summary>Gets or sets the mail category.</summary>
-    public string? MailCategory { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? MailCategory { get; set; }
     /// <summary>Gets or sets the permit number.</summary>
-    public string? PermitNumber { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PermitNumber { get; set; }
     /// <summary>Gets or sets the postage due.</summary>
-    public string? PostageDue { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PostageDue { get; set; }
     /// <summary>Gets or sets the ghost code.</summary>
-    public string? GhostCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? GhostCode { get; set; }
     /// <summary>Gets or sets the non-profit authorization code.</summary>
-    public string? NonProfitAuthCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? NonProfitAuthCode { get; set; }
     /// <summary>Gets or sets the permit holder.</summary>
-    public string? PermitHolder { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? PermitHolder { get; set; }
     /// <summary>Gets or sets the postage status.</summary>
-    public int? PostageStatus { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? PostageStatus { get; set; }
     /// <summary>Gets or sets the mailer code.</summary>
-    public string? MailerCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? MailerCode { get; set; }
     /// <summary>Gets or sets the customer registration code.</summary>
-    public string? CustRegCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? CustRegCode { get; set; }
     /// <summary>Gets or sets the meter number.</summary>
-    public string? MeterNumber { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? MeterNumber { get; set; }
     /// <summary>Gets or sets the order version status.</summary>
-    public int? OrderVersionStatus { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? OrderVersionStatus { get; set; }
     /// <summary>Gets or sets the version job type.</summary>
-    public int? VersionJobType { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? VersionJobType { get; set; }
     /// <summary>Gets or sets the comment.</summary>
-    public string? Comment { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? Comment { get; set; }
     /// <summary>Gets or sets the urgency ID.</summary>
-    public int? UrgencyID { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? UrgencyID { get; set; }
 }

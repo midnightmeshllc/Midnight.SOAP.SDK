@@ -20,8 +20,10 @@ public class RecordResolutionListRequestBody
 public class RecordResolutionListInputParameter
 {
     /// <summary>Gets or sets the record resolution ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? RecordResolutionID { get; set; }
     /// <summary>Gets or sets the name of the record resolution.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the record resolution is active.</summary>
     public bool Active { get; set; } = true;

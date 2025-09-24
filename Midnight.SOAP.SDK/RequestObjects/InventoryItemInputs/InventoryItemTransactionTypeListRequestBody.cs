@@ -20,7 +20,9 @@ public class InventoryItemTransactionTypeListRequestBody
 public class InventoryItemTransactionTypeListInputParameter
 {
     /// <summary>Gets or sets the item transaction type ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ItemTransactionTypeID { get; set; }
     /// <summary>Gets or sets the description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
 }

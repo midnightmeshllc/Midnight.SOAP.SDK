@@ -22,7 +22,9 @@ public class ProofAddApproverInputParameter
     /// <summary>Gets or sets the request ID.</summary>
     public required int RequestID { get; set; }
     /// <summary>Gets or sets the approver name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ApproverName { get; set; }
     /// <summary>Gets or sets the approver email address.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ApproverEmailAddress { get; set; }
 }

@@ -22,17 +22,24 @@ public class OrderVersionPostageDetailUpdateInputParameter
     /// <summary>Gets or sets the order version postage detail ID.</summary>
     public required int OrederVersionPostageDetailID { get; set; }
     /// <summary>Gets or sets the rate code.</summary>
-    public string? RateCode { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? RateCode { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
-    public int? Quantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Quantity { get; set; }
     /// <summary>Gets or sets the rate.</summary>
-    public decimal? Rate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? Rate { get; set; }
     /// <summary>Gets or sets the detail total weight.</summary>
-    public decimal? DetailTotalWeight { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? DetailTotalWeight { get; set; }
     /// <summary>Gets or sets the detail total postage.</summary>
-    public decimal? DetailTotalPostage { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? DetailTotalPostage { get; set; }
     /// <summary>Gets or sets the weight type.</summary>
-    public string? WtType { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? WtType { get; set; }
     /// <summary>Gets or sets a value indicating whether the postage is precanceled.</summary>
-    public bool? Precanceled { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public bool? Precanceled { get; set; }
 }

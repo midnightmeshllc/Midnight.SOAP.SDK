@@ -1,4 +1,5 @@
 ﻿using Midnight.SOAP.SDK.CommonObjects;
+using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.RequestObjects.OrderInputs;
 
@@ -21,62 +22,86 @@ public class OrderNewInputParameter : UserDefinedFieldsFirst5
     /// <summary>Gets or sets the customer ID.</summary>
     public int CustomerID { get; set; }
     /// <summary>Gets or sets the order date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? OrderDate { get; set; }
     /// <summary>Gets or sets the due date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? DueDate { get; set; }
     /// <summary>Gets or sets the order number.</summary>
     public int OrderNo { get; set; }
     /// <summary>Gets or sets the version name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? VersionName { get; set; }
     /// <summary>Gets or sets the invoice comments.</summary>
+    [XmlElement(IsNullable = true)]
     public string? InvoiceComments { get; set; }
     /// <summary>Gets or sets the shipping address.</summary>
-    public OrderShippingAddress? ShippingAddress { get; set; } = new OrderShippingAddress();
+    [XmlElement(IsNullable = true)]
+    public OrderShippingAddress? ShippingAddress { get; set; }
     /// <summary>Gets or sets the billing address.</summary>
-    public OrderBillingAddress? BillingAddress { get; set; } = new OrderBillingAddress();
+    [XmlElement(IsNullable = true)]
+    public OrderBillingAddress? BillingAddress { get; set; }
     /// <summary>Gets or sets the Pressero ID.</summary>
-    public int PresseroId { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? PresseroId { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
     public int Quantity { get; set; }
     /// <summary>Gets or sets the project name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ProjectName { get; set; }
     /// <summary>Gets or sets the contact ID.</summary>
-    public int ContactID { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? ContactID { get; set; }
     /// <summary>Gets or sets the sales representative ID.</summary>
-    public int SalesRepID { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? SalesRepID { get; set; }
     /// <summary>Gets or sets the ship to name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShipToName { get; set; }
     /// <summary>Gets or sets the ship to method.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShipToMethod { get; set; }
     /// <summary>Gets or sets the bill to name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? BillToName { get; set; }
     /// <summary>Gets or sets a value indicating whether the order is paid (Y/N).</summary>
-    public char OrderPaidYN { get; set; }
+    public char OrderPaidYN { get; set; } = 'N';
     /// <summary> Gets or sets the identifier representing the urgency level. </summary>
-    public int UrgencyID { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? UrgencyID { get; set; }
     /// <summary>Gets or sets a value indicating whether payment was received.</summary>
-    public bool PaymentReceived { get; set; }
+    public bool PaymentReceived { get; set; } = false;
     /// <summary>Gets or sets the surcharge amount on services.</summary>
-    public int SurchargeAmountOnServices { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? SurchargeAmountOnServices { get; set; }
     /// <summary>Gets or sets the surcharge amount on postage.</summary>
-    public int SurchargeAmountOnPostage { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? SurchargeAmountOnPostage { get; set; }
     /// <summary>Gets or sets the surcharge amount on escrow earmarked.</summary>
-    public int SurchargeAmountOnEscrowEarmarked { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? SurchargeAmountOnEscrowEarmarked { get; set; }
     /// <summary>Gets or sets the payment info.</summary>
+    [XmlElement(IsNullable = true)]
     public PaymentInfo? PaymentInfo { get; set; }
     /// <summary>Gets or sets the PO number.</summary>
+    [XmlElement(IsNullable = true)]
     public string? PONum { get; set; }
     /// <summary>Gets or sets the MOD order number.</summary>
+    [XmlElement(IsNullable = true)]
     public string? MODOrderNum { get; set; }
     /// <summary>Gets or sets a value indicating whether to use the order number.</summary>
-    public bool UseOrderNo { get; set; }
+    public bool UseOrderNo { get; set; } = false;
     /// <summary>Gets or sets the discount.</summary>
-    public decimal Discount { get; set; }
+    [XmlElement(IsNullable = true)]
+    public decimal? Discount { get; set; }
     /// <summary>Gets or sets a value indicating whether to update press stock pricing (Y/N).</summary>
-    public char UpdatePressStockPricingYN { get; set; }
+    [XmlElement(IsNullable = true)]
+    public char? UpdatePressStockPricingYN { get; set; }
     /// <summary>Gets or sets the order detail.</summary>
+    [XmlElement(IsNullable = true)]
     public OrderDetail? OrderDetail { get; set; }
     /// <summary>Gets or sets the order inventory.</summary>
+    [XmlElement(IsNullable = true)]
     public OrderInventory? OrderInventory { get; set; }
 }
 
@@ -97,13 +122,17 @@ public class Item
     /// <summary>Gets or sets the item ID.</summary>
     public int ItemId { get; set; }
     /// <summary>Gets or sets the description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
     /// <summary>Gets or sets the quantity needed.</summary>
-    public int QuantityNeeded { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? QuantityNeeded { get; set; }
     /// <summary>Gets or sets the notes.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Notes { get; set; }
     /// <summary>Gets or sets the priority.</summary>
-    public int Priority { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? Priority { get; set; }
 }
 
 /// <summary>
@@ -121,6 +150,7 @@ public class OrderDetail
 public class Services
 {
     /// <summary>Gets or sets the service.</summary>
+    [XmlElement(IsNullable = true)]
     public Service Service { get; set; } = new Service();
 }
 
@@ -138,14 +168,18 @@ public class Service
     /// <summary>Gets or sets a value indicating whether the service is taxable.</summary>
     public bool Taxable { get; set; }
     /// <summary>Gets or sets the service hyperlink.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ServiceHyperlink { get; set; }
     /// <summary>Gets or sets the file location.</summary>
+    [XmlElement(IsNullable = true)]
     public string? FileLocation { get; set; }
     /// <summary>Gets or sets the identifier.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Identifier { get; set; }
     /// <summary>Gets or sets a value indicating whether to use the identifier for service ID lookup.</summary>
     public bool IdentifierSvsIDLookup { get; set; }
     /// <summary>Gets or sets the item notes.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ItemNotes { get; set; }
     /// <summary>Gets or sets the wide format product type ID.</summary>
     public int WideFormatProductTypeID { get; set; }
@@ -168,18 +202,25 @@ public class PaymentInfo
 public class OrderShippingAddress
 {
     /// <summary>Gets or sets the shipping address contact.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShippingAddressContact { get; set; }
     /// <summary>Gets or sets the shipping address line 1.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShippingAddressLine1 { get; set; }
     /// <summary>Gets or sets the shipping address line 2.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShippingAddressLine2 { get; set; }
     /// <summary>Gets or sets the shipping address line 3.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShippingAddressLine3 { get; set; }
     /// <summary>Gets or sets the shipping address city.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShippingAddressCity { get; set; }
     /// <summary>Gets or sets the shipping address state.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShippingAddressState { get; set; }
     /// <summary>Gets or sets the shipping address zip.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ShippingAddressZip { get; set; }
 }
 
@@ -189,17 +230,24 @@ public class OrderShippingAddress
 public class OrderBillingAddress
 {
     /// <summary>Gets or sets the billing address contact.</summary>
+    [XmlElement(IsNullable = true)]
     public string? BillingAddressContact { get; set; }
     /// <summary>Gets or sets the billing address line 1.</summary>
+    [XmlElement(IsNullable = true)]
     public string? BillingAddressLine1 { get; set; }
     /// <summary>Gets or sets the billing address line 2.</summary>
+    [XmlElement(IsNullable = true)]
     public string? BillingAddressLine2 { get; set; }
     /// <summary>Gets or sets the billing address line 3.</summary>
+    [XmlElement(IsNullable = true)]
     public string? BillingAddressLine3 { get; set; }
     /// <summary>Gets or sets the billing address city.</summary>
+    [XmlElement(IsNullable = true)]
     public string? BillingAddressCity { get; set; }
     /// <summary>Gets or sets the billing address state.</summary>
+    [XmlElement(IsNullable = true)]
     public string? BillingAddressState { get; set; }
     /// <summary>Gets or sets the billing address zip.</summary>
+    [XmlElement(IsNullable = true)]
     public string? BillingAddressZip { get; set; }
 }

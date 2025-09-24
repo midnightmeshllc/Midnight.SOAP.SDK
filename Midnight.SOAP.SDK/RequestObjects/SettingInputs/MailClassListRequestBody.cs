@@ -20,8 +20,10 @@ public class MailClassListRequestBody
 public class MailClassListInputParameter
 {
     /// <summary>Gets or sets the mail class ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? MailClassID { get; set; }
     /// <summary>Gets or sets the name of the mail class.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the mail class is active.</summary>
     public bool Active { get; set; } = true;

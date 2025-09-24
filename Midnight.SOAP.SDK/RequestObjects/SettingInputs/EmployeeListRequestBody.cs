@@ -20,11 +20,14 @@ public class EmployeeListRequestBody
 public class EmployeeListInputParameter
 {
     /// <summary>Gets or sets the employee ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? EmployeeID { get; set; }
     /// <summary>Gets or sets the employee initials.</summary>
+    [XmlElement(IsNullable = true)]
     public string? EmployeeInitials { get; set; }
     /// <summary>Gets or sets the employee name.</summary>
-    public string? EmployeeName { get; set; }
+    [XmlElement(IsNullable = true)]
+    public string? EmployeeName { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the employee is active.</summary>
     public bool Active { get; set; } = true;
 }

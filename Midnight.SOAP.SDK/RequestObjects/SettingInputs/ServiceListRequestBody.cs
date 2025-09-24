@@ -20,16 +20,22 @@ public class ServiceListRequestBody
 public class ServiceListInputParameter
 {
     /// <summary>Gets or sets the service ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ServiceID { get; set; }
     /// <summary>Gets or sets the service type ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ServiceTypeID { get; set; }
     /// <summary>Gets or sets the service type code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ServiceTypeCode { get; set; }
     /// <summary>Gets or sets the service type name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ServiceTypeName { get; set; }
     /// <summary>Gets or sets the service code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ServiceCode { get; set; }
     /// <summary>Gets or sets the service name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ServiceName { get; set; }
     /// <summary>Gets or sets a value indicating whether the service is active.</summary>
     public bool Active { get; set; } = true;

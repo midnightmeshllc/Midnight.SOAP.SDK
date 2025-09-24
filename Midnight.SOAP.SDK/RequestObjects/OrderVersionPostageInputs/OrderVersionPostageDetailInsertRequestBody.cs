@@ -22,6 +22,7 @@ public class OrderVersionPostageDetailInputParameter
     /// <summary>Gets or sets the order version postage ID.</summary>
     public int OrderVersionPostageID { get; set; }
     /// <summary>Gets or sets the rate code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? RateCode { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
     public int Quantity { get; set; }
@@ -32,9 +33,12 @@ public class OrderVersionPostageDetailInputParameter
     /// <summary>Gets or sets the detail total postage.</summary>
     public decimal DetailTotalPostage { get; set; }
     /// <summary>Gets or sets the detail date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? DetailDate { get; set; }
     /// <summary>Gets or sets the weight type.</summary>
+    [XmlElement(IsNullable = true)]
     public string? WtType { get; set; }
     /// <summary>Gets or sets the precanceled flag.</summary>
-    public char Precanceled { get; set; }
+    [XmlElement(IsNullable = true)]
+    public char? Precanceled { get; set; }
 }

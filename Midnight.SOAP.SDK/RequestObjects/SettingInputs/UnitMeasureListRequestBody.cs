@@ -20,9 +20,12 @@ public class UnitMeasureListRequestBody
 public class UnitMeasureListInputParameter
 {
     /// <summary>Gets or sets the unit measure code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? UnitMeasureCode { get; set; }
     /// <summary>Gets or sets the unit measure name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? UnitMeasureName { get; set; }
     /// <summary>Gets or sets the calculation value.</summary>
+    [XmlElement(IsNullable = true)]
     public decimal? CalculationValue { get; set; }
 }

@@ -19,6 +19,16 @@
 
 ---
 
+## XML Serialization and Null Properties
+
+**Important:**  
+To ensure correct XML serialization with the .NET `XmlSerializer`, nearly all properties in request objects are decorated with `XmlElement(IsNullable=true)`. This approach ensures that when a property is not explicitly set, it will be serialized as `xsi:nil="true"` in the XML payload, or omitted entirely, depending on the API requirements. This prevents unintended data from being sent to the Midnight SOAP API.
+
+**Disclaimer:**
+In the past, particularly with Update methods of the Midnight SOAP API, we have found instances where passing in `null` has instead removed the value from that property. If you encounter such a case, log an issue here and we will reach out PrintReach Support for resolution.
+
+---
+
 ## Setup Instructions
 
 ### Prerequisites
@@ -202,8 +212,6 @@ For questions or support, please open an issue on the repository.
 
 ## Roadmap
 The roadmap for **Midnight.SOAP.SDK** includes:
-- Implement custom services for common combinations of other services.
-- Implement Aggregation services for reporting, analytics, and invoicing integrations.
 - Remove Serilog dependency and replace with Microsoft.Extensions.Logging for better compatibility with ASP.NET Core applications.
 - Implement additional features as requested by the community.
 - Enhance documentation with more examples and use cases.

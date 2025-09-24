@@ -29,7 +29,9 @@ public class ServiceTimeEntryRequestItem
     /// <summary>Gets or sets the total time.</summary>
     public required decimal TotalTime { get; set; }
     /// <summary>Gets or sets the job comment.</summary>
+    [XmlElement(IsNullable = true)]
     public string? JobComment { get; set; }
     /// <summary>Gets or sets the order ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? OrderID { get; set; }
 }

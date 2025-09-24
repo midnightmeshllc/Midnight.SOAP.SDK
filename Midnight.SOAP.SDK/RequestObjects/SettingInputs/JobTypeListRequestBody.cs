@@ -20,8 +20,10 @@ public class JobTypeListRequestBody
 public class JobTypeListInputParameter
 {
     /// <summary>Gets or sets the job type ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? JobTypeID { get; set; }
     /// <summary>Gets or sets the job type description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? JobTypeDescription { get; set; }
     /// <summary>Gets or sets a value indicating whether the job type is active.</summary>
     public bool Active { get; set; } = true;

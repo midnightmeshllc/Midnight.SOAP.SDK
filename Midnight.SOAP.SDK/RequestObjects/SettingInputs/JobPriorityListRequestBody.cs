@@ -20,8 +20,10 @@ public class JobPriorityListRequestBody
 public class JobPriorityListInputParameter
 {
     /// <summary>Gets or sets the job priority ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? JobPriorityID { get; set; }
     /// <summary>Gets or sets the job priority description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? JobPriorityDescription { get; set; }
     /// <summary>Gets or sets a value indicating whether the job priority is active.</summary>
     public bool Active { get; set; }

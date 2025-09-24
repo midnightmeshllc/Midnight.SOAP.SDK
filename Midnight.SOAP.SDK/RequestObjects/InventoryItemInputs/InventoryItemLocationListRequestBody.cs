@@ -24,7 +24,9 @@ public class InventoryItemLocationListInputParameter
     /// <summary>Gets or sets the item lot ID.</summary>
     public int ItemLotID { get; set; }
     /// <summary>Gets or sets the warehouse ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? WarehouseID { get; set; }
     /// <summary>Gets or sets the warehouse location ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? WarehouseLocationID { get; set; }
 }

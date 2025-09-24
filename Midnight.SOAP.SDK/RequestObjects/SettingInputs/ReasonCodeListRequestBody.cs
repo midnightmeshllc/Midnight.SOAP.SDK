@@ -20,8 +20,10 @@ public class ReasonCodeListRequestBody
 public class ReasonCodeListInputParameter
 {
     /// <summary>Gets or sets the reason code ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ReasonCodeID { get; set; }
     /// <summary>Gets or sets the reason code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ReasonCode { get; set; }
     /// <summary>Gets or sets a value indicating whether the reason code is active.</summary>
     public bool Active { get; set; } = true;

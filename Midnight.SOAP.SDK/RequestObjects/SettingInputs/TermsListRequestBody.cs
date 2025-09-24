@@ -20,10 +20,13 @@ public class TermsListRequestBody
 public class TermsListInputParameter
 {
     /// <summary>Gets or sets the terms code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? TermsCode { get; set; }
     /// <summary>Gets or sets the terms name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? TermsName { get; set; }
     /// <summary>Gets or sets the number of days till due.</summary>
+    [XmlElement(IsNullable = true)]
     public int? DaysTillDue { get; set; }
     /// <summary>Gets or sets a value indicating whether the terms are active.</summary>
     public bool Active { get; set; } = true;

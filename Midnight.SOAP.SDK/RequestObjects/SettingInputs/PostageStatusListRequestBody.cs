@@ -20,8 +20,10 @@ public class PostageStatusListRequestBody
 public class PostageStatusListInputParameter
 {
     /// <summary>Gets or sets the postage status ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? PostageStatusID { get; set; }
     /// <summary>Gets or sets the name of the postage status.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the postage status is active.</summary>
     public bool Active { get; set; } = true;

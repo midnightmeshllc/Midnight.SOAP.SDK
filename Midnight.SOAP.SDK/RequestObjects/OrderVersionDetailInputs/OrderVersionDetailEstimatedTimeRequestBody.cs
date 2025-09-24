@@ -21,11 +21,14 @@ public class OrderVersionDetailEstimatedTimeRequestBody
 public class OrderVersionDetailEstimatedTimeInputParameter : UserDefinedFieldsFirst10
 {
     /// <summary>Gets or sets the order ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? OrderID { get; set; }
     /// <summary>Gets or sets the version ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? VersionID { get; set; }
     /// <summary>Gets or sets the order version detail ID.</summary>
     public int OrderVersionDetailID { get; set; }
     /// <summary>Gets or sets the service ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ServiceID { get; set; }
 }

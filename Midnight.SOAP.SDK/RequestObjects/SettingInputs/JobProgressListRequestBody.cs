@@ -20,10 +20,13 @@ public class JobProgressListRequestBody
 public class JobProgressListInputParameter
 {
     /// <summary>Gets or sets the job progress code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? JobProgressCode { get; set; }
     /// <summary>Gets or sets the job progress name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? JobProgressName { get; set; }
     /// <summary>Gets or sets the job progress sort order.</summary>
+    [XmlElement(IsNullable = true)]
     public int? JobProgressSort { get; set; }
     /// <summary>Gets or sets a value indicating whether the job progress code is active.</summary>
     public bool Active { get; set; } = true;

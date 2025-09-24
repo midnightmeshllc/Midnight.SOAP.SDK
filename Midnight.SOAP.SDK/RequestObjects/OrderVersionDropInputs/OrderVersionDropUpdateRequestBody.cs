@@ -23,19 +23,26 @@ public class OrderVersionDropUpdateInputParameter
     /// <summary>Gets or sets the order version drop ID.</summary>
     public required int OrderVersionDropID { get; set; }
     /// <summary>Gets or sets the drop date.</summary>
-    public string? DropDate { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DropDate { get; set; }
     /// <summary>Gets or sets the quantity.</summary>
-    public int? Quantity { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public int? Quantity { get; set; }
     /// <summary>Gets or sets the drop name.</summary>
-    public string? DropName { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? DropName { get; set; }
     /// <summary>Gets or sets the time due.</summary>
-    public string? TimeDue { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? TimeDue { get; set; }
     /// <summary>Gets or sets the actual drop.</summary>
-    public string? ActualDrop { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public string? ActualDrop { get; set; }
     /// <summary>Gets or sets a value indicating whether the drop date is complete.</summary>
-    public bool? DropDateComplete { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public bool? DropDateComplete { get; set; }
     /// <summary>Gets or sets the postage value.</summary>
-    public decimal? PostageValue { get; set; } = null;
+    [XmlElement(IsNullable = true)]
+    public decimal? PostageValue { get; set; }
     /// <summary>Gets or sets the list of user-defined fields for the drop update.</summary>
     public DropUpdateUDFList UDFList { get; set; } = new DropUpdateUDFList();
 }

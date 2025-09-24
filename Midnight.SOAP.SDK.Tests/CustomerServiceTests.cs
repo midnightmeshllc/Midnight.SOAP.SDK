@@ -175,7 +175,7 @@ namespace Midnight.SOAP.SDK.Tests
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
             var request = new CustomerInsertRequestBody
             {
-                InputParameter = new CustomerInsertInputParameter()
+                InputParameter = new CustomerInsertInputParameter { CustomerCode = "ABCD" }
             };
 
             var result = await service.CustomerInsertAsync(auth, request);
@@ -200,7 +200,7 @@ namespace Midnight.SOAP.SDK.Tests
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
             var request = new CustomerInsertRequestBody
             {
-                InputParameter = new CustomerInsertInputParameter()
+                InputParameter = new CustomerInsertInputParameter { CustomerCode = "ABCD" }
             };
 
             await Assert.ThrowsAsync<Exception>(async () =>

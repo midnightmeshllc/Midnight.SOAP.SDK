@@ -12,34 +12,48 @@ public class EstimateInsertRequestBody
     /// <summary>Gets or sets the expected quantity.</summary>
     public int? ExpectedQuantity { get; set; }
     /// <summary>Gets or sets the customer ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? CustomerID { get; set; }
     /// <summary>Gets or sets the contact ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ContactID { get; set; }
     /// <summary>Gets or sets the sales representative ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? SalesRepID { get; set; }
     /// <summary>Gets or sets the customer service representative ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? CSRID { get; set; }
     /// <summary>Gets or sets the project name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ProjectName { get; set; }
     /// <summary>Gets or sets the PO number.</summary>
+    [XmlElement(IsNullable = true)]
     public string? PONumber { get; set; }
     /// <summary>Gets or sets the terms code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? TermsCode { get; set; }
     /// <summary>Gets or sets a value indicating whether the estimate is taxable.</summary>
-    public bool EstimateTaxable { get; set; }
+    public bool EstimateTaxable { get; set; } = true;
     /// <summary>Gets or sets the estimate date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? EstimateDate { get; set; }
     /// <summary>Gets or sets the data in date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? DataIn { get; set; }
     /// <summary>Gets or sets the material in date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? MaterialInDate { get; set; }
     /// <summary>Gets or sets the artwork in date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ArtworkInDate { get; set; }
     /// <summary>Gets or sets the due date.</summary>
+    [XmlElement(IsNullable = true)]
     public string? DueDate { get; set; }
     /// <summary>Gets or sets the time due.</summary>
+    [XmlElement(IsNullable = true)]
     public string? TimeDue { get; set; }
     /// <summary>Gets or sets the estimate detail comment.</summary>
+    [XmlElement(IsNullable = true)]
     public string? EstimateDetailComment { get; set; }
     /// <summary>Gets or sets the list of estimate user-defined fields.</summary>
     public List<EstimateUDF> EstimateUDFList { get; set; } = new List<EstimateUDF>();
@@ -55,16 +69,22 @@ public class EstimateInsertRequestBody
 public class NewEstimateService
 {
     /// <summary>Gets or sets the service ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ServiceID { get; set; }
     /// <summary>Gets or sets the service quantity.</summary>
+    [XmlElement(IsNullable = true)]
     public decimal? ServiceQuantity { get; set; }
     /// <summary>Gets or sets the unit price.</summary>
+    [XmlElement(IsNullable = true)]
     public decimal? UnitPrice { get; set; }
     /// <summary>Gets or sets the service hyperlink.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ServiceHyperlink { get; set; }
     /// <summary>Gets or sets the file location.</summary>
+    [XmlElement(IsNullable = true)]
     public string? FileLocation { get; set; }
     /// <summary>Gets or sets the item notes.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ItemNotes { get; set; }
     /// <summary>Gets or sets a value indicating whether the service is taxable.</summary>
     public bool Taxable { get; set; }
@@ -85,12 +105,16 @@ public class NewEstimateServiceUDF : UserDefinedFields
 public class Inventory
 {
     /// <summary>Gets or sets the priority.</summary>
+    [XmlElement(IsNullable = true)]
     public int? Priority { get; set; }
     /// <summary>Gets or sets the item ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ItemID { get; set; }
     /// <summary>Gets or sets the description.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
     /// <summary>Gets or sets the quantity needed.</summary>
+    [XmlElement(IsNullable = true)]
     public int? QuantityNeeded { get; set; }
 }
 

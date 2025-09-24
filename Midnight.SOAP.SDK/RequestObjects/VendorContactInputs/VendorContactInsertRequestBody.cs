@@ -33,31 +33,31 @@ public class VendorContactInsert
     /// <summary>Gets or sets the vendor ID.</summary>
     public required int VendorID { get; set; }
     /// <summary>Gets or sets the salutation.</summary>
-    public string? Salutation { get; set; }
+    public string? Salutation { get; set; } = null;
     /// <summary>Gets or sets the first name.</summary>
-    public string? FirstName { get; set; }
+    public string? FirstName { get; set; } = null;
     /// <summary>Gets or sets the last name.</summary>
-    public string? LastName { get; set; }
+    public string? LastName { get; set; } = null;
     /// <summary>Gets or sets the middle name.</summary>
-    public string? MiddleName { get; set; }
+    public string? MiddleName { get; set; } = null;
     /// <summary>Gets or sets the suffix.</summary>
-    public string? Suffix { get; set; }
+    public string? Suffix { get; set; } = null;
     /// <summary>Gets or sets the title.</summary>
-    public string? Title { get; set; }
+    public string? Title { get; set; } = null;
     /// <summary>Gets or sets the vendor name.</summary>
-    public string? VendorName { get; set; }
+    public string? VendorName { get; set; } = null;
     /// <summary>Gets or sets the address.</summary>
-    public VendorContactAddress? Address { get; set; }
+    public VendorContactAddress? Address { get; set; } = null;
     /// <summary>Gets or sets a value indicating whether the contact is active.</summary>
     public bool Active { get; set; }
     /// <summary>Gets or sets the contact type ID.</summary>
-    public string? ContactTypeID { get; set; }
+    public string? ContactTypeID { get; set; } = null;
     /// <summary>Gets or sets the phones.</summary>
-    public VendorContactPhones? Phones { get; set; }
+    public VendorContactPhones? Phones { get; set; } = null;
     /// <summary>Gets or sets the emails.</summary>
-    public VendorContactEmails? Emails { get; set; }
+    public VendorContactEmails? Emails { get; set; } = null;
     /// <summary>Gets or sets the comments.</summary>
-    public string? Comments { get; set; }
+    public string? Comments { get; set; } = null;
 }
 
 /// <summary>
@@ -66,9 +66,9 @@ public class VendorContactInsert
 public class VendorContactEmails
 {
     /// <summary>Gets or sets the business email address.</summary>
-    public string? BusinessEmail { get; set; }
+    public string? BusinessEmail { get; set; } = null;
     /// <summary>Gets or sets the other email address.</summary>
-    public string? OtherEmail { get; set; }
+    public string? OtherEmail { get; set; } = null;
 }
 
 /// <summary>
@@ -77,17 +77,17 @@ public class VendorContactEmails
 public class VendorContactPhones
 {
     /// <summary>Gets or sets the business phone number.</summary>
-    public int? BusinessPhone { get; set; }
+    public int? BusinessPhone { get; set; } = null;
     /// <summary>Gets or sets the business phone extension.</summary>
-    public string? BusinessPhoneExtension { get; set; }
+    public string? BusinessPhoneExtension { get; set; } = null;
     /// <summary>Gets or sets the other phone number.</summary>
-    public int? OtherPhone { get; set; }
+    public int? OtherPhone { get; set; } = null;
     /// <summary>Gets or sets the other phone extension.</summary>
-    public string? OtherPhoneExtension { get; set; }
+    public string? OtherPhoneExtension { get; set; } = null;
     /// <summary>Gets or sets the fax number.</summary>
-    public int? Fax { get; set; }
+    public int? Fax { get; set; } = null;
     /// <summary>Gets or sets the fax extension.</summary>
-    public string? FaxExtension { get; set; }
+    public string? FaxExtension { get; set; } = null;
 }
 
 /// <summary>

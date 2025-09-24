@@ -20,8 +20,10 @@ public class ProofStatusListRequestBody
 public class ProofStatusListInputParameter
 {
     /// <summary>Gets or sets the code.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Code { get; set; }
     /// <summary>Gets or sets the name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the status is active.</summary>
     public bool Active { get; set; } = true;

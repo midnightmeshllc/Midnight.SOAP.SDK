@@ -20,8 +20,10 @@ public class ContactTypeListRequestBody
 public class ContactTypeListInputParameter
 {
     /// <summary>Gets or sets the contact type ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? ContactTypeID { get; set; }
     /// <summary>Gets or sets the contact type name.</summary>
+    [XmlElement(IsNullable = true)]
     public string? ContactTypeName { get; set; }
     /// <summary>Gets or sets a value indicating whether the contact type is active.</summary>
     public bool Active { get; set; } = true;

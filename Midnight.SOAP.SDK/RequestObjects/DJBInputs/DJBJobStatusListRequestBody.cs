@@ -20,7 +20,9 @@ public class DJBJobStatusListRequestBody
 public class DJBStatusListInputParameter
 {
     /// <summary>Gets or sets the DJB job status ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? DJBJobStatusID { get; set; }
     /// <summary>Gets or sets the status.</summary>
-    public string? Status { get; set; } = string.Empty;
+    [XmlElement(IsNullable = true)]
+    public string? Status { get; set; }
 }

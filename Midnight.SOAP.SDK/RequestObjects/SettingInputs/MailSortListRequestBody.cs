@@ -20,8 +20,10 @@ public class MailSortListRequestBody
 public class MailSortListInputParameter
 {
     /// <summary>Gets or sets the mail sort ID.</summary>
+    [XmlElement(IsNullable = true)]
     public int? MailSortID { get; set; }
     /// <summary>Gets or sets the name of the mail sort.</summary>
+    [XmlElement(IsNullable = true)]
     public string? Name { get; set; }
     /// <summary>Gets or sets a value indicating whether the mail sort is active.</summary>
     public bool Active { get; set; } = true;
