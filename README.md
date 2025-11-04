@@ -25,7 +25,7 @@
 To ensure correct XML serialization with the .NET `XmlSerializer`, nearly all properties in request objects are decorated with `XmlElement(IsNullable=true)`. This approach ensures that when a property is not explicitly set, it will be serialized as `xsi:nil="true"` in the XML payload, or omitted entirely, depending on the API requirements. This prevents unintended data from being sent to the Midnight SOAP API.
 
 **Disclaimer:**
-In the past, particularly with Update methods of the Midnight SOAP API, we have found instances where passing in `null` has instead removed the value from that property. If you encounter such a case, log an issue here and we will reach out PrintReach Support for resolution.
+In the past, particularly with Update methods of the Midnight SOAP API, we have found instances where passing in `null` has instead removed the value from that property. If you encounter such a case, log an issue here and we will reach out to PrintReach Support for resolution.
 
 ---
 
@@ -119,20 +119,54 @@ var customerInsertResult = await customerService.CustomerInsertAsync(auth, new C
 });
 ```
 
-### 4. Retrieve Order List
+### 4. Retrieve Order Version List by Customer
+A common thing that you might need to do is retrieve a list of customers, then for each customer retrieve a list of orders, and for each order retrieve a list of order versions to then update version details/drops/postage etc. Below is an example of how to accomplish this using the SDK.
+
 ```csharp
+using Midnight.SOAP.SDK;
+using Midnight.SOAP.SDK.Utilities;
+using Midnight.SOAP.SDK.CommonObjects;
+using Midnight.SOAP.SDK.RequestObjects.CustomerInputs;
 using Midnight.SOAP.SDK.RequestObjects.OrderInputs;
+using Midnight.SOAP.SDK.RequestObjects.VersionInputs;
 
-var orderListInput = new OrderListRequestBody { /* set properties */ };
-var orderListResult = await orderService.OrderListAsync(validationHeader, orderListInput);
-```
 
-### 5. Update Order Version Inventory
-```csharp
-using Midnight.SOAP.SDK.RequestObjects.OrderVersionInventoryInputs;
+var soapClient = SoapClient.Configure();
+var authService = new AuthenticationService(soapClient);
+var customerService = new CustomerService(soapClient);
+var orderService = new OrderService(soapClient);
+var orderVersionService = new OrderVersionService(soapClient);
+var validationHeader = await authService.AuthenticateAsync("your-dev-token");
 
-var versionInventoryUpdateInput = new OrderVersionInventoryUpdateRequestBody { /* set properties */ };
-var versionInventoryUpdateResult = await inventoryService.OrderVersionInventoryUpdateAsync(validationHeader, versionInventoryUpdateInput);
+
+var customerListInput = new CustomerListRequestBody { /* set properties */ };
+var customerListResult = await customerService.CustomerListAsync(validationHeader, customerListInput);
+
+foreach (var customer in customerListResult.Customers)
+{
+    var orderListInput = new OrderListRequestBody { /* set properties from customer */ };
+    var orderListResult = await orderService.OrderListAsync(validationHeader, orderListInput); 
+
+    // Error check result
+    
+    // filter orders as needed based on Result object
+    var filteredOrders = orderListResult.Orders.Where(
+        o => o.ProjectName.Contains("SomeFilter")).ToList();
+    
+    foreach (var order in filteredOrders.Orders)
+    {
+        var versionListInput = new OrderVersionListRequestBody { /* set properties from order */ };
+        var versionListResult = await orderVersionService.OrderVersionListAsync(validationHeader, versionListInput);
+
+        // Error check result
+
+        foreach (var version in versionListResult.OrderVersions)
+        {
+            // Process each order version as needed
+            // List/Update/Insert things like OrderVersionDetails, Drops, Inventory, Postage, etc.
+        }
+    }
+}
 ```
 ---
 
