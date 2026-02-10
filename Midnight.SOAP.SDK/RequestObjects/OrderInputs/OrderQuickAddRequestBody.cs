@@ -30,13 +30,15 @@ public class OrderQuickAddInputParameter : UserDefinedFields
     /// <summary>Gets or sets the order comments.</summary>
     [XmlElement(IsNullable = true)]
     public string? OrderComments { get; set; }
-    /// <summary>Gets or sets the template ID.</summary>
+    /// <summary>Gets or sets the order number to copy as a template.</summary>
     [XmlElement(IsNullable = true)]
     public string? TemplateID { get; set; }
     /// <summary>Gets or sets a value indicating whether to copy versions (Y/N).</summary>
-    public bool CopyVersions { get; set; } = false;
+    [XmlElement(IsNullable = true)]
+    public string CopyVersions { get; set; }
     /// <summary>Gets or sets a value indicating whether to update pricing (Y/N).</summary>
-    public bool UpdatePricing { get; set; } = false;
+    [XmlElement(IsNullable = true)]
+    public string UpdatePricing { get; set; }
     /// <summary> Gets or sets the identifier representing the urgency level. </summary>
     [XmlElement(IsNullable = true)]
     public int? UrgencyID { get; set; }
