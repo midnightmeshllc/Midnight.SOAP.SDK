@@ -23,7 +23,7 @@ public class OrderQuickAddResult : CommonResult
 public class QuickAddOrder
 {
     /// <summary>Gets or sets the order ID.</summary>
-    [XmlElement("OrderID")]
+    [XmlElement("OrderId")]
     public int OrderID { get; set; }
     /// <summary>Gets or sets the order number.</summary>
     [XmlElement("OrderNumber")]
