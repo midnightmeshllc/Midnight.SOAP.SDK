@@ -100,4 +100,8 @@ public class OrderVersionDetailList
     public decimal? ServiceMarkup { get; set; }
     /// <summary>Gets or sets the unit price without markup.</summary>
     public decimal? UnitPriceNoMarkup { get; set; }
+    /// <summary>
+    /// Gets or sets the name of the unit of measure.
+    /// </summary>
+    public string? UnitOfMeasureName { get; set; }
 }
