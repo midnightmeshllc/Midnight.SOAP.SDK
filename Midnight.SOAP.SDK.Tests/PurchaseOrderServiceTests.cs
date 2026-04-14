@@ -123,7 +123,7 @@ namespace Midnight.SOAP.SDK.Tests
             {
                 InputParameter = new PurchaseOrderUpdateInputParameter
                 {
-                    PurchaseOrder = new List<PurchaseOrderUpdateInput> {
+                    PurchaseOrders = new List<PurchaseOrderUpdateInput> {
                         new PurchaseOrderUpdateInput { PurchaseOrderID = 1, VendorID = 2 }
                     }
                 }
@@ -151,7 +151,7 @@ namespace Midnight.SOAP.SDK.Tests
             {
                 InputParameter = new PurchaseOrderUpdateInputParameter
                 {
-                    PurchaseOrder = new List<PurchaseOrderUpdateInput> {
+                    PurchaseOrders = new List<PurchaseOrderUpdateInput> {
                         new PurchaseOrderUpdateInput { PurchaseOrderID = 1, VendorID = 2 }
                     }
                 }
