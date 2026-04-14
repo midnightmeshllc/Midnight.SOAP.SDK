@@ -41,9 +41,9 @@ public class PurchaseOrder : PurchaseOrder_UserDefinedFields
     /// <summary>Gets or sets the invoice number.</summary>
     public string? InvoiceNumber { get; set; }
     /// <summary>Gets or sets the phone number.</summary>
-    public int? Phone { get; set; }
+    public string? Phone { get; set; }
     /// <summary>Gets or sets the fax number.</summary>
-    public int? Fax { get; set; }
+    public string? Fax { get; set; }
     /// <summary>Gets or sets the email address.</summary>
     public string? EmailAddress { get; set; }
     /// <summary>Gets or sets the terms code.</summary>
