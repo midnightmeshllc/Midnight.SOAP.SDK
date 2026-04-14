@@ -149,7 +149,6 @@ public class PurchaseOrderNew : PurchaseOrder_UserDefinedFields
     /// <summary>
     /// Gets or sets the collection of items associated with the purchase order.
     /// </summary>
-    [XmlElement(IsNullable = true)]
     [XmlArray("PurchaseOrderItems")]
     [XmlArrayItem("PurchaseOrderItem")]
     public List<PurchaseOrderItem> PurchaseOrderItems { get; set; } = new List<PurchaseOrderItem>();
