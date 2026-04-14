@@ -170,11 +170,29 @@ public class PurchaseOrderItem : PurchaseOrderItem_UserDefinedFieldsFirst15
     /// <summary>Gets or sets the item description.</summary>
     [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
-    /// <summary>Gets or sets the item quantity.</summary>
-    [XmlElement(IsNullable = true)]
-    public int? ItemQuantity { get; set; }
 
-    // Raw XML value for ItemPrice
+    // ItemQuantity as raw string for XML, with decimal property for code
+    [XmlElement("ItemQuantity", IsNullable = true)]
+    public string? ItemQuantityRaw { get; set; }
+
+    [XmlIgnore]
+    public decimal? ItemQuantity
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(ItemQuantityRaw))
+                return decimal.Zero;
+            if (decimal.TryParse(ItemQuantityRaw, out var result))
+                return result;
+            return decimal.Zero;
+        }
+        set
+        {
+            ItemQuantityRaw = value?.ToString();
+        }
+    }
+
+    // ItemPrice as raw string for XML, with decimal property for code
     [XmlElement("ItemPrice", IsNullable = true)]
     public string? ItemPriceRaw { get; set; }
 
@@ -184,10 +202,10 @@ public class PurchaseOrderItem : PurchaseOrderItem_UserDefinedFieldsFirst15
         get
         {
             if (string.IsNullOrWhiteSpace(ItemPriceRaw))
-                return decimal.Zero; // or null, depending on your business logic
+                return decimal.Zero;
             if (decimal.TryParse(ItemPriceRaw, out var result))
                 return result;
-            return decimal.Zero; // or null, or throw
+            return decimal.Zero;
         }
         set
         {
@@ -195,7 +213,7 @@ public class PurchaseOrderItem : PurchaseOrderItem_UserDefinedFieldsFirst15
         }
     }
 
-    // Raw XML value for MarkupPercentage
+    // MarkupPercentage as raw string for XML, with decimal property for code
     [XmlElement("MarkupPercentage", IsNullable = true)]
     public string? MarkupPercentageRaw { get; set; }
 
@@ -205,10 +223,10 @@ public class PurchaseOrderItem : PurchaseOrderItem_UserDefinedFieldsFirst15
         get
         {
             if (string.IsNullOrWhiteSpace(MarkupPercentageRaw))
-                return decimal.Zero; // or null, depending on your business logic
+                return decimal.Zero;
             if (decimal.TryParse(MarkupPercentageRaw, out var result))
                 return result;
-            return decimal.Zero; // or null, or throw
+            return decimal.Zero;
         }
         set
         {
@@ -228,12 +246,32 @@ public class PurchaseOrderItem : PurchaseOrderItem_UserDefinedFieldsFirst15
     /// <summary>Gets or sets the item code.</summary>
     [XmlElement(IsNullable = true)]
     public string? ItemCode { get; set; }
-    /// <summary>Gets or sets the quantity received.</summary>
-    [XmlElement(IsNullable = true)]
-    public int? QuantityReceived { get; set; }
-    /// <summary>Gets or sets the expected date.</summary>
+
+    // QuantityReceived as raw string for XML, with decimal property for code
+    [XmlElement("QuantityReceived", IsNullable = true)]
+    public string? QuantityReceivedRaw { get; set; }
+
+    [XmlIgnore]
+    public decimal? QuantityReceived
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(QuantityReceivedRaw))
+                return decimal.Zero;
+            if (decimal.TryParse(QuantityReceivedRaw, out var result))
+                return result;
+            return decimal.Zero;
+        }
+        set
+        {
+            QuantityReceivedRaw = value?.ToString();
+        }
+    }
+
+    /// <summary>Gets or sets the item unit of measure.</summary>
     [XmlElement(IsNullable = true)]
     public string? ExpectedDate { get; set; }
+
     /// <summary>Gets or sets the item estimate ID.</summary>
     [XmlElement(IsNullable = true)]
     public int? ItemEstimateID { get; set; }
