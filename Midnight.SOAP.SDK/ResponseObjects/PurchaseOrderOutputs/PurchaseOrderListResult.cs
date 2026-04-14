@@ -1,4 +1,5 @@
 ﻿using Midnight.SOAP.SDK.CommonObjects;
+using Midnight.SOAP.SDK.RequestObjects.PurchaseOrderInputs;
 using System.Xml.Serialization;
 
 namespace Midnight.SOAP.SDK.ResponseObjects.PurchaseOrderOutputs;
@@ -129,5 +130,12 @@ public class PurchaseOrder : PurchaseOrder_UserDefinedFields
     }
     /// <summary>Gets or sets the expected date.</summary>
     public string? ExpectedDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the collection of items associated with the purchase order.
+    /// </summary>
+    [XmlArray("PurchaseOrderItems")]
+    [XmlArrayItem("PurchaseOrderItem")]
+    public List<PurchaseOrderItem> PurchaseOrderItems { get; set; } = new List<PurchaseOrderItem>();
 
 }
