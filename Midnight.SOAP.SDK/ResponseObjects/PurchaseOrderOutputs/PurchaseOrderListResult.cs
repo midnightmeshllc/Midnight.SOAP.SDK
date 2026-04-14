@@ -99,7 +99,7 @@ public class PurchaseOrder : PurchaseOrder_UserDefinedFields
     /// <summary>Gets or sets the bill-to country code.</summary>
     public string? BillToCountryCode { get; set; }
     /// <summary>Gets or sets the actual invoice amount.</summary>
-    public decimal? ActualInvoiceAmount { get; set; }
+    public decimal? ActualInvoiceAmount { get; set; } = decimal.Zero;
     /// <summary>Gets or sets the expected date.</summary>
     public string? ExpectedDate { get; set; }
 
