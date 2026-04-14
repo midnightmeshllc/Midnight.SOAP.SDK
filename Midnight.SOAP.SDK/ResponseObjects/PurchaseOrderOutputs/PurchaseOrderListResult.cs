@@ -98,8 +98,35 @@ public class PurchaseOrder : PurchaseOrder_UserDefinedFields
     public string? BillToZipCode { get; set; }
     /// <summary>Gets or sets the bill-to country code.</summary>
     public string? BillToCountryCode { get; set; }
-    /// <summary>Gets or sets the actual invoice amount.</summary>
-    public decimal? ActualInvoiceAmount { get; set; } = decimal.Zero;
+    private string? _actualInvoiceAmountRaw;
+
+    [XmlElement("ActualInvoiceAmount")]
+    public string? ActualInvoiceAmountRaw
+    {
+        get => _actualInvoiceAmountRaw;
+        set => _actualInvoiceAmountRaw = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the actual invoice amount as a nullable decimal.
+    /// Returns 0 if the XML value is empty or whitespace.
+    /// </summary>
+    [XmlIgnore]
+    public decimal? ActualInvoiceAmount
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(_actualInvoiceAmountRaw))
+                return decimal.Zero; // or null, depending on your business logic
+            if (decimal.TryParse(_actualInvoiceAmountRaw, out var result))
+                return result;
+            return decimal.Zero; // or throw, or null
+        }
+        set
+        {
+            _actualInvoiceAmountRaw = value?.ToString();
+        }
+    }
     /// <summary>Gets or sets the expected date.</summary>
     public string? ExpectedDate { get; set; }
 
