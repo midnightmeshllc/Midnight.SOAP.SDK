@@ -29,6 +29,9 @@ public class Vendor : UserDefinedFields
     /// <summary>Gets or sets the vendor code.</summary>
     public string? VendorCode { get; set; }
 
+    /// <summary>Gets or sets the vendor name.</summary>
+    public string? VendorName { get; set; }
+
     /// <summary>Gets or sets the raw value indicating if the vendor is active.</summary>
     [XmlElement("Active")]
     public string? ActiveRaw { get; set; }
@@ -66,9 +69,9 @@ public class Vendor : UserDefinedFields
     /// <summary>Gets or sets the vendor email address.</summary>
     public string? VendorEmailAddress { get; set; }
     /// <summary>Gets or sets the vendor phone number.</summary>
-    public int? VendorPhone { get; set; }
+    public string? VendorPhone { get; set; }
     /// <summary>Gets or sets the vendor fax number.</summary>
-    public int? VendorFax { get; set; }
+    public string? VendorFax { get; set; }
     /// <summary>Gets or sets the vendor notes.</summary>
     public string? VendorNotes { get; set; }
 
