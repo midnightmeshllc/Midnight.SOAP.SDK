@@ -58,7 +58,7 @@ namespace Midnight.SOAP.SDK.Tests
 
             var service = new VendorService(mockSoap.Object);
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
-            var request = new VendorUpdateRequestBody { VendorID = 456, VendorName = "Updated Vendor" };
+            var request = new VendorUpdateRequestBody { VendorId = 456, VendorName = "Updated Vendor" };
 
             var result = await service.VendorUpdateAsync(auth, request);
             Assert.NotNull(result);
@@ -78,7 +78,7 @@ namespace Midnight.SOAP.SDK.Tests
 
             var service = new VendorService(mockSoap.Object);
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
-            var request = new VendorUpdateRequestBody { VendorID = 456, VendorName = "Updated Vendor" };
+            var request = new VendorUpdateRequestBody { VendorId = 456, VendorName = "Updated Vendor" };
 
             await Assert.ThrowsAsync<Exception>(async () =>
             {
