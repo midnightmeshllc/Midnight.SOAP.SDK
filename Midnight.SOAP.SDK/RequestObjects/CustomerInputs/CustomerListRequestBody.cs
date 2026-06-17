@@ -37,6 +37,8 @@ public class CustomerListInputParameter : UserDefinedFields
     /// <summary>Gets or sets the customer name.</summary>
     [XmlElement(IsNullable = true)]
     public string? CustomerName { get; set; }
-    /// <summary>Gets or sets a value indicating whether the customer is active.</summary>
-    public bool Active { get; set; } = true;
+
+    [XmlElement(IsNullable = true)]
+    /// <summary>Leaving off of request will return inactive and active customers.</summary>
+    public bool Active { get; set; }
 }

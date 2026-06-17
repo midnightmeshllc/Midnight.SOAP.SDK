@@ -35,7 +35,8 @@ public class VendorListInputParameter
     /// <summary>Gets or sets the vendor name.</summary>
     public string? VendorName { get; set; }
 
-    /// <summary>Gets or sets a value indicating whether the vendor is active.</summary>
-    public bool Active { get; set; } = true;
+    [XmlElement(IsNullable = true)]
+    /// <summary>Leaving off request will return inactive and active.</summary>
+    public bool? Active { get; set; }
 
 }
