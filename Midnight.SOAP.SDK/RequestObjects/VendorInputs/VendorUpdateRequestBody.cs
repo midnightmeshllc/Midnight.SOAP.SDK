@@ -10,7 +10,7 @@ namespace Midnight.SOAP.SDK.RequestObjects.VendorInputs;
 public class VendorUpdateRequestBody : UserDefinedFields
 {
     /// <summary>Gets or sets the vendor ID.</summary>
-    public required int VendorID { get; set; }
+    public required int VendorId { get; set; }
     /// <summary>Gets or sets the vendor name.</summary>
     public required string VendorName { get; set; }
     /// <summary>Gets or sets the contact name.</summary>
