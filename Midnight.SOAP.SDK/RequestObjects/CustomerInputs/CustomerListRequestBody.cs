@@ -40,5 +40,5 @@ public class CustomerListInputParameter : UserDefinedFields
 
     [XmlElement(IsNullable = true)]
     /// <summary>Leaving off of request will return inactive and active customers.</summary>
-    public bool Active { get; set; }
+    public bool? Active { get; set; }
 }
