@@ -27,7 +27,8 @@ public class EmployeeListInputParameter
     public string? EmployeeInitials { get; set; }
     /// <summary>Gets or sets the employee name.</summary>
     [XmlElement(IsNullable = true)]
-    public string? EmployeeName { get; set; } = null;
+    public string? EmployeeName { get; set; }
     /// <summary>Gets or sets a value indicating whether the employee is active.</summary>
-    public bool Active { get; set; } = true;
+    [XmlElement(IsNullable = true)]
+    public bool? Active { get; set; }
 }

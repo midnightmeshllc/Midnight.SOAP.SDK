@@ -20,7 +20,8 @@ public class CompanyListRequestBody
 public class CompanyListInputParameter
 {
     /// <summary>Gets or sets the company ID.</summary>
-    public int CompanyID { get; set; }
+    [XmlElement(IsNullable = true)]
+    public int? CompanyID { get; set; }
     /// <summary>Gets or sets the company code.</summary>
     [XmlElement(IsNullable = true)]
     public string? CompanyCode { get; set; }
@@ -31,5 +32,6 @@ public class CompanyListInputParameter
     [XmlElement(IsNullable = true)]
     public int? ParentCompanyID { get; set; }
     /// <summary>Gets or sets a value indicating whether the company is active.</summary>
-    public bool Active { get; set; } = true;
+    [XmlElement(IsNullable = true)]
+    public bool? Active { get; set; }
 }
