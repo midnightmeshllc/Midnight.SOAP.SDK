@@ -168,6 +168,32 @@ foreach (var customer in customerListResult.Customers)
     }
 }
 ```
+
+### 5. Retrieve Entire Order and it's Versions, optionally also retrieve VersionDetails, VersionDrops, VersionInventory and VersionPostage
+```csharp
+using Midnight.SOAP.SDK;
+using Midnight.SOAP.SDK.Utilities;
+using Midnight.SOAP.SDK.CommonObjects;
+using Midnight.SOAP.SDK.RequestObjects.OrderInputs;
+
+var soapClient = SoapClient.Configure();
+var authService = new AuthenticationService(soapClient);
+var orderService = new OrderService(soapClient);
+var validationHeader = await authService.AuthenticateAsync("your-dev-token");
+
+var entireOrder = await orderService.GetEntireOrderAsync(validationHeader, new EntireOrderRequestBody{
+    OpenOrdersOnly = true, //optionally retrieve a closed order by setting this to false
+    OrderNumber = "123456",
+    IncludeServices = true, // order version details
+    IncludeDrops = true,
+    IncludeInventory = true,
+    IncludePostage = true // order version postage
+});
+
+```
+
+This is a new method that combines several other calls into a single method, as such there might well be issues we have not accounted for when using it. If you encounter a problem using it, please file an issue via GitHub.
+
 ---
 
 ## Errors and Exceptions

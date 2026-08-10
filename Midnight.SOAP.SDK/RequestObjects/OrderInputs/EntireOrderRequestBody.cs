@@ -1,6 +1,9 @@
 ﻿
 namespace Midnight.SOAP.SDK.RequestObjects.OrderInputs
 {
+    /// <summary>
+    /// Represents the request body for retrieving details of an entire order.
+    /// </summary>
     public class EntireOrderRequestBody
     {
         public required string OrderNumber { get; set; } = string.Empty;
