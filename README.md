@@ -222,6 +222,9 @@ The SDK will throw exceptions immediately after a non-zero ReturnCode is detecte
 
 ## Commit Message and Branch Naming Conventions
 
+### NuGet
+Uses NuGet Trusted Publishing. The NuGet package is automatically published to NuGet.org when a new release is created in GitHub.
+
 ### Conventional Commit Messages
 All commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification, which is compatible with automated versioning tools like Versionize and GitVersion. Example formats:
 
