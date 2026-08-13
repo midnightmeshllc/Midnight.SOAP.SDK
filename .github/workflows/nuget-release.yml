@@ -26,8 +26,6 @@ jobs:
   release:
     name: NuGet Release
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write  # enable GitHub OIDC token issuance for this job
     needs: test
     if: ${{ success() }}
     steps:
@@ -62,21 +60,15 @@ jobs:
       - name: Pack NuGet package
         run: dotnet pack Midnight.SOAP.SDK/Midnight.SOAP.SDK.csproj --configuration Release --no-build --output ./nupkg /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
 
-      # Get a short-lived NuGet API key
-      - name: NuGet login (OIDC → temp API key)
-        uses: NuGet/login@v1
-        id: nugetlogin
-        with:
-          user: ${{ secrets.NUGET_USER }}
-
       - name: Publish to NuGet
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ steps.nugetlogin.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json 
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json 
 
       - name: Push changes and tags to GitHub
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ github.token }}
           branch: main
+          pull: true
           tags: true
 
       - name: Create GitHub Release
