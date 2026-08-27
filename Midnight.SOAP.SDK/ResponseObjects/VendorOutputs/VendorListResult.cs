@@ -32,6 +32,12 @@ public class Vendor : UserDefinedFields
     /// <summary>Gets or sets the vendor name.</summary>
     public string? VendorName { get; set; }
 
+    /// <summary>Gets or sets the contact name.</summary>
+    public string? ContactName { get; set; }
+
+    /// <summary>Gets or sets the Terms Code.</summary>
+    public string? TermsCode { get; set; }
+
     /// <summary>Gets or sets the raw value indicating if the vendor is active.</summary>
     [XmlElement("Active")]
     public string? ActiveRaw { get; set; }

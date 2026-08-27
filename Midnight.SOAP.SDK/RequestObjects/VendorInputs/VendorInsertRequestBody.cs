@@ -18,8 +18,7 @@ public class VendorInsertRequestBody : UserDefinedFields
     [XmlElement(IsNullable = true)]
     public string? Code { get; set; }
     /// <summary>Gets or sets the terms.</summary>
-    [XmlElement(IsNullable = true)]
-    public string? Terms { get; set; }
+    public required string TermsCode { get; set; }
     /// <summary>Gets or sets the email address.</summary>
     [XmlElement(IsNullable = true)]
     public string? Email { get; set; }
