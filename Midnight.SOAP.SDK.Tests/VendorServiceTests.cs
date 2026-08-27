@@ -18,7 +18,7 @@ namespace Midnight.SOAP.SDK.Tests
 
             var service = new VendorService(mockSoap.Object);
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
-            var request = new VendorInsertRequestBody { VendorName = "Test Vendor" };
+            var request = new VendorInsertRequestBody { VendorName = "Test Vendor", TermsCode = "NET30" };
 
             var result = await service.VendorInsertAsync(auth, request);
             Assert.NotNull(result);
@@ -38,7 +38,7 @@ namespace Midnight.SOAP.SDK.Tests
 
             var service = new VendorService(mockSoap.Object);
             var auth = new ValidationSoapHeader { DevToken = "test-token" };
-            var request = new VendorInsertRequestBody { VendorName = "Test Vendor" };
+            var request = new VendorInsertRequestBody { VendorName = "Test Vendor", TermsCode = "NET30" };
 
             await Assert.ThrowsAsync<Exception>(async () =>
             {
