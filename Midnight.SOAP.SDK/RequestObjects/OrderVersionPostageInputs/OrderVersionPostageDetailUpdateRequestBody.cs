@@ -21,25 +21,35 @@ public class OrderVersionPostageDetailUpdateInputParameter
 {
     /// <summary>Gets or sets the order version postage detail ID.</summary>
     public required int OrederVersionPostageDetailID { get; set; }
+
     /// <summary>Gets or sets the rate code.</summary>
-    [XmlElement(IsNullable = true)]
     public string? RateCode { get; set; }
+    public bool ShouldSerializeRateCode() => IsSet(RateCode);
+
     /// <summary>Gets or sets the quantity.</summary>
-    [XmlElement(IsNullable = true)]
     public int? Quantity { get; set; }
+    public bool ShouldSerializeQuantity() => Quantity.HasValue;
+
     /// <summary>Gets or sets the rate.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? Rate { get; set; }
+    public bool ShouldSerializeRate() => Rate.HasValue;
+
     /// <summary>Gets or sets the detail total weight.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? DetailTotalWeight { get; set; }
+    public bool ShouldSerializeDetailTotalWeight() => DetailTotalWeight.HasValue;
+
     /// <summary>Gets or sets the detail total postage.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? DetailTotalPostage { get; set; }
+    public bool ShouldSerializeDetailTotalPostage() => DetailTotalPostage.HasValue;
+
     /// <summary>Gets or sets the weight type.</summary>
-    [XmlElement(IsNullable = true)]
     public string? WtType { get; set; }
+    public bool ShouldSerializeWtType() => IsSet(WtType);
+
     /// <summary>Gets or sets a value indicating whether the postage is precanceled.</summary>
-    [XmlElement(IsNullable = true)]
     public bool? Precanceled { get; set; }
+    public bool ShouldSerializePrecanceled() => Precanceled.HasValue;
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }

@@ -22,10 +22,10 @@
 ## XML Serialization and Null Properties
 
 **Important:**  
-To ensure correct XML serialization with the .NET `XmlSerializer`, nearly all properties in request objects are decorated with `XmlElement(IsNullable=true)`. This approach ensures that when a property is not explicitly set, it will be serialized as `xsi:nil="true"` in the XML payload, or omitted entirely, depending on the API requirements. This prevents unintended data from being sent to the Midnight SOAP API.
+To ensure correct XML serialization with the .NET `XmlSerializer`, nearly all properties in request objects are decorated with `XmlElement(IsNullable=true)`. This approach ensures that when a property is not explicitly set, it will be serialized as `xsi:nil="true"` in the XML payload, except for Update requests. Update request bodies now implement the ShouldSerializeX method for XmlSerializer, which excludes fields from the rendered XML where the value was not explicitly set. This prevents unintended data from being sent to the Midnight SOAP API.
 
 **Disclaimer:**
-In the past, particularly with Update methods of the Midnight SOAP API, we have found instances where passing in `null` has instead removed the value from that property. If you encounter such a case, log an issue here and we will reach out to PrintReach Support for resolution.
+In the past, particularly with Update methods of the Midnight SOAP API, we have found instances where even when not passing a field in the XML payload, that field's value can still be wiped out. We know for sure this happens with VendorUpdate.Terms, but if you experience any issues like this while using this SDK, please create an Issue in the GitHub repo and we will reach out to PrintReach for resolution.
 
 ---
 
@@ -219,6 +219,55 @@ The SDK will throw exceptions immediately after a non-zero ReturnCode is detecte
 - `InvalidOperationException`: Thrown when an operation is attempted that is not valid for the current state of the object.
 - `AuthenticationException`: Thrown when authentication fails.
 - `Exception`: Thrown for general errors that do not fit other categories.
+
+
+## Midnight API Rate Limiting Implemented 
+
+### Overview
+
+To maintain platform stability and ensure consistent performance for all Midnight customers, API rate limiting has been implemented for the Midnight API.
+
+### Why This Change Was Made
+
+We identified API integrations generating significantly higher-than-expected request volumes. In some cases, this activity created enough load on backend database resources to impact overall system performance.
+
+Because multiple customers may share the same infrastructure, excessive API traffic from a single integration can affect response times and performance for other customers. Rate limiting helps prevent these situations and protects the reliability of the platform.
+
+### Current Rate Limit
+
+Midnight currently limits API traffic from a single IP address to approximately:
+
+5,000 requests per 5-minute period
+
+Requests exceeding this threshold will receive:
+`HTTP 429 - Too Many Requests`
+
+Rate limit thresholds may be adjusted in the future as we continue to evaluate usage patterns and platform requirements.
+
+### What Happens When a Limit Is Reached?
+
+If an application exceeds the allowed request rate, the API will temporarily reject additional requests and return an HTTP 429 response.
+
+Applications should be designed to recognize and handle this response appropriately.
+
+### Recommended Best Practices
+Customers integrating with the Midnight API should:
+
+- Handle HTTP 429 responses gracefully.
+- Implement retry logic when requests are temporarily rejected.
+- Use exponential backoff techniques when retrying requests.
+- Avoid repeatedly submitting the same request in rapid succession.
+- Filter data whenever possible to reduce the number of records being returned.
+- Synchronize incremental changes rather than repeatedly retrieving all available data.
+
+### Optimization Opportunities
+Customers experiencing rate limiting may be able to significantly reduce API traffic by:
+
+- Filtering orders by date ranges.
+- Using modified-date fields to retrieve only changed records.
+- Limiting result sets to the data actually required.
+- Reviewing integration workflows that repeatedly request the same information.
+
 
 ## Commit Message and Branch Naming Conventions
 
