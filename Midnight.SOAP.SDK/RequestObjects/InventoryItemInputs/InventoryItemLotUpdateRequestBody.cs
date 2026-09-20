@@ -30,25 +30,35 @@ public class InventoryItemLotUpdate
 {
     /// <summary>Gets or sets the item lot ID.</summary>
     public required int ItemLotID { get; set; }
+
     /// <summary>Gets or sets the vendor ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? VendorID { get; set; }
+    public bool ShouldSerializeVendorID() => VendorID.HasValue;
+
     /// <summary>Gets or sets the invoice number.</summary>
-    [XmlElement(IsNullable = true)]
     public string? InvoiceNumber { get; set; }
+    public bool ShouldSerializeInvoiceNumber() => IsSet(InvoiceNumber);
+
     /// <summary>Gets or sets the enter date.</summary>
-    [XmlElement(IsNullable = true)]
     public string? EnterDate { get; set; }
+    public bool ShouldSerializeEnterDate() => IsSet(EnterDate);
+
     /// <summary>Gets or sets the item cost.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? ItemCost { get; set; }
+    public bool ShouldSerializeItemCost() => ItemCost.HasValue;
+
     /// <summary>Gets or sets the expiration date.</summary>
-    [XmlElement(IsNullable = true)]
     public string? ExpirationDate { get; set; }
+    public bool ShouldSerializeExpirationDate() => IsSet(ExpirationDate);
+
     /// <summary>Gets or sets the weight.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? Weight { get; set; }
+    public bool ShouldSerializeWeight() => Weight.HasValue;
+
     /// <summary>Gets or sets the tare weight.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? TareWeight { get; set; }
+    public bool ShouldSerializeTareWeight() => TareWeight.HasValue;
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }

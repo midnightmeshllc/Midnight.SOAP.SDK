@@ -22,29 +22,40 @@ public class OrderVersionDropUpdateInputParameter
 {
     /// <summary>Gets or sets the order version drop ID.</summary>
     public required int OrderVersionDropID { get; set; }
+
     /// <summary>Gets or sets the drop date.</summary>
-    [XmlElement(IsNullable = true)]
     public string? DropDate { get; set; }
+    public bool ShouldSerializeDropDate() => IsSet(DropDate);
+
     /// <summary>Gets or sets the quantity.</summary>
-    [XmlElement(IsNullable = true)]
     public int? Quantity { get; set; }
+    public bool ShouldSerializeQuantity() => Quantity.HasValue;
+
     /// <summary>Gets or sets the drop name.</summary>
-    [XmlElement(IsNullable = true)]
     public string? DropName { get; set; }
+    public bool ShouldSerializeDropName() => IsSet(DropName);
+
     /// <summary>Gets or sets the time due.</summary>
-    [XmlElement(IsNullable = true)]
     public string? TimeDue { get; set; }
+    public bool ShouldSerializeTimeDue() => IsSet(TimeDue);
+
     /// <summary>Gets or sets the actual drop.</summary>
-    [XmlElement(IsNullable = true)]
     public string? ActualDrop { get; set; }
+    public bool ShouldSerializeActualDrop() => IsSet(ActualDrop);
+
     /// <summary>Gets or sets a value indicating whether the drop date is complete.</summary>
-    [XmlElement(IsNullable = true)]
     public bool? DropDateComplete { get; set; }
+    public bool ShouldSerializeDropDateComplete() => DropDateComplete.HasValue;
+
     /// <summary>Gets or sets the postage value.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? PostageValue { get; set; }
+    public bool ShouldSerializePostageValue() => PostageValue.HasValue;
+
     /// <summary>Gets or sets the list of user-defined fields for the drop update.</summary>
     public DropUpdateUDFList UDFList { get; set; } = new DropUpdateUDFList();
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }
 
 /// <summary>

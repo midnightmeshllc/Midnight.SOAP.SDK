@@ -5,6 +5,8 @@ namespace Midnight.SOAP.SDK.RequestObjects.VendorInputs;
 
 /// <summary>
 /// Represents the request body for inserting a vendor in the Midnight SOAP API.
+/// ** NOTICE: This method has a known issue where it is requiring some fields that were not previously required, like URL. **
+/// If you are getting an error review the logs and determine which field is missing and add it to the request body. We have a ticket open with support to address this issue.
 /// </summary>
 [XmlRoot("Vendor")]
 public class VendorInsertRequestBody : UserDefinedFields
@@ -16,7 +18,7 @@ public class VendorInsertRequestBody : UserDefinedFields
     public string? ContactName { get; set; }
     /// <summary>Gets or sets the vendor code.</summary>
     [XmlElement(IsNullable = true)]
-    public string? Code { get; set; }
+    public required string Code { get; set; }
     /// <summary>Gets or sets the terms.</summary>
     public required string TermsCode { get; set; }
     /// <summary>Gets or sets the email address.</summary>

@@ -21,16 +21,23 @@ public class ProofApproverUpdateInputParameter
 {
     /// <summary>Gets or sets the request approver ID.</summary>
     public required int RequestApproverID { get; set; }
+
     /// <summary>Gets or sets the approver name.</summary>
-    [XmlElement(IsNullable = true)]
     public string? ApproverName { get; set; }
+    public bool ShouldSerializeApproverName() => IsSet(ApproverName);
+
     /// <summary>Gets or sets the approver email address.</summary>
-    [XmlElement(IsNullable = true)]
     public string? ApproverEmailAddress { get; set; }
+    public bool ShouldSerializeApproverEmailAddress() => IsSet(ApproverEmailAddress);
+
     /// <summary>Gets or sets the approver status.</summary>
-    [XmlElement(IsNullable = true)]
     public string? ApproverStatus { get; set; }
+    public bool ShouldSerializeApproverStatus() => IsSet(ApproverStatus);
+
     /// <summary>Gets or sets the approver image ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? ApproverImageID { get; set; }
+    public bool ShouldSerializeApproverImageID() => ApproverImageID.HasValue;
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }

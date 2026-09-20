@@ -32,28 +32,39 @@ public class ProofUpdate
 {
     /// <summary>Gets or sets the request ID.</summary>
     public required int RequestID { get; set; }
+
     /// <summary>Gets or sets the request date.</summary>
-    [XmlElement(IsNullable = true)]
     public string? RequestDate { get; set; }
+    public bool ShouldSerializeRequestDate() => IsSet(RequestDate);
+
     /// <summary>Gets or sets the request status code.</summary>
-    [XmlElement(IsNullable = true)]
     public string? RequestStatusCode { get; set; }
+    public bool ShouldSerializeRequestStatusCode() => IsSet(RequestStatusCode);
+
     /// <summary>Gets or sets the estimate ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? EstimateID { get; set; }
+    public bool ShouldSerializeEstimateID() => EstimateID.HasValue;
+
     /// <summary>Gets or sets the estimate detail ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? EstimateDetailID { get; set; }
+    public bool ShouldSerializeEstimateDetailID() => EstimateDetailID.HasValue;
+
     /// <summary>Gets or sets the version ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? VersionID { get; set; }
+    public bool ShouldSerializeVersionID() => VersionID.HasValue;
+
     /// <summary>Gets or sets the order version detail ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? OrderVersionDetailID { get; set; }
+    public bool ShouldSerializeOrderVersionDetailID() => OrderVersionDetailID.HasValue;
+
     /// <summary>Gets or sets the description.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Description { get; set; }
+    public bool ShouldSerializeDescription() => IsSet(Description);
+
     /// <summary>Gets or sets the comment.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Comment { get; set; }
+    public bool ShouldSerializeComment() => IsSet(Comment);
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }

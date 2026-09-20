@@ -21,88 +21,119 @@ public class OrderVersionPostageUpdateInputParameter
 {
     /// <summary>Gets or sets the order version postage ID.</summary>
     public required int OrderVersionPostageID { get; set; }
+
     /// <summary>Gets or sets the postage affix ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? PostageAffixID { get; set; }
+    public bool ShouldSerializePostageAffixID() => PostageAffixID.HasValue;
+
     /// <summary>Gets or sets the postage affix name.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PostageAffixName { get; set; }
+    public bool ShouldSerializePostageAffixName() => IsSet(PostageAffixName);
+
     /// <summary>Gets or sets the postage quantity.</summary>
-    [XmlElement(IsNullable = true)]
     public int? PostageQuantity { get; set; }
+    public bool ShouldSerializePostageQuantity() => PostageQuantity.HasValue;
+
     /// <summary>Gets or sets the postage rate.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? PostageRate { get; set; }
+    public bool ShouldSerializePostageRate() => PostageRate.HasValue;
+
     /// <summary>Gets or sets the postage total.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? PostageTotal { get; set; }
+    public bool ShouldSerializePostageTotal() => PostageTotal.HasValue;
+
     /// <summary>Gets or sets the date used.</summary>
-    [XmlElement(IsNullable = true)]
     public string? DateUsed { get; set; }
+    public bool ShouldSerializeDateUsed() => IsSet(DateUsed);
+
     /// <summary>Gets or sets the mail class ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? MailClassID { get; set; }
+    public bool ShouldSerializeMailClassID() => MailClassID.HasValue;
+
     /// <summary>Gets or sets the total weight.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? TotalWeight { get; set; }
+    public bool ShouldSerializeTotalWeight() => TotalWeight.HasValue;
+
     /// <summary>Gets or sets the form number.</summary>
-    [XmlElement(IsNullable = true)]
     public string? FormNo { get; set; }
+    public bool ShouldSerializeFormNo() => IsSet(FormNo);
+
     /// <summary>Gets or sets the lot.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Lot { get; set; }
+    public bool ShouldSerializeLot() => IsSet(Lot);
+
     /// <summary>Gets or sets the permit number.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PermitNo { get; set; }
+    public bool ShouldSerializePermitNo() => IsSet(PermitNo);
+
     /// <summary>Gets or sets the non-profit information.</summary>
-    [XmlElement(IsNullable = true)]
     public string? NonProfit { get; set; }
+    public bool ShouldSerializeNonProfit() => IsSet(NonProfit);
+
     /// <summary>Gets or sets the post office.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PostOffice { get; set; }
+    public bool ShouldSerializePostOffice() => IsSet(PostOffice);
+
     /// <summary>Gets or sets the post office city.</summary>
-    [XmlElement(IsNullable = true)]
     public string? POCity { get; set; }
+    public bool ShouldSerializePOCity() => IsSet(POCity);
+
     /// <summary>Gets or sets the post office zip code.</summary>
-    [XmlElement(IsNullable = true)]
     public string? POZip { get; set; }
+    public bool ShouldSerializePOZip() => IsSet(POZip);
+
     /// <summary>Gets or sets the weight status.</summary>
-    [XmlElement(IsNullable = true)]
     public string? WTStatus { get; set; }
+    public bool ShouldSerializeWTStatus() => IsSet(WTStatus);
+
     /// <summary>Gets or sets the processing category.</summary>
-    [XmlElement(IsNullable = true)]
     public int? ProcessingCategory { get; set; }
+    public bool ShouldSerializeProcessingCategory() => ProcessingCategory.HasValue;
+
     /// <summary>Gets or sets the FTtr1 value.</summary>
-    [XmlElement(IsNullable = true)]
     public string? FTtr1 { get; set; }
+    public bool ShouldSerializeFTtr1() => IsSet(FTtr1);
+
     /// <summary>Gets or sets the FTtr2 value.</summary>
-    [XmlElement(IsNullable = true)]
     public string? FTtr2 { get; set; }
+    public bool ShouldSerializeFTtr2() => IsSet(FTtr2);
+
     /// <summary>Gets or sets the number of sacks.</summary>
-    [XmlElement(IsNullable = true)]
     public int? Sacks { get; set; }
+    public bool ShouldSerializeSacks() => Sacks.HasValue;
+
     /// <summary>Gets or sets the number of pallets.</summary>
-    [XmlElement(IsNullable = true)]
     public int? Pallets { get; set; }
+    public bool ShouldSerializePallets() => Pallets.HasValue;
+
     /// <summary>Gets or sets the flat tray value.</summary>
-    [XmlElement(IsNullable = true)]
     public string? FlatTr { get; set; }
+    public bool ShouldSerializeFlatTr() => IsSet(FlatTr);
+
     /// <summary>Gets or sets other information.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Other { get; set; }
+    public bool ShouldSerializeOther() => IsSet(Other);
+
     /// <summary>Gets or sets the tare weight.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? TareWt { get; set; }
+    public bool ShouldSerializeTareWt() => TareWt.HasValue;
+
     /// <summary>Gets or sets a value indicating whether the postage is precanceled.</summary>
-    [XmlElement(IsNullable = true)]
     public bool? Precanceled { get; set; }
+    public bool ShouldSerializePrecanceled() => Precanceled.HasValue;
+
     /// <summary>Gets or sets the postage markup type.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PostageMarkupType { get; set; }
+    public bool ShouldSerializePostageMarkupType() => IsSet(PostageMarkupType);
+
     /// <summary>Gets or sets the postage markup value.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? PostageMarkupValue { get; set; }
+    public bool ShouldSerializePostageMarkupValue() => PostageMarkupValue.HasValue;
+
     /// <summary>Gets or sets the postage sell rate.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? PostageSellRate { get; set; }
+    public bool ShouldSerializePostageSellRate() => PostageSellRate.HasValue;
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }

@@ -22,82 +22,111 @@ public class CustomerUpdateInputParameter : UserDefinedFieldsFirst10
 {
     /// <summary>Gets or sets the customer code.</summary>
     public required string CustomerCode { get; set; }
+
     /// <summary>Gets or sets the customer name.</summary>
-    [XmlElement(IsNullable = true)]
     public string? CustomerName { get; set; }
+    public bool ShouldSerializeCustomerName() => IsSet(CustomerName);
+
     /// <summary>Gets or sets the phone number.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Phone { get; set; }
+    public bool ShouldSerializePhone() => IsSet(Phone);
+
     /// <summary>Gets or sets the phone extension.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PhoneExtension { get; set; }
+    public bool ShouldSerializePhoneExtension() => IsSet(PhoneExtension);
+
     /// <summary>Gets or sets the fax number.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Fax { get; set; }
+    public bool ShouldSerializeFax() => IsSet(Fax);
+
     /// <summary>Gets or sets the email address.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Email { get; set; }
+    public bool ShouldSerializeEmail() => IsSet(Email);
+
     /// <summary>Gets or sets the website.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Website { get; set; }
+    public bool ShouldSerializeWebsite() => IsSet(Website);
+
     /// <summary>Gets or sets the terms.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Terms { get; set; }
+    public bool ShouldSerializeTerms() => IsSet(Terms);
+
     /// <summary>Gets or sets the company name.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Company { get; set; }
+    public bool ShouldSerializeCompany() => IsSet(Company);
+
     /// <summary>Gets or sets the customer notes.</summary>
-    [XmlElement(IsNullable = true)]
     public string? CustomerNotes { get; set; }
+    public bool ShouldSerializeCustomerNotes() => IsSet(CustomerNotes);
+
     /// <summary>Gets or sets the customer type.</summary>
-    [XmlElement(IsNullable = true)]
     public string? CustomerType { get; set; }
+    public bool ShouldSerializeCustomerType() => IsSet(CustomerType);
+
     /// <summary>Gets or sets the parent customer code.</summary>
-    [XmlElement(IsNullable = true)]
     public int? ParentCustomerCode { get; set; }
+    public bool ShouldSerializeParentCustomerCode() => ParentCustomerCode.HasValue;
+
     /// <summary>Gets or sets the sales representative.</summary>
-    [XmlElement(IsNullable = true)]
     public string? SalesRep { get; set; }
+    public bool ShouldSerializeSalesRep() => IsSet(SalesRep);
+
     /// <summary>Gets or sets the customer service representative.</summary>
-    [XmlElement(IsNullable = true)]
     public string? CSR { get; set; }
+    public bool ShouldSerializeCSR() => IsSet(CSR);
+
     /// <summary>Gets or sets the permit number.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PermitNumber { get; set; }
+    public bool ShouldSerializePermitNumber() => IsSet(PermitNumber);
+
     /// <summary>Gets or sets the account status.</summary>
-    [XmlElement(IsNullable = true)]
     public string? AccountStatus { get; set; }
+    public bool ShouldSerializeAccountStatus() => IsSet(AccountStatus);
+
     /// <summary>Gets or sets a value indicating whether notification is enabled.</summary>
-    [XmlElement(IsNullable = true)]
     public bool? Notification { get; set; }
+    public bool ShouldSerializeNotification() => Notification.HasValue;
+
     /// <summary>Gets or sets the notification text.</summary>
-    [XmlElement(IsNullable = true)]
     public string? NotificationText { get; set; }
+    public bool ShouldSerializeNotificationText() => IsSet(NotificationText);
+
     /// <summary>Gets or sets a value indicating whether the customer is taxable.</summary>
-    [XmlElement(IsNullable = true)]
     public bool? Taxable { get; set; }
+    public bool ShouldSerializeTaxable() => Taxable.HasValue;
+
     /// <summary>Gets or sets the tax jurisdiction name.</summary>
-    [XmlElement(IsNullable = true)]
     public string? TaxJurisdictionName { get; set; }
+    public bool ShouldSerializeTaxJurisdictionName() => IsSet(TaxJurisdictionName);
+
     /// <summary>Gets or sets the tax exemption name.</summary>
-    [XmlElement(IsNullable = true)]
     public string? TaxExemptionName { get; set; }
+    public bool ShouldSerializeTaxExemptionName() => IsSet(TaxExemptionName);
+
     /// <summary>Gets or sets the postage markup type.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PostageMarkupType { get; set; }
+    public bool ShouldSerializePostageMarkupType() => IsSet(PostageMarkupType);
+
     /// <summary>Gets or sets the postage markup value.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? PostageMarkupValue { get; set; }
+    public bool ShouldSerializePostageMarkupValue() => PostageMarkupValue.HasValue;
+
     /// <summary>Gets or sets the unpaid balance limit.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? UpaidBalanceLimit { get; set; }
+    public bool ShouldSerializeUpaidBalanceLimit() => UpaidBalanceLimit.HasValue;
+
     /// <summary>Gets or sets the customer address.</summary>
-    [XmlElement(IsNullable = true)]
     public CustomerAddress? CustomerAddress { get; set; }
+    public bool ShouldSerializeCustomerAddress() => CustomerAddress != null;
+
     /// <summary>Gets or sets the billing address.</summary>
-    [XmlElement(IsNullable = true)]
     public BillingAddress? BillingAddress { get; set; }
+    public bool ShouldSerializeBillingAddress() => BillingAddress != null;
+
     /// <summary>Gets or sets the shipping address.</summary>
-    [XmlElement(IsNullable = true)]
     public ShippingAddress? ShippingAddress { get; set; }
+    public bool ShouldSerializeShippingAddress() => ShippingAddress != null;
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }

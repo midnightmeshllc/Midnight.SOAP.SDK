@@ -22,112 +22,151 @@ public class OrderVersionUpdateInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the version ID.</summary>
     public required int VersionID { get; set; }
+
     /// <summary>Gets or sets the version name.</summary>
-    [XmlElement(IsNullable = true)]
     public string? VersionName { get; set; }
+    public bool ShouldSerializeVersionName() => IsSet(VersionName);
+
     /// <summary>Gets or sets the quantity.</summary>
-    [XmlElement(IsNullable = true)]
     public int? Quantity { get; set; }
+    public bool ShouldSerializeQuantity() => Quantity.HasValue;
+
     /// <summary>Gets or sets the DP in start date.</summary>
-    [XmlElement(IsNullable = true)]
     public string? DPInStartDate { get; set; }
+    public bool ShouldSerializeDPInStartDate() => IsSet(DPInStartDate);
+
     /// <summary>Gets or sets the DP out date.</summary>
-    [XmlElement(IsNullable = true)]
     public string? DPOutDate { get; set; }
+    public bool ShouldSerializeDPOutDate() => IsSet(DPOutDate);
+
     /// <summary>Gets or sets the DP out time.</summary>
-    [XmlElement(IsNullable = true)]
     public string? DPOutTime { get; set; }
+    public bool ShouldSerializeDPOutTime() => IsSet(DPOutTime);
+
     /// <summary>Gets or sets the PO drop.</summary>
-    [XmlElement(IsNullable = true)]
     public int? PODrop { get; set; }
+    public bool ShouldSerializePODrop() => PODrop.HasValue;
+
     /// <summary>Gets or sets the weight.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? Weight { get; set; }
+    public bool ShouldSerializeWeight() => Weight.HasValue;
+
     /// <summary>Gets or sets the thickness.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? Thickness { get; set; }
+    public bool ShouldSerializeThickness() => Thickness.HasValue;
+
     /// <summary>Gets or sets the height.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? Height { get; set; }
+    public bool ShouldSerializeHeight() => Height.HasValue;
+
     /// <summary>Gets or sets the width.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? Width { get; set; }
+    public bool ShouldSerializeWidth() => Width.HasValue;
+
     /// <summary>Gets or sets the number of Canadian records.</summary>
-    [XmlElement(IsNullable = true)]
     public int? CanadianRecords { get; set; }
+    public bool ShouldSerializeCanadianRecords() => CanadianRecords.HasValue;
+
     /// <summary>Gets or sets the number of foreign records.</summary>
-    [XmlElement(IsNullable = true)]
     public int? ForeignRecords { get; set; }
+    public bool ShouldSerializeForeignRecords() => ForeignRecords.HasValue;
+
     /// <summary>Gets or sets the number of unmailables.</summary>
-    [XmlElement(IsNullable = true)]
     public int? Unmailables { get; set; }
+    public bool ShouldSerializeUnmailables() => Unmailables.HasValue;
+
     /// <summary>Gets or sets the actual billed value.</summary>
-    [XmlElement(IsNullable = true)]
     public int? ActualBilled { get; set; }
+    public bool ShouldSerializeActualBilled() => ActualBilled.HasValue;
+
     /// <summary>Gets or sets the DP initials.</summary>
-    [XmlElement(IsNullable = true)]
     public string? DPInitials { get; set; }
+    public bool ShouldSerializeDPInitials() => IsSet(DPInitials);
+
     /// <summary>Gets or sets the data checked date.</summary>
-    [XmlElement(IsNullable = true)]
     public string? DataCheckedDate { get; set; }
+    public bool ShouldSerializeDataCheckedDate() => IsSet(DataCheckedDate);
+
     /// <summary>Gets or sets the DP actual quantity.</summary>
-    [XmlElement(IsNullable = true)]
     public int? DPActualQuantity { get; set; }
+    public bool ShouldSerializeDPActualQuantity() => DPActualQuantity.HasValue;
+
     /// <summary>Gets or sets the mail sort.</summary>
-    [XmlElement(IsNullable = true)]
     public int? MailSort { get; set; }
+    public bool ShouldSerializeMailSort() => MailSort.HasValue;
+
     /// <summary>Gets or sets the mail class.</summary>
-    [XmlElement(IsNullable = true)]
     public int? MailClass { get; set; }
+    public bool ShouldSerializeMailClass() => MailClass.HasValue;
+
     /// <summary>Gets or sets the postage affix.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PostageAffix { get; set; }
+    public bool ShouldSerializePostageAffix() => IsSet(PostageAffix);
+
     /// <summary>Gets or sets the postage required.</summary>
-    [XmlElement(IsNullable = true)]
     public decimal? PostageRequired { get; set; }
+    public bool ShouldSerializePostageRequired() => PostageRequired.HasValue;
+
     /// <summary>Gets or sets the mail geography.</summary>
-    [XmlElement(IsNullable = true)]
     public string? MailGeography { get; set; }
+    public bool ShouldSerializeMailGeography() => IsSet(MailGeography);
+
     /// <summary>Gets or sets the mail category.</summary>
-    [XmlElement(IsNullable = true)]
     public string? MailCategory { get; set; }
+    public bool ShouldSerializeMailCategory() => IsSet(MailCategory);
+
     /// <summary>Gets or sets the permit number.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PermitNumber { get; set; }
+    public bool ShouldSerializePermitNumber() => IsSet(PermitNumber);
+
     /// <summary>Gets or sets the postage due.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PostageDue { get; set; }
+    public bool ShouldSerializePostageDue() => IsSet(PostageDue);
+
     /// <summary>Gets or sets the ghost code.</summary>
-    [XmlElement(IsNullable = true)]
     public string? GhostCode { get; set; }
+    public bool ShouldSerializeGhostCode() => IsSet(GhostCode);
+
     /// <summary>Gets or sets the non-profit authorization code.</summary>
-    [XmlElement(IsNullable = true)]
     public string? NonProfitAuthCode { get; set; }
+    public bool ShouldSerializeNonProfitAuthCode() => IsSet(NonProfitAuthCode);
+
     /// <summary>Gets or sets the permit holder.</summary>
-    [XmlElement(IsNullable = true)]
     public string? PermitHolder { get; set; }
+    public bool ShouldSerializePermitHolder() => IsSet(PermitHolder);
+
     /// <summary>Gets or sets the postage status.</summary>
-    [XmlElement(IsNullable = true)]
     public int? PostageStatus { get; set; }
+    public bool ShouldSerializePostageStatus() => PostageStatus.HasValue;
+
     /// <summary>Gets or sets the mailer code.</summary>
-    [XmlElement(IsNullable = true)]
     public string? MailerCode { get; set; }
+    public bool ShouldSerializeMailerCode() => IsSet(MailerCode);
+
     /// <summary>Gets or sets the customer registration code.</summary>
-    [XmlElement(IsNullable = true)]
     public string? CustRegCode { get; set; }
+    public bool ShouldSerializeCustRegCode() => IsSet(CustRegCode);
+
     /// <summary>Gets or sets the meter number.</summary>
-    [XmlElement(IsNullable = true)]
     public string? MeterNumber { get; set; }
+    public bool ShouldSerializeMeterNumber() => IsSet(MeterNumber);
+
     /// <summary>Gets or sets the order version status.</summary>
-    [XmlElement(IsNullable = true)]
     public int? OrderVersionStatus { get; set; }
+    public bool ShouldSerializeOrderVersionStatus() => OrderVersionStatus.HasValue;
+
     /// <summary>Gets or sets the version job type.</summary>
-    [XmlElement(IsNullable = true)]
     public int? VersionJobType { get; set; }
+    public bool ShouldSerializeVersionJobType() => VersionJobType.HasValue;
+
     /// <summary>Gets or sets the comment.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Comment { get; set; }
+    public bool ShouldSerializeComment() => IsSet(Comment);
+
     /// <summary>Gets or sets the urgency ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? UrgencyID { get; set; }
+    public bool ShouldSerializeUrgencyID() => UrgencyID.HasValue;
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }
