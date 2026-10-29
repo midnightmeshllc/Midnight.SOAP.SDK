@@ -129,9 +129,18 @@ public class OrderVersion : OrderVersion_UserDefinedFields
     /// <summary>Gets or sets the ghost code.</summary>
     public string? GhostCode { get; set; } = string.Empty;
     /// <summary>Gets or sets the non-profit authorization code.</summary>
-    public string? nonProfitAuthCode { get; set; } = string.Empty;
+    public string? NonProfitAuthCode { get; set; } = string.Empty;
     /// <summary>Gets or sets the mailer code.</summary>
     public string? MailerCode { get; set; } = string.Empty;
     /// <summary>Gets or sets the customer registration code.</summary>
     public string? CustRegCode { get; set; } = string.Empty;
+    /// <summary>Gets or sets the urgency.</summary>
+    public string? Urgency { get; set; } = string.Empty;
+    /// <summary>Gets or sets the invoice postage balance.</summary>
+    public decimal? InvoicePostageBalance { get; set; } = decimal.Zero;
+    /// <summary>Gets or sets the invoice service balance.</summary>
+    public decimal? InvoiceServiceBalance { get; set; } = decimal.Zero;
+    /// <summary>Gets or sets the earmarked balance.</summary>
+    public decimal? EarmarkedBalance { get; set; } = decimal.Zero;
+
 }
