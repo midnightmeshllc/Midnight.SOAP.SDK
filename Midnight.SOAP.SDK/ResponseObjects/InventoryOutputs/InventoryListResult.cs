@@ -240,9 +240,9 @@ public class InventoryItem : UserDefinedFields
     /// <summary>Gets or sets the cost per pound.</summary>
     public decimal? CostPerPound { get; set; }
     /// <summary>Gets or sets the item quantity.</summary>
-    public int? ItemQuantity { get; set; }
+    public decimal? ItemQuantity { get; set; }
     /// <summary>Gets or sets the on hand quantity.</summary>
-    public int? OnHandQuantity { get; set; }
+    public decimal? OnHandQuantity { get; set; }
     /// <summary>Gets or sets the reserved quantity.</summary>
     public int? ReservedQuantity { get; set; }
     /// <summary>Gets or sets the item comment.</summary>
