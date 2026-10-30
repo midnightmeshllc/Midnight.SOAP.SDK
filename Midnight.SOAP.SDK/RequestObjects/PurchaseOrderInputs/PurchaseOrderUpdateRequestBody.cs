@@ -327,6 +327,10 @@ public class PurchaseOrderItem : PurchaseOrderItem_UserDefinedFieldsFirst15
     public int? ItemEstimateID { get; set; }
     public bool ShouldSerializeItemEstimateID() => ItemEstimateID.HasValue;
 
+    /// <summary> Gets or sets a value indicating whether the purchase order item should be removed. If set to true, the item will be removed from the purchase order. </summary>
+    public bool? Remove { get; set; }
+    public bool ShouldSerializeRemove() => Remove.HasValue;
+
     /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
     private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }
