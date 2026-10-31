@@ -31,7 +31,7 @@ public class VendorContactInsertInputParameter
 public class VendorContactInsert
 {
     /// <summary>Gets or sets the vendor ID.</summary>
-    public required int VendorID { get; set; }
+    public required int VendorId { get; set; }
     /// <summary>Gets or sets the salutation.</summary>
     [XmlElement(IsNullable = true)]
     public string? Salutation { get; set; } = null;
