@@ -248,5 +248,5 @@ public class InventoryItem : UserDefinedFields
     /// <summary>Gets or sets the item comment.</summary>
     public string? ItemComment { get; set; }
     /// <summary>Gets or sets the creation date and time.</summary>
-    public DateTime? CreateDateTime { get; set; }
+    public string? CreateDateTime { get; set; }
 }
