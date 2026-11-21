@@ -32,25 +32,35 @@ public class InventoryTransactionUpdateItem
     public int ItemID { get; set; }
     /// <summary>Gets or sets the item transaction type ID.</summary>
     public int ItemTransactionTypeID { get; set; }
+
     /// <summary>Gets or sets the source warehouse location ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? FromWarehouseLocationID { get; set; }
+    public bool ShouldSerializeFromWarehouseLocationID() => FromWarehouseLocationID.HasValue;
+
     /// <summary>Gets or sets the destination warehouse location ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? ToWarehouseLocationID { get; set; }
+    public bool ShouldSerializeToWarehouseLocationID() => ToWarehouseLocationID.HasValue;
+
     /// <summary>Gets or sets the quantity.</summary>
-    [XmlElement(IsNullable = true)]
-    public int? Quantity { get; set; }
+    public decimal? Quantity { get; set; }
+    public bool ShouldSerializeQuantity() => Quantity.HasValue;
+
     /// <summary>Gets or sets the lot ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? LotID { get; set; }
+    public bool ShouldSerializeLotID() => LotID.HasValue;
+
     /// <summary>Gets or sets the order ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? OrderID { get; set; }
+    public bool ShouldSerializeOrderID() => OrderID.HasValue;
+
     /// <summary>Gets or sets the reason code ID.</summary>
-    [XmlElement(IsNullable = true)]
     public int? ReasonCodeID { get; set; }
+    public bool ShouldSerializeReasonCodeID() => ReasonCodeID.HasValue;
+
     /// <summary>Gets or sets the comment.</summary>
-    [XmlElement(IsNullable = true)]
     public string? Comment { get; set; }
+    public bool ShouldSerializeComment() => IsSet(Comment);
+
+    /// <summary>Shared helper for determining whether a nullable string field has a meaningful value to serialize.</summary>
+    private static bool IsSet(string? value) => !string.IsNullOrEmpty(value);
 }
