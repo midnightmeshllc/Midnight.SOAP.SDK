@@ -21,9 +21,9 @@ public class InventoryUpdateRequestBody
 public class InventoryUpdateInputParameter : UserDefinedFields
 {
     /// <summary>Gets or sets the item ID.</summary>
-    public int ItemID { get; set; }
+    public required int ItemID { get; set; }
     /// <summary>Gets or sets the customer ID.</summary>
-    public int CustomerID { get; set; }
+    public required int CustomerID { get; set; }
 
     /// <summary>Gets or sets the item type name.</summary>
     public string? ItemTypeName { get; set; }
