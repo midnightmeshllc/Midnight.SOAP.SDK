@@ -103,7 +103,7 @@ namespace Midnight.SOAP.SDK.Utilities
 
             try
             {
-                string json = JsonConvert.SerializeObject(dataToWrite, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(dataToWrite, Newtonsoft.Json.Formatting.Indented);
 
                 Log.Information($"Begin writing JSON from {typeof(T)} to {outputToPath}{fileName} asynchronously..");
 
