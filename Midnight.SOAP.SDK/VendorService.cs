@@ -77,6 +77,8 @@ public class VendorService(Service1Soap _soap)
     {
         ArgumentNullException.ThrowIfNull(request);
 
+        var result = new VendorUpdateResult();
+
         Log.Information($"Converting {typeof(VendorUpdateRequestBody)} to Xml");
         Log.Information($"{typeof(VendorUpdateRequestBody)}: {FileOutput.CreateXmlFromClass(request)}");
 
@@ -86,20 +88,29 @@ public class VendorService(Service1Soap _soap)
 
         Log.Information($"Sending VendorUpdateAsync SOAP request");
 
-        response = await _soap.VendorUpdateAsync(new VendorUpdateRequest
+        try
         {
-            ValidationSoapHeader = auth,
-            inputXML = inputXml
-        });
 
-        Log.Information($"{typeof(VendorUpdateResult)}: {FileOutput.CreateXmlFromClass(response)}");
+            response = await _soap.VendorUpdateAsync(new VendorUpdateRequest
+            {
+                ValidationSoapHeader = auth,
+                inputXML = inputXml
+            });
 
-        var result = XmlParsing.DeserializeXmlToObject<VendorUpdateResult>(response.VendorUpdateResult);
+            Log.Information($"{typeof(VendorUpdateResult)}: {FileOutput.CreateXmlFromClass(response)}");
 
-        if (result.ReturnCode != 0)
+            result = XmlParsing.DeserializeXmlToObject<VendorUpdateResult>(response.VendorUpdateResult);
+
+            if (result.ReturnCode != 0)
+            {
+                Log.Error("VendorUpdateAsync failed with ReturnCode: {ReturnCode}, Errors: {Errors}",
+                    result.ReturnCode, string.Join("; ", result.ReturnErrors.Select(err => err.Error)));
+            }
+        }
+        catch (Exception ex)
         {
-            Log.Error("VendorUpdateAsync failed with ReturnCode: {ReturnCode}, Errors: {Message}",
-                result.ReturnCode, result.ReturnErrors.First().Error);
+            Log.Error(ex, "An error occurred during VendorUpdateAsync operation.");
+            throw; // Rethrow the exception to propagate it to the caller
         }
 
         return result;
