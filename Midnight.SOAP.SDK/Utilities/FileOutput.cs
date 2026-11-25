@@ -160,41 +160,20 @@ namespace Midnight.SOAP.SDK.Utilities
         }
 
         /// <summary>
-        /// Uses XmlSerializer to return an xml string, classes can be decorated with attributes to define output.
-        /// Produces UTF-8 encoded XML suitable for embedding in SOAP envelopes.
+        /// Uses XmlSerializer to return an xml string, classes can be decorated with attributes to define output
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="dataToWrite"></param>
-        /// <param name="omitXmlDeclaration">Set true if embedding as a fragment inside a SOAP envelope.</param>
         /// <returns>string</returns>
-        public static string CreateXmlFromClass<T>(T dataToWrite, bool omitXmlDeclaration = false)
+        public static string CreateXmlFromClass<T>(T dataToWrite)
         {
-            try
+            var serializer = new XmlSerializer(typeof(T));
+
+            using (var writer = new StringWriter())
             {
-                var serializer = new XmlSerializer(typeof(T));
-                var namespaces = new XmlSerializerNamespaces();
-                namespaces.Add(string.Empty, string.Empty); // suppress default xsi/xsd namespaces
-
-                var settings = new XmlWriterSettings
-                {
-                    Encoding = Encoding.UTF8,
-                    OmitXmlDeclaration = omitXmlDeclaration,
-                    Indent = false
-                };
-
-                using var stringWriter = new StringWriter();
-                using var xmlWriter = XmlWriter.Create(stringWriter, settings);
-
-                serializer.Serialize(xmlWriter, dataToWrite, namespaces);
-
-                Log.Information("CreateXmlFromClass Output for {Type}: {Output}", typeof(T), stringWriter.ToString());
-
-                return stringWriter.ToString();
-            }
-            catch (InvalidOperationException ex)
-            {
-                Log.Error($"InvalidOperationException in CreateXmlFromClass<{typeof(T)}>: {ex.Message}");
-                throw;
+                serializer.Serialize(writer, dataToWrite);
+                var result = writer.ToString();
+                return result;
             }
         }
 
