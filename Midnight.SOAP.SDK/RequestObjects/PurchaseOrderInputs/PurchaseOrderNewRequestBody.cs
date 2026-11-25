@@ -22,6 +22,8 @@ public class PurchaseOrderNewRequestBody
 public class PurchaseOrderNewInputParameter
 {
     /// <summary>Gets or sets the list of purchase orders.</summary>
+    [XmlArray("PurchaseOrders")]
+    [XmlArrayItem("PurchaseOrder")]
     public required List<PurchaseOrderNew> PurchaseOrders { get; set; }
 }
 

@@ -22,6 +22,8 @@ public class VendorContactInsertInputParameter
     /// <summary>
     /// Gets or sets the list of vendor contacts to insert.
     /// </summary>
+    [XmlArray("VendorContacts")]
+    [XmlArrayItem("VendorContact")]
     public required List<VendorContactInsert> VendorContacts { get; set; }
 }
 
